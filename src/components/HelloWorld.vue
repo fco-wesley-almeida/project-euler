@@ -36,9 +36,9 @@
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
-  }
-}
+    msg: String,
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -54,7 +54,9 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
+
+a{
+  color: var(--v-primary-base);
 }
+
 </style>
