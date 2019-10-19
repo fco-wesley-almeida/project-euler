@@ -17,6 +17,9 @@ export default {
 </script>
 
 <style>
+body{
+  background-color: var(--v-background-base);
+}
 #app {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

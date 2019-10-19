@@ -55,8 +55,4 @@ li {
   margin: 0 10px;
 }
 
-a{
-  color: var(--v-primary-base);
-}
-
 </style>
