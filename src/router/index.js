@@ -1,23 +1,14 @@
-/**
- * Vue Router
- *
- * @library
- *
- * https://router.vuejs.org/en/
- */
-
-// Lib imports
 import Vue from 'vue';
-import VueAnalytics from 'vue-analytics';
 import Router from 'vue-router';
 import Meta from 'vue-meta';
 import firebase from 'firebase';
 
-// Routes
+// File mapping route names to files
 import paths from './paths';
 
 Vue.use(Router);
 
+// Create routes and their child routes accourding to paths
 function route(path, view, name, children) {
   let childRoutes;
   if (children) {
@@ -44,6 +35,7 @@ const router = new Router({
   routes: paths.map(path => route(path.path, path.view, path.name, path.children)).concat([
     { path: '*', redirect: '/login' },
   ]),
+  // Resets scroll if it is a new route
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition;
@@ -55,29 +47,20 @@ const router = new Router({
   },
 });
 
+// Login check
 router.beforeEach((to, from, next) => {
   const { currentUser } = firebase.auth();
+
+  // Logs out if path is login
   if (to.path === '/login') {
     firebase.auth().signOut();
     next();
+    // Check if user is logged in whenever they navigate
   } else if (to.path !== '/login' && to.path !== '/cadastro' && !currentUser) {
     next('login');
   } else next();
 });
 
 Vue.use(Meta);
-
-// Bootstrap Analytics
-// Set in .env
-// https://github.com/MatteoGabriele/vue-analytics
-if (process.env.GOOGLE_ANALYTICS) {
-  Vue.use(VueAnalytics, {
-    id: process.env.GOOGLE_ANALYTICS,
-    router,
-    autoTracking: {
-      page: process.env.NODE_ENV !== 'development',
-    },
-  });
-}
 
 export default router;

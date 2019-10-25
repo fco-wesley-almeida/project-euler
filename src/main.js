@@ -14,7 +14,7 @@ let app;
 Vue.config.productionTip = false;
 Vue.use(firestorePlugin);
 
-//Initialize app after checking if user has logged in
+// Initialize app after checking if user has logged in
 auth.onAuthStateChanged((user) => {
   if (user) {
     store.state.app.userID = user.uid;
