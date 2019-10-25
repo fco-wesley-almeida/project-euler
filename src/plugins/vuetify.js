@@ -1,13 +1,13 @@
-
-import '@mdi/font/css/materialdesignicons.css'; // Ensure you are using css-loader
 import Vue from 'vue';
 import Vuetify from 'vuetify';
+import 'material-design-icons-iconfont/dist/material-design-icons.css'; // Ensure you are using css-loader
+import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(Vuetify);
 
 export default new Vuetify({
   icons: {
-    iconfont: 'mdi',
+    iconfont: 'md',
   },
   theme: {
     options: {
@@ -15,10 +15,14 @@ export default new Vuetify({
     },
     themes: {
       light: {
-        primary: '#0D47A1',
-        secondary: '#FAFAFA',
-        error: '#b71c1c',
-        background: '#EEEEEE',
+        primary: '#0d47a1',
+        secondary: '#ffffff',
+        accent: '#0d47a1',
+        error: '#FF5252',
+        info: '#2196F3',
+        success: '#4CAF50',
+        warning: '#FFC107',
+        background: '#fafafa',
       },
     },
   },

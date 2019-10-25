@@ -1,31 +1,38 @@
 <template>
   <v-app id="app">
-    <v-content>
+    <v-content id="content">
       <v-fade-transition mode="out-in">
-        <router-view :key="$route.path" />
+        <router-view />
       </v-fade-transition>
     </v-content>
   </v-app>
 </template>
 
 <script>
-
 export default {
   name: 'app',
+  computed: {
+    userID: {
+      get() {
+        return this.$store.state.app.userID;
+      },
+    },
+    padding: {
+      get() {
+        return 0;
+      },
+    },
+  },
 };
-
 </script>
 
 <style>
-body{
-  background-color: var(--v-background-base);
-}
+
 #app {
-  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  background-color: var(--v-background-base);
 }
 </style>
