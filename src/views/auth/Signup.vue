@@ -18,6 +18,7 @@
               <v-text-field
                 v-model="mail"
                 :rules="[formRules.required, formRules.email]"
+                validate-on-blur
                 append-icon="mail"
                 name="login"
                 label="E-mail"
@@ -28,6 +29,7 @@
                 id="password"
                 v-model="password"
                 :rules="[formRules.required, formRules.password]"
+                validate-on-blur
                 append-icon="vpn_key"
                 name="password"
                 label="Senha"
@@ -38,6 +40,7 @@
                 id="confirmation"
                 v-model="confirmation"
                 :rules="[formRules.required, confRules.equal]"
+                validate-on-blur
                 append-icon="vpn_key"
                 name="confirmation"
                 label="Confirmação de senha"
@@ -50,6 +53,7 @@
                 v-model="institution"
                 :rules="[formRules.required]"
                 append-icon="school"
+                validate-on-blur
                 name="institution"
                 label="Instituição"
               />
@@ -58,6 +62,7 @@
                 v-model="state"
                 :rules="[formRules.required]"
                 append-icon="public"
+                validate-on-blur
                 name="state"
                 label="Estado"
               />

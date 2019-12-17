@@ -37,6 +37,7 @@
                   append-icon="mail"
                   name="login"
                   label="E-mail"
+                  validate-on-blur
                   type="text"/>
 
                 <v-text-field
@@ -46,6 +47,7 @@
                   append-icon="vpn_key"
                   name="password"
                   label="Senha"
+                  validate-on-blur
                   type="password"/>
               </v-form>
             </v-card-text>

@@ -21,7 +21,7 @@ export default [
   },
   {
     path: '/tutorials',
-    name: 'Tutorials',
+    name: 'Tutorias',
     view: 'tutorials/Index',
   },
 ];
