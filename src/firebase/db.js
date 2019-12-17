@@ -1,22 +1,25 @@
 import firebase from 'firebase';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAK3PwFsD01mrtqVH-2AsdQJ1aosGBpmLs',
-  authDomain: 'radiography-atlas.firebaseapp.com',
-  databaseURL: 'https://radiography-atlas.firebaseio.com',
-  projectId: 'radiography-atlas',
-  storageBucket: 'gs://radiography-atlas.appspot.com',
-  messagingSenderId: '637504173632',
-  appId: '1:637504173632:web:10bbc10ab1736f55',
+  apiKey: 'AIzaSyDOCGhxdSQ7mBt_3SjBXcgUPcif3ap2pcE',
+  authDomain: 'pbl-system.firebaseapp.com',
+  databaseURL: 'https://pbl-system.firebaseio.com',
+  projectId: 'pbl-system',
+  storageBucket: 'pbl-system.appspot.com',
+  messagingSenderId: '1057791451895',
+  appId: '1:1057791451895:web:60114936090fdf9d5fa9f2',
+  measurementId: 'G-4EDGMCY6JK',
 };
-// Get a Firestore instance
+
 const app = firebase
   .initializeApp(firebaseConfig);
 
+firebase.analytics();
+
 const firestore = app.firestore();
-
 firestore.enablePersistence();
-
 export const db = firestore;
+
+export const auth = firebase.auth();
 
 export const storage = firebase.storage(app);
