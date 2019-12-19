@@ -1,23 +1,22 @@
 <template>
   <v-layout wrap justify-center align-center pa-5>
     <!-- Search bar -->
-    <v-flex xs12 lg8>
+    <v-flex xs12 md10 lg8>
       <v-layout wrap pa-3>
       <v-toolbar style="border-radius: 20px">
       <v-text-field
         v-model="searchString"
         hide-details
-        clearable
-        clear-icon="close"
         prepend-icon="search"
         single-line
+        placeholder="Buscar por título da tutoria ou dos casos"
       ></v-text-field>
     </v-toolbar>
       </v-layout>
     </v-flex>
     <!-- Content -->
-    <v-flex xs12 lg8>
-      <tutorial-lister :tutorials="filteredTutorials"/>
+    <v-flex xs12 md10 lg8>
+      <tutorial-lister :tutorials="filteredTutorials" :searching='searchString != ""'/>
     </v-flex>
     <!-- Creation button -->
     <v-btn
