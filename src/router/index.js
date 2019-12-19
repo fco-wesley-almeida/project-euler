@@ -50,7 +50,6 @@ const router = new Router({
 // Login check
 router.beforeEach((to, from, next) => {
   const { currentUser } = firebase.auth();
-
   // Logs out if path is login
   if (to.path === '/login') {
     firebase.auth().signOut();

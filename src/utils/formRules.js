@@ -7,6 +7,10 @@ export default {
         return pattern.test(value) || 'E-mail inválido';
       },
       password: value => value.length >= 6 || 'Mínimo de 6 caracteres',
+      number: (value) => {
+        const pattern = /^\+?(0|[1-9]\d*)$/;
+        return (pattern.test(value) && value > 0) || 'Insira um número!';
+      },
     },
   }),
 };

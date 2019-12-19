@@ -1,5 +1,8 @@
 <template>
   <v-app id="app">
+    <toolbar
+      v-if="userID !== null"
+    />
     <v-content id="content">
       <v-fade-transition mode="out-in">
         <router-view />
@@ -9,12 +12,15 @@
 </template>
 
 <script>
+import toolbar from '@/components/navigation/Toolbar.vue';
+
 export default {
   name: 'app',
+  components: { toolbar },
   computed: {
     userID: {
       get() {
-        return this.$store.state.app.userID;
+        return this.$store.state.app.user;
       },
     },
     padding: {

@@ -20,16 +20,28 @@ auth.onAuthStateChanged((user) => {
     store.state.app.userID = user.uid;
     db.collection('teachers').doc(user.uid).get().then((doc) => {
       if (doc.exists) {
-        store.state.app.user = doc.data();
+        const userData = {
+          name: user.displayName,
+          email: user.email,
+          imageURL: user.photoURL,
+          uid: user.uid,
+        };
+        store.state.app.user = userData;
+        console.log(userData);
       } else {
-        // doc.data() will be undefined in this case
-        // TODO: Create teacher
+        const userData = {
+          name: user.displayName,
+          email: user.email,
+          imageURL: user.photoURL,
+          uid: user.uid,
+        };
+
+        db.collection('teachers').doc(user.uid).set(userData);
+        store.state.app.user = userData;
+        console.log(userData);
       }
     });
-  } else {
-    store.state.app.userID = null;
   }
-
   if (!app) {
     app = new Vue({
       router,

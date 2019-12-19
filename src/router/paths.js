@@ -20,8 +20,13 @@ export default [
     view: 'auth/Login',
   },
   {
+    path: '/',
+    name: 'Tutorias',
+    view: 'tutorials/index',
+  },
+  {
     path: '/tutorials',
-    name: 'Tutorials',
-    view: 'tutorials/Index',
+    name: 'Tutorias',
+    view: 'tutorials/index',
   },
 ];
