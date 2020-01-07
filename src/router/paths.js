@@ -26,7 +26,22 @@ export default [
   },
   {
     path: '/tutorials',
-    name: 'Tutorias',
-    view: 'tutorials/Index',
+    name: 'TutoriasContainer',
+    view: 'BreadcrumbContainer',
+    meta: { placeholder: 'Tutorias' },
+    children: [
+      {
+        path: '',
+        name: 'Tutorias',
+        meta: { placeholder: 'Tutorias' },
+        view: 'tutorials/Index',
+      },
+      {
+        path: ':tutorialID',
+        name: 'Tutoria',
+        meta: { breadcrumb: 'currentTutorialName', placeholder: 'Detalhes sobre tutoria' },
+        view: 'tutorials/details/Index',
+      },
+    ],
   },
 ];

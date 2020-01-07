@@ -27,7 +27,6 @@ auth.onAuthStateChanged((user) => {
           uid: user.uid,
         };
         store.state.app.user = userData;
-        console.log(userData);
       } else {
         const userData = {
           name: user.displayName,
@@ -38,7 +37,6 @@ auth.onAuthStateChanged((user) => {
 
         db.collection('teachers').doc(user.uid).set(userData);
         store.state.app.user = userData;
-        console.log(userData);
       }
     });
   }

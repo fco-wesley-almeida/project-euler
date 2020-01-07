@@ -1,5 +1,5 @@
 <template>
-    <v-card hover>
+    <v-card hover @click="onClick">
             <v-card-title>{{receivedTutorial.name}}</v-card-title>
             <v-card-subtitle>
               <div>
@@ -26,6 +26,12 @@ export default {
   name: 'TutorialCard',
   props: {
     tutorial: Object,
+  },
+  methods: {
+    onClick() {
+      this.$store.state.app.currentTutorialName = this.receivedTutorial.name;
+      this.$router.push(`/tutorials/${this.receivedTutorial.id}`);
+    },
   },
   computed: {
     receivedTutorial() {

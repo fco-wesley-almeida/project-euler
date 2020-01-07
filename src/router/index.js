@@ -9,20 +9,21 @@ import paths from './paths';
 Vue.use(Router);
 
 // Create routes and their child routes accourding to paths
-function route(path, view, name, children) {
+function route(path, view, name, meta, children) {
   let childRoutes;
   if (children) {
     childRoutes = children.map(
       child => route(child.path,
         child.view,
         child.name,
+        child.meta,
         child.children),
     );
   }
-
   return {
     name: name || view,
     path,
+    meta,
     component: resolve => import(`@/views/${view}.vue`).then(resolve),
     children: childRoutes,
   };
@@ -32,7 +33,11 @@ function route(path, view, name, children) {
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: paths.map(path => route(path.path, path.view, path.name, path.children)).concat([
+  routes: paths.map(path => route(path.path,
+    path.view,
+    path.name,
+    path.meta,
+    path.children)).concat([
     { path: '*', redirect: '/login' },
   ]),
   // Resets scroll if it is a new route
