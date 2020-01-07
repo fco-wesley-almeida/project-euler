@@ -61,7 +61,7 @@ export default {
 
   watch: {
     $route(val) {
-      this.title = val.name;
+      this.title = this.$store.state.app[val.meta.breadcrumb] || val.name;
     },
   },
 

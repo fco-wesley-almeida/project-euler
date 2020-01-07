@@ -1,7 +1,7 @@
 <template>
   <v-layout column justify-start align-start wrap>
     <v-flex xs1 pl-0 pb-0 ml-0 mb-0 v-if="breadcrumbs.length > 1">
-      <v-breadcrumbs :items="breadcrumbs" color="accent">
+      <v-breadcrumbs :items="breadcrumbs" color="accent" large>
         <template v-slot:divider>
           <v-icon>chevron_right</v-icon>
         </template>
