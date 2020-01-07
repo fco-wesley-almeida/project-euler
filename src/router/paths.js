@@ -22,11 +22,11 @@ export default [
   {
     path: '/',
     name: 'Tutorias',
-    view: 'tutorials/index',
+    view: 'tutorials/Index',
   },
   {
     path: '/tutorials',
     name: 'Tutorias',
-    view: 'tutorials/index',
+    view: 'tutorials/Index',
   },
 ];
