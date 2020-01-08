@@ -45,33 +45,18 @@
               </v-flex>
               <v-flex xs12>
                 <v-text-field
-                  v-model="groupSize"
-                  :rules="[formRules.number]"
-                  prepend-icon="group"
-                  color="accent"
-                  label="Participantes por grupo"
-                />
-              </v-flex>
-              <v-flex xs12>
-                <v-layout wrap column align-start justify-center>
-                  <v-layout wrap align-center justify-center mb-3>
-                    <v-icon>calendar_today</v-icon>
-                    <p style="margin: 0 0 0 8px">Data de Início:</p>
-                  </v-layout>
-                  <v-text-field
-                    style="display: none"
+                    readonly
                     slot="activator"
                     :rules="[formRules.required]"
                     v-model="formattedDate"
                     xs12
                     pb-2
-                    label="Data da prova"
+                    label="Data de início"
                     prepend-icon="event"
-                    readonly
                   />
+                <v-layout wrap column align-start justify-center>
                   <v-date-picker
                     class="mx-auto"
-                    :min="minDate"
                     v-model="computedDate"
                     locale="pt-br"
                   />
@@ -142,9 +127,9 @@ export default {
           .add({
             name: this.name,
             date: Timestamp.fromDate(new Date(this.computedDate)),
+            description: this.description,
             creationDate: Timestamp.now(),
             teacherID: this.$store.state.app.userID,
-            groupSize: this.groupSize,
             students: [],
             cases: [],
             finishedCases: 0,

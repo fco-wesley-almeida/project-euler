@@ -33,6 +33,6 @@ export default {
 
 <style>
 .disabled {
-  color: #aaaaaa;
+  color: #000000;
 }
 </style>

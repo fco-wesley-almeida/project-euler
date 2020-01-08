@@ -83,8 +83,5 @@ export default {
 </script>
 
 <style scoped>
-::placeholder {
-  color: red!important;
-  opacity: 1;
-}
+
 </style>
