@@ -20,12 +20,7 @@ export default [
     view: 'auth/Login',
   },
   {
-    path: '/',
-    name: 'Tutorias',
-    view: 'tutorials/Index',
-  },
-  {
-    path: '/tutorials',
+    path: '/tutorias',
     name: 'TutoriasContainer',
     view: 'BreadcrumbContainer',
     meta: { placeholder: 'Tutorias' },
@@ -41,6 +36,32 @@ export default [
         name: 'Tutoria',
         meta: { breadcrumb: 'currentTutorialName', placeholder: 'Detalhes sobre tutoria' },
         view: 'tutorials/details/Index',
+        children: [
+          {
+            path: '',
+            name: 'Informações',
+            meta: { breadcrumb: 'disabled' },
+            view: 'tutorials/details/info/Index',
+          },
+          {
+            path: 'informacoes',
+            name: 'Informações',
+            meta: { breadcrumb: 'disabled' },
+            view: 'tutorials/details/info/Index',
+          },
+          {
+            path: 'casos',
+            name: 'Casos',
+            meta: { breadcrumb: 'disabled' },
+            view: 'tutorials/details/cases/Index',
+          },
+          {
+            path: 'notas',
+            name: 'Notas',
+            meta: { breadcrumb: 'disabled' },
+            view: 'tutorials/details/evaluations/Index',
+          },
+        ],
       },
     ],
   },

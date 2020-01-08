@@ -20,13 +20,15 @@ function route(path, view, name, meta, children) {
         child.children),
     );
   }
-  return {
+  const r = {
     name: name || view,
     path,
     meta,
     component: resolve => import(`@/views/${view}.vue`).then(resolve),
     children: childRoutes,
   };
+  console.log(r);
+  return r;
 }
 
 // Create a new router
@@ -38,7 +40,7 @@ const router = new Router({
     path.name,
     path.meta,
     path.children)).concat([
-    { path: '*', redirect: '/login' },
+    { path: '*', redirect: '/tutorias' },
   ]),
   // Resets scroll if it is a new route
   scrollBehavior(to, from, savedPosition) {

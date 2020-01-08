@@ -5,17 +5,20 @@ export default {
       pathArray.shift();
       const breadcrumbs = pathArray.reduce((breadcrumbArray, path, idx) => {
         const { meta } = this.$route.matched[idx];
-        console.log(this.$route.matched[idx]);
-        breadcrumbArray.push({
-          disabled: false,
-          link: true,
-          to: {
-            path: breadcrumbArray[idx - 1]
-              ? `/${breadcrumbArray[idx - 1].path}/${path}`
-              : `/${path}`,
-          },
-          text: this.checkStorage(meta.breadcrumb) || meta.placeholder || path,
-        });
+
+        if (meta.breadcrumb !== 'disabled') {
+          breadcrumbArray.push({
+            disabled: false,
+            link: true,
+            to: {
+              path: breadcrumbArray[idx - 1]
+                ? `/${breadcrumbArray[idx - 1].path}/${path}`
+                : `/${path}`,
+            },
+            text: this.checkStorage(meta.breadcrumb) || meta.placeholder || path,
+          });
+        }
+
         return breadcrumbArray;
       }, []);
 

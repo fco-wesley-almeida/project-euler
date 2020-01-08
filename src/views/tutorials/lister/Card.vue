@@ -1,7 +1,7 @@
 <template>
     <v-card hover @click="onClick">
             <v-card-title>{{receivedTutorial.name}}</v-card-title>
-            <v-card-subtitle>
+            <v-card-subtitle color="red">
               <div>
                 <v-icon color="disabled">group</v-icon>
                 Participantes: {{participantsCount}}
@@ -30,7 +30,7 @@ export default {
   methods: {
     onClick() {
       this.$store.state.app.currentTutorialName = this.receivedTutorial.name;
-      this.$router.push(`/tutorials/${this.receivedTutorial.id}`);
+      this.$router.push(`/tutorias/${this.receivedTutorial.id}`);
     },
   },
   computed: {

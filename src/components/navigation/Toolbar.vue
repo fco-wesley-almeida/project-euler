@@ -61,7 +61,11 @@ export default {
 
   watch: {
     $route(val) {
-      this.title = this.$store.state.app[val.meta.breadcrumb] || val.name;
+      if (val.meta.breadcrumb !== 'disabled') {
+        this.title = this.$store.state.app[val.meta.breadcrumb] || val.name;
+      } else {
+        this.title = val.name;
+      }
     },
   },
 

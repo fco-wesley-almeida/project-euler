@@ -41,4 +41,8 @@ export default {
   color: #2c3e50;
   background-color: var(--v-background-base);
 }
+
+.theme--light.v-card .v-card__subtitle, .theme--light.v-card > .v-card__text {
+  color: #ff0000;
+}
 </style>
