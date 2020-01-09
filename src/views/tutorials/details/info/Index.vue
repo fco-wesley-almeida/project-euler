@@ -45,6 +45,7 @@
         </v-card-text>
       </v-card>
     </v-flex>
+    <v-scale-transition>
     <v-btn
       v-show="tutorialHasChanged"
       small
@@ -56,6 +57,8 @@
     >
       <v-icon>undo</v-icon>
     </v-btn>
+    </v-scale-transition>
+    <v-scale-transition>
     <v-btn
       v-show="tutorialHasChanged"
       primary
@@ -65,6 +68,7 @@
       :loading="loading"
       color="primary"
     >Salvar</v-btn>
+    </v-scale-transition>
 
     <v-snackbar
       v-model="snackbar"
