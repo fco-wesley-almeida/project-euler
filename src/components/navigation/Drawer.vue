@@ -13,6 +13,7 @@
               :key="item.text"
               :inactive="index < breadcrumbs.length-1"
               :disabled="index == breadcrumbs.length-1"
+              style="cursor: pointer"
               @click="didTapItem(item)"
             >
               <v-list-item-action v-if="index == 0">
