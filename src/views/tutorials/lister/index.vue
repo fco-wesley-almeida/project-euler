@@ -1,13 +1,19 @@
 <template>
   <v-layout wrap>
-    <template v-if="receivedTutorials.length > 0">
-      <v-flex v-for="(tutorial, index) in receivedTutorials" :key="index" xs12 sm6 md4>
+    <template v-if="!showPlaceholder">
+      <transition-group
+      name="list-complete"
+      tag="div"
+      class="layout align-start wrap"
+    >
+      <v-flex v-for="tutorial in shownItems" :key="tutorial.id" xs12 sm6 md4>
         <v-layout pa-3 pt-5>
           <v-flex xs12>
             <tutorial-card :tutorial="tutorial" />
           </v-flex>
         </v-layout>
       </v-flex>
+      </transition-group>
     </template>
     <template v-else-if="searching">
       <v-layout wrap column align-center justify-center style="height: 70vh">
@@ -42,16 +48,17 @@
 
 <script>
 import TutorialCard from './Card.vue';
-
+import Lister from '@/mixins/lister';
 export default {
   name: 'TutorialLister',
+  mixins: [Lister],
   props: {
     tutorials: Array,
     searching: Boolean,
   },
   components: { TutorialCard },
   computed: {
-    receivedTutorials() {
+    items() {
       return this.$props.tutorials;
     },
     receivedSearching() {
@@ -60,3 +67,23 @@ export default {
   },
 };
 </script>
+
+<style>
+.list-complete-enter,
+.list-complete-leave-active {
+  opacity: 0;
+}
+.list-complete-move {
+  transition: transform 0.5s;
+}
+.list-complete-item {
+  transition: all 0.5s;
+}
+.list-complete-enter-active, .list-complete-leave-active{
+  transition-property: all;
+  transition-duration: 0.5s;
+}
+.list-complete-leave-active {
+  position: absolute;
+}
+</style>

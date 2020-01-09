@@ -20,36 +20,74 @@
     </v-layout>
     <v-card-actions class="pa-0">
     <v-spacer/>
-    <v-btn x-small color="error" @click.stop="didTapDelete">
+    <v-btn x-small color="error" @click.stop="didTapRemove">
       Remover <v-icon x-small>delete</v-icon>
     </v-btn>
     </v-card-actions>
+    <v-dialog
+        v-model="deletionDialog"
+        transition="fade-transition"
+        max-width="290"
+      >
+        <v-card>
+          <v-card-title class="headline">Remoção</v-card-title>
+
+          <v-card-text>
+            Deseja realmente remover este participante? Ele não terá mais acesso ao conteúdo desta tutoria.
+          </v-card-text>
+
+          <v-card-actions>
+
+            <v-btn
+              color="grey darken-1"
+              text
+              @click="deletionDialog = false"
+            >
+              Cancelar
+            </v-btn>
+            <v-spacer/>
+            <v-btn
+              color="error darken-1"
+              text
+              @click="removeStudent"
+            >
+              Remover
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+
+      </v-dialog>
+  
   </v-card>
 </template>
 
-<script>
-import { db, FieldValue } from '@/firebase/db';
+<script lang="ts">
+import Vue from 'vue';
+import Router from 'vue-router/types/vue';
+import { removeStudentFromTutorial } from '@/firebase/api/student';
+import { Student } from '@/models/student';
 
-export default {
+export default Vue.extend({
   name: 'StudentCard',
+  data: () => ({
+    deletionDialog: false,
+  }),
   props: {
     student: Object,
   },
   computed: {
-    receivedStudent() {
+    receivedStudent() : Student {
       return this.$props.student;
     },
   },
   methods: {
-    didTapDelete() {
+    didTapRemove() {
       console.log(this.receivedStudent);
-      db.collection('students').doc(this.receivedStudent.id).update({
-        tutorials: FieldValue.arrayRemove(this.$route.params.tutorialID),
-      });
-      db.collection('tutorials').doc(this.$route.params.tutorialID).update({
-        students: FieldValue.arrayRemove(this.receivedStudent.id),
-      });
+      this.deletionDialog = true;
     },
+    removeStudent(){
+      removeStudentFromTutorial(this.receivedStudent.id, this.$route.params.tutorialID);
+    }
   },
-};
+});
 </script>

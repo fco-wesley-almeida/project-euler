@@ -18,7 +18,7 @@
     <v-flex xs12 md10 lg8>
       <tutorial-lister :tutorials="filteredTutorials" :searching='searchString != ""'/>
     </v-flex>
-    <!-- Creation button -->]
+    <!-- Creation button -->
     <v-btn
       v-show="showingFAB"
       color="primary"

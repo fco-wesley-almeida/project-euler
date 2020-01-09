@@ -41,7 +41,7 @@
     <v-flex xs12 md10 lg8>
       <student-lister :students="filteredStudents" :searching="searchString != ''" />
     </v-flex>
-  </v-layout>
+    </v-layout>
 </template>
 
 <script>

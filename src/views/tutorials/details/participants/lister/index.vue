@@ -1,6 +1,11 @@
 <template>
   <v-layout wrap>
     <template v-if="receivedStudents.length > 0">
+    <transition-group
+      name="list-complete"
+      tag="div"
+      class="layout align-start wrap"
+    >
       <v-flex v-for="(student, index) in receivedStudents" :key="index" xs12 sm6>
         <v-layout pa-3 pt-5>
           <v-flex xs12>
@@ -8,6 +13,7 @@
           </v-flex>
         </v-layout>
       </v-flex>
+       </transition-group>
     </template>
     <template v-else-if="searching">
       <v-layout wrap column align-center justify-center style="height: 30vh">
@@ -60,3 +66,25 @@ export default {
   },
 };
 </script>
+
+<style>
+.list-complete-enter,
+.list-complete-leave-active {
+  opacity: 0;
+}
+.list-complete-move {
+  transition: transform 0.25s;
+}
+.list-complete-item {
+  transition: all 0.25s;
+  display: inline-block;
+}
+.list-complete-enter-active, .list-complete-leave-active
+/* .list-complete-leave-active em versões anteriores a 2.1.8 */ {
+  transition-property: all;
+  transition-duration: 0.25s;
+}
+.list-complete-leave-active {
+  position: absolute;
+}
+</style>
