@@ -107,7 +107,7 @@ export default {
               db.collection('teachers').doc(response.user.uid).get().then((doc) => {
                 if (doc.exists) {
                   vm.$store.state.app.user = doc.data();
-                  vm.$router.replace('/tutorials');
+                  vm.$router.replace('/tutorias');
                 }
               });
             },

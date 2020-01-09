@@ -20,13 +20,48 @@ export default [
     view: 'auth/Login',
   },
   {
-    path: '/',
-    name: 'Tutorias',
-    view: 'tutorials/index',
-  },
-  {
-    path: '/tutorials',
-    name: 'Tutorias',
-    view: 'tutorials/index',
+    path: '/tutorias',
+    view: 'BreadcrumbContainer',
+    meta: { placeholder: 'Tutorias' },
+    children: [
+      {
+        path: '',
+        name: 'Tutorias',
+        meta: { placeholder: 'Tutorias' },
+        view: 'tutorials/Index',
+      },
+      {
+        path: ':tutorialID',
+        name: 'Tutoria',
+        meta: { breadcrumb: 'currentTutorialName', placeholder: 'Detalhes sobre tutoria' },
+        view: 'tutorials/details/Index',
+        children: [
+          {
+            path: '',
+            name: 'Informações',
+            meta: { breadcrumb: 'disabled' },
+            view: 'tutorials/details/info/Index',
+          },
+          {
+            path: 'informacoes',
+            name: 'Informações',
+            meta: { breadcrumb: 'disabled' },
+            view: 'tutorials/details/info/Index',
+          },
+          {
+            path: 'casos',
+            name: 'Casos',
+            meta: { breadcrumb: 'disabled' },
+            view: 'tutorials/details/cases/Index',
+          },
+          {
+            path: 'notas',
+            name: 'Notas',
+            meta: { breadcrumb: 'disabled' },
+            view: 'tutorials/details/evaluations/Index',
+          },
+        ],
+      },
+    ],
   },
 ];

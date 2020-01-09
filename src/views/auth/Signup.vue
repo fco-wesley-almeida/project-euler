@@ -134,7 +134,7 @@ export default {
                 })
                 .then(() => {
                   v.$store.state.app.userID = response.user.uid;
-                  v.$router.replace('/tutorials');
+                  v.$router.replace('/tutorias');
                 })
                 .catch(() => {
                   v.dialogMessage = 'Erro ao criar seus dados iniciais...';

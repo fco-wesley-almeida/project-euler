@@ -1,28 +1,23 @@
 <template>
-  <v-app-bar app>
-    <template v-if='mini'>
-      <v-btn icon color='primary'>
-        <v-icon>menu</v-icon>
-      </v-btn>
-    </template>
-    <v-toolbar-title class='display-1 black--text'>{{ title }}</v-toolbar-title>
+  <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="white">
+    <v-toolbar-title class="display-1 black--text">
+      <v-app-bar-nav-icon @click.stop="$emit('drawerChanged')"></v-app-bar-nav-icon>
+      {{ title }}
+    </v-toolbar-title>
     <v-spacer />
     <v-menu>
-      <template v-slot:activator='{on}'>
-          <v-avatar size='40' v-on="on" style="cursor: pointer">
-            <v-img :src='avatarContent' />
-          </v-avatar>
+      <template v-slot:activator="{on}">
+        <v-avatar size="40" v-on="on" style="cursor: pointer">
+          <v-img :src="avatarContent" />
+        </v-avatar>
       </template>
       <v-list>
         <v-subheader>{{ userName }}</v-subheader>
-        <v-divider/>
+        <v-divider />
         <v-list-item-group color="primary">
-        <v-list-item v-for='(item, index) in menuOptions'
-          :key='index'
-          @click="onMenuClick(item)"
-        >
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
+          <v-list-item v-for="(item, index) in menuOptions" :key="index" @click="onMenuClick(item)">
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-menu>
@@ -61,7 +56,11 @@ export default {
 
   watch: {
     $route(val) {
-      this.title = val.name;
+      if (val.meta.breadcrumb !== 'disabled') {
+        this.title = this.$store.state.app[val.meta.breadcrumb] || val.name;
+      } else {
+        this.title = val.name;
+      }
     },
   },
 
