@@ -9,7 +9,7 @@ import vuetify from './plugins/vuetify';
 
 import { auth, db } from '@/firebase/db';
 
-let app;
+let app: Vue;
 
 Vue.config.productionTip = false;
 Vue.use(firestorePlugin);
