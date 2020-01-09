@@ -1,7 +1,7 @@
 <template>
   <v-layout wrap justify-center align-center pb-5>
     <v-flex xs12 md10 lg6>
-        <v-card>
+      <v-card>
         <v-card-text>
           <v-form ref="form" v-model="valid">
             <v-layout wrap pa-5 justify-center align-center>
@@ -27,34 +27,52 @@
               </v-flex>
               <v-flex xs12>
                 <v-text-field
-                    slot="activator"
-                    :rules="[formRules.required]"
-                    v-model="formattedDate"
-                    xs12
-                    pb-2
-                    label="Data de início"
-                    prepend-icon="event"
-                    readonly
-                  />
+                  slot="activator"
+                  :rules="[formRules.required]"
+                  v-model="formattedDate"
+                  xs12
+                  pb-2
+                  label="Data de início"
+                  prepend-icon="event"
+                  readonly
+                />
                 <v-layout wrap column align-start justify-center>
-                  <v-date-picker
-                    class="mx-auto"
-                    v-model="computedDate"
-                    locale="pt-br"
-                  />
+                  <v-date-picker class="mx-auto" v-model="computedDate" locale="pt-br" />
                 </v-layout>
               </v-flex>
             </v-layout>
           </v-form>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer/>
-          <v-btn fab @click="didTapSave" :loading="loading" color="primary">
-            Salvar
-          </v-btn>
-        </v-card-actions>
       </v-card>
     </v-flex>
+    <v-btn
+      v-show="tutorialHasChanged"
+      small
+      dark
+      fab
+      style="position: fixed; bottom: 0; right: 0; margin-right: 112px; margin-bottom: 64px"
+      @click="didTapRevert"
+      color="disabled"
+    >
+      <v-icon>undo</v-icon>
+    </v-btn>
+    <v-btn
+      v-show="tutorialHasChanged"
+      primary
+      dark
+      style="position: fixed; bottom: 0; right: 0; margin-right: 8px; margin-bottom: 64px"
+      @click="didTapSave"
+      :loading="loading"
+      color="primary"
+    >Salvar</v-btn>
+
+    <v-snackbar
+      v-model="snackbar"
+      color="success"
+      bottom
+      right
+      :timeout="2000"
+    >Salvo com sucesso!</v-snackbar>
   </v-layout>
 </template>
 
@@ -72,6 +90,8 @@ export default {
         description: '',
         date: '',
       },
+      snackbar: false,
+      originalTutorial: {},
       formattedDate: '',
       isoDate: null,
       valid: false,
@@ -80,13 +100,22 @@ export default {
   },
   mounted() {
     this.$bind(
+      'originalTutorial',
+      db.collection('tutorials').doc(this.$route.params.tutorialID),
+    );
+    this.$bind(
       'tutorial',
-      db
-        .collection('tutorials')
-        .doc(this.$route.params.tutorialID),
+      db.collection('tutorials').doc(this.$route.params.tutorialID),
     );
   },
   computed: {
+    tutorialHasChanged() {
+      return (
+        this.tutorial.name !== this.originalTutorial.name
+        || this.tutorial.description !== this.originalTutorial.description
+        || this.tutorial.date !== this.originalTutorial.date
+      );
+    },
     user() {
       return this.$store.state.app.user;
     },
@@ -131,17 +160,18 @@ export default {
       if (this.valid) {
         const vm = this;
         vm.loading = true;
-        this.tutorialRef
-          .update(this.tutorial)
-          .then(() => {
-            vm.loading = false;
-          });
+        this.tutorialRef.update(this.tutorial).then(() => {
+          vm.loading = false;
+          vm.snackbar = true;
+        });
       } else {
         this.$refs.form.validate();
       }
     },
-    didTapCancel() {
-      this.close();
+    didTapRevert() {
+      this.tutorial.name = this.originalTutorial.name;
+      this.tutorial.description = this.originalTutorial.description;
+      this.tutorial.date = this.originalTutorial.date;
     },
 
     close() {

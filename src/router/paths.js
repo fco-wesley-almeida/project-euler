@@ -21,7 +21,6 @@ export default [
   },
   {
     path: '/tutorias',
-    name: 'TutoriasContainer',
     view: 'BreadcrumbContainer',
     meta: { placeholder: 'Tutorias' },
     children: [

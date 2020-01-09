@@ -1,7 +1,7 @@
 <template>
   <v-layout wrap justify-center align-center pa-5>
   <v-fade-transition mode="out-in">
-    <router-view />
+    <router-view style="margin-bottom: 76px" />
   </v-fade-transition>
   <v-bottom-navigation
     v-model="bottomNav"
@@ -21,6 +21,11 @@
     <v-btn :to="`${routePrefix}/notas`">
       <span>Notas</span>
       <v-icon>assignment_turned_in</v-icon>
+    </v-btn>
+
+    <v-btn :to="`${routePrefix}/participantes`">
+      <span>Participantes</span>
+      <v-icon>group</v-icon>
     </v-btn>
   </v-bottom-navigation>
   </v-layout>

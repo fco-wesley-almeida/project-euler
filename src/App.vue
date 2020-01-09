@@ -2,7 +2,9 @@
   <v-app id="app">
     <toolbar
       v-if="userID !== null"
+      @drawerChanged="drawer = !drawer"
     />
+    <drawer :showDrawer="drawer" @drawerChanged="updateDrawer"/>
     <v-content id="content">
       <v-fade-transition mode="out-in">
         <router-view />
@@ -13,10 +15,20 @@
 
 <script>
 import toolbar from '@/components/navigation/Toolbar.vue';
+import drawer from '@/components/navigation/Drawer.vue';
 
 export default {
   name: 'app',
-  components: { toolbar },
+  data: () => ({
+    drawer: false,
+    dialog: false,
+  }),
+  components: { toolbar, drawer },
+  methods: {
+    updateDrawer(value) {
+      this.drawer = value;
+    },
+  },
   computed: {
     userID: {
       get() {

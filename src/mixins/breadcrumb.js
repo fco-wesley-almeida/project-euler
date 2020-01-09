@@ -12,13 +12,13 @@ export default {
             link: true,
             to: {
               path: breadcrumbArray[idx - 1]
-                ? `/${breadcrumbArray[idx - 1].path}/${path}`
+                ? `${breadcrumbArray[idx - 1].to.path}/${path}`
                 : `/${path}`,
             },
             text: this.checkStorage(meta.breadcrumb) || meta.placeholder || path,
+            title: meta.placeholder,
           });
         }
-
         return breadcrumbArray;
       }, []);
 
