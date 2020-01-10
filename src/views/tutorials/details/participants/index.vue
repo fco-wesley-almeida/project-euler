@@ -1,6 +1,6 @@
 <template>
   <v-layout wrap justify-center align-center pa-0>
-    <v-flex xs12 md10 lg8>
+    <v-flex xs12 md8 lg6>
       <h4
         class="text-xs-center ma-1"
         style="color: #555555"
@@ -23,23 +23,15 @@
         </v-card>
       </v-layout>
     </v-flex>
-    <!-- Search bar -->
-    <v-flex xs12 md10 lg8>
-      <v-layout wrap pa-3>
-        <v-toolbar style="border-radius: 20px">
-          <v-text-field
-            v-model="searchString"
-            hide-details
-            prepend-icon="search"
-            single-line
-            placeholder="Buscar por nome ou email"
-          ></v-text-field>
-        </v-toolbar>
-      </v-layout>
-    </v-flex>
     <!-- Content -->
-    <v-flex xs12 md10 lg8>
-      <student-lister :students="filteredStudents" :searching="searchString != ''" />
+    <v-flex xs12 md8 lg7>
+      <lister :items="students" cardBreakpoints="xs12 md6" searchPlaceholder="Buscar por nome ou email" :customSearch="filteredStudents">
+          <template v-slot:default="slotProps">
+            <div class="pa-2">
+              <student-card :student="slotProps.item" />
+            </div>
+          </template>
+      </lister>
     </v-flex>
     </v-layout>
 </template>
@@ -48,7 +40,8 @@
 import Vue from 'vue';
 import VueQrcode from '@chenfengyuan/vue-qrcode';
 import { db } from '@/firebase/db';
-import StudentLister from './lister/index.vue';
+import StudentCard from './Card.vue';
+import Lister from '@/components/Lister';
 
 Vue.component(VueQrcode.name, VueQrcode);
 
@@ -58,7 +51,7 @@ export default {
     students: [],
     searchString: '',
   }),
-  components: { StudentLister },
+  components: { StudentCard, Lister },
   mounted() {
     this.$bind(
       'students',
@@ -69,7 +62,7 @@ export default {
   },
   computed: {
     filteredStudents() {
-      return this.students.filter((student) => {
+      return function(student, searchString) {
         const searchableStrings = [];
         if (student.name) {
           searchableStrings.push(student.name.toLowerCase());
@@ -77,8 +70,9 @@ export default {
         if (student.email) {
           searchableStrings.push(student.email.toLowerCase());
         }
-        return searchableStrings.some(string => string.includes(this.searchString.toLowerCase()));
-      });
+        console.log(searchableStrings);
+        return searchableStrings.some(string => string.includes(searchString.toLowerCase()));
+    };
     },
   },
 };

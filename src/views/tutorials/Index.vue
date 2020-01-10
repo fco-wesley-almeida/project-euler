@@ -1,22 +1,14 @@
 <template>
   <v-layout wrap justify-center align-center pa-5>
-    <!-- Search bar -->
-    <v-flex xs12 md10 lg8>
-      <v-layout wrap pa-3>
-      <v-toolbar style="border-radius: 20px">
-      <v-text-field
-        v-model="searchString"
-        hide-details
-        prepend-icon="search"
-        single-line
-        placeholder="Buscar por título da tutoria ou dos casos"
-      ></v-text-field>
-    </v-toolbar>
-      </v-layout>
-    </v-flex>
     <!-- Content -->
     <v-flex xs12 md10 lg8>
-      <tutorial-lister :tutorials="filteredTutorials" :searching='searchString != ""'/>
+      <lister :items="tutorials" cardBreakpoints="xs12 md6 lg4" searchPlaceholder="Buscar por título ou caso atual">
+          <template v-slot:default="slotProps">
+            <div class="pa-2">
+              <tutorial-card :tutorial="slotProps.item" />
+            </div>
+          </template>
+      </lister>
     </v-flex>
     <!-- Creation button -->
     <v-btn
@@ -44,14 +36,14 @@
 <script>
 import { db } from '@/firebase/db';
 import NewTutorialForm from './creation/index.vue';
-import TutorialLister from './lister/index.vue';
+import Lister from '@/components/Lister';
+import TutorialCard from './Card.vue';
 
 export default {
   name: 'Tutorials',
-  components: { NewTutorialForm, TutorialLister },
+  components: { NewTutorialForm, TutorialCard, Lister },
   data: () => ({
     tutorials: [],
-    searchString: '',
     showingFAB: false,
     showingCreationDialog: false,
   }),
@@ -67,7 +59,7 @@ export default {
 
   computed: {
     filteredTutorials() {
-      return this.tutorials.filter((tutorial) => {
+      return ((item, searchString) => {
         const searchableStrings = [];
         if (tutorial.name) {
           searchableStrings.push(tutorial.name.toLowerCase());
@@ -75,7 +67,7 @@ export default {
         if (tutorial.currentCase) {
           searchableStrings.push(tutorial.currentCase.toLowerCase());
         }
-        return searchableStrings.some(string => string.includes(this.searchString.toLowerCase()));
+        return searchableStrings.some(string => string.includes(searchString.toLowerCase()));
       });
     },
   },
