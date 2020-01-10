@@ -51,7 +51,7 @@
       small
       dark
       fab
-      style="position: fixed; bottom: 0; right: 0; margin-right: 112px; margin-bottom: 64px"
+      style="position: fixed; bottom: 0; right: 0; margin-right: 120px; margin-bottom: 72px"
       @click="didTapRevert"
       color="disabled"
     >
@@ -63,7 +63,7 @@
       v-show="tutorialHasChanged"
       primary
       dark
-      style="position: fixed; bottom: 0; right: 0; margin-right: 8px; margin-bottom: 64px"
+      style="position: fixed; bottom: 0; right: 0; margin-right: 16px; margin-bottom: 72px"
       @click="didTapSave"
       :loading="loading"
       color="primary"
@@ -177,7 +177,6 @@ export default {
       this.tutorial.description = this.originalTutorial.description;
       this.tutorial.date = this.originalTutorial.date;
     },
-
     close() {
       this.loading = false;
       this.name = '';
