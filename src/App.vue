@@ -54,7 +54,7 @@ export default {
   background-color: var(--v-background-base);
 }
 
-.theme--light.v-card .v-card__subtitle, .theme--light.v-card > .v-card__text {
-  color: #ff0000;
+::placeholder{
+   opacity: 1;
 }
 </style>

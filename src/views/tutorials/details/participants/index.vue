@@ -25,7 +25,7 @@
     </v-flex>
     <!-- Content -->
     <v-flex xs12 md8 lg7>
-      <lister :items="students" cardBreakpoints="xs12 md6" searchPlaceholder="Buscar por nome ou email" :customSearch="filteredStudents">
+      <lister :items="students" cardBreakpoints="xs12 md6" searchPlaceholder="Buscar por nome ou email" :customSearchFunction="filteredStudents">
           <template v-slot:default="slotProps">
             <div class="pa-2">
               <student-card :student="slotProps.item" />
