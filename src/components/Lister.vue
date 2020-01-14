@@ -19,7 +19,7 @@
       tag="div"
       class="layout align-start wrap"
     >
-      <v-flex v-for="item in shownItems" :key="item.id" :class="cardBreakpoints || 'xs12'">
+      <v-flex v-for="(item, index) in shownItems" :key="item.id || index" :class="cardBreakpoints || 'xs12'">
         <slot v-bind:item="item"></slot>
       </v-flex>
     </transition-group>
@@ -93,7 +93,6 @@ export default {
     shownItems() {
       return this.originalItems.filter(item => {
         if (this.customSearchFunction) {
-          console.log(this.customSearchFunction);
           return this.customSearchFunction(item, this.searchString);
         }
         return item.name

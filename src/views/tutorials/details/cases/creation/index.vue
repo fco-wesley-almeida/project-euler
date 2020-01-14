@@ -1,8 +1,6 @@
 <template>
   <v-card
-    class="mainModal"
     color="background"
-    style="height: 80vh; position: relative; padding: 0px"
   >
     <v-toolbar color="primary" dark>
       <v-btn icon @click.native="didTapCancel()">
@@ -38,7 +36,7 @@
             </v-stepper-step>
 
             <v-stepper-content step="2">
-              <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
+              <taiper-editor v-model="tutorialCase.content"/>
             </v-stepper-content>
 
             <v-stepper-step step="3" editable>
@@ -61,16 +59,19 @@
 <script>
 import { db, Timestamp } from "@/firebase/db";
 import formRules from "@/utils/formRules";
+import TaiperEditor from "@/components/taiper_editor/index";
 
-const tutorials = db.collection("tutorials");
+const cases = db.collection("cases");
 
 export default {
   mixins: [formRules],
+  components: {TaiperEditor},
   data() {
     return {
       stepper: 1,
       tutorialCase: {
-        title: ""
+        title: "",
+        content: []
       }
     };
   },
@@ -142,10 +143,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.mainModal > .v-card__text {
-  height: 88%;
-  padding-bottom: 0px;
-}
-</style>

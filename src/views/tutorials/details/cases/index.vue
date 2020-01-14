@@ -79,9 +79,9 @@
         <v-icon>add</v-icon>
       </v-btn>
     </v-scale-transition>
-     <v-dialog v-model="showingCreationDialog" fullscreen transition="dialog-bottom-transition">
-        <new-case-form @finished="showingCreationDialog = false" />
-      </v-dialog>
+    <v-dialog v-model="showingCreationDialog" fullscreen transition="dialog-bottom-transition" scrollable>
+      <new-case-form @finished="showingCreationDialog = false" />
+    </v-dialog>
   </v-layout>
 </template>
 
