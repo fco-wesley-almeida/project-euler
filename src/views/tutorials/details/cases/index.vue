@@ -73,12 +73,15 @@
         dark
         fab
         style="position: fixed; bottom: 0; right: 0; margin-right: 16px; margin-bottom: 72px"
-        @click="didTapAdd"
+        @click.native.stop="showingCreationDialog = true"
         color="primary"
       >
         <v-icon>add</v-icon>
       </v-btn>
     </v-scale-transition>
+     <v-dialog v-model="showingCreationDialog" fullscreen transition="dialog-bottom-transition">
+        <new-case-form @finished="showingCreationDialog = false" />
+      </v-dialog>
   </v-layout>
 </template>
 
@@ -86,10 +89,11 @@
 import { db } from "@/firebase/db";
 import CaseCard from "./Card.vue";
 import Lister from "@/components/Lister";
+import NewCaseForm from "./creation/index";
 
 export default {
   name: "TutorialCases",
-  components: { CaseCard, Lister },
+  components: { CaseCard, Lister, NewCaseForm },
   mounted() {
     this.$bind(
       "cases",
@@ -123,9 +127,6 @@ export default {
         return item.status === "finished";
       });
     }
-  },
-  methods: {
-    didTapAdd() {}
   }
 };
 </script>
