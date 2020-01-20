@@ -17,9 +17,9 @@
       v-show="!showPlaceholder"
       name="list-complete"
       tag="div"
-      class="layout align-start wrap"
+      class="layout align-start wrap sortableContainer"
     >
-      <v-flex v-for="(item, index) in shownItems" :key="item.id || index" :class="cardBreakpoints || 'xs12'">
+      <v-flex class="sortable" v-for="(item, index) in shownItems" :key="item.id || index" :class="cardBreakpoints || 'xs12'">
         <slot v-bind:item="item"></slot>
       </v-flex>
     </transition-group>
@@ -66,7 +66,8 @@ export default {
     searchPlaceholder: String,
     customSearchFunction: Function,
     searchText: String,
-    hideSearchbar: { type: Boolean, default: false }
+    hideSearchbar: { type: Boolean, default: false },
+    reorderable: { type: Boolean, default: false }
   },
   computed: {
     receivedItems() {

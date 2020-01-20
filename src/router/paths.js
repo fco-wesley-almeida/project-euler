@@ -32,7 +32,6 @@ export default [
       },
       {
         path: ':tutorialID',
-        name: 'Tutoria',
         meta: { breadcrumb: 'currentTutorialName', placeholder: 'Detalhes sobre tutoria' },
         view: 'tutorials/details/index',
         children: [

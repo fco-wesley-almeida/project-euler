@@ -2,7 +2,6 @@
 import { db, FieldValue } from '../db';
 
 export const removeStudentFromTutorial = (studentID: string, tutorialID: string) : void => {
-  console.log('teste de exclusão');
   db.collection('students').doc(studentID).update({
     tutorials: FieldValue.arrayRemove(tutorialID),
   });

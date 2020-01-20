@@ -2,6 +2,7 @@
   <v-layout wrap align-center justify-center pa-2>
     <v-flex xs12>
       <lister
+        ref="sortableLister"
         :items="value"
         cardBreakpoints="xs12"
         searchText
@@ -38,6 +39,7 @@
 <script>
 import Lister from "@/components/Lister";
 import Clayblock from "./clayblocks/index";
+import Sortable from 'sortablejs';
 
 export default {
   components: { Lister, Clayblock },
@@ -51,12 +53,32 @@ export default {
       ]
     };
   },
+  mounted() {
+    let lister = this.$refs.sortableLister.$el.getElementsByClassName('sortableContainer')[0];
+    console.log(lister);
+    Sortable.create(lister, {
+      draggable: '.sortable',
+      handle: '.handle',
+      onEnd: this.dragReorder
+    })
+  },
   props: {
     value: {
       type: Array
     }
   },
   methods: {
+    dragReorder ({oldIndex, newIndex}) {
+      const newList = this.value;
+      const movedItem = newList.splice(oldIndex, 1)[0];
+      newList.splice(newIndex, 0, movedItem);
+      this.updateValue(newList);
+      return true;
+    },
+    itemKey (item) {
+      if (!this.itemKeys.has(item)) this.itemKeys.set(item, ++this.currentItemKey)
+      return this.itemKeys.get(item)
+    },
     customSearch(value){
       return (item, searchString) => {
         return true;

@@ -2,6 +2,7 @@
   <v-card
     color="background"
   >
+    <v-flex>
     <v-toolbar color="primary" dark>
       <v-btn icon @click.native="didTapCancel()">
         <v-icon>close</v-icon>
@@ -10,6 +11,7 @@
       <v-spacer />
       <v-btn text @click.native="didTapSave()">Salvar</v-btn>
     </v-toolbar>
+    </v-flex>
     <v-card-text>
       <v-layout align-center justify-center my-5>
         <v-flex xs12 md8 lg6>
