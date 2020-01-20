@@ -67,7 +67,8 @@ export default {
     customSearchFunction: Function,
     searchText: String,
     hideSearchbar: { type: Boolean, default: false },
-    reorderable: { type: Boolean, default: false }
+    reorderable: { type: Boolean, default: false },
+    autosort: { type: Boolean, default: true },
   },
   computed: {
     receivedItems() {
@@ -129,7 +130,9 @@ export default {
           let index = this.originalItems.indexOf(item);
           this.originalItems.splice(index, 1);
         }
-        vm.originalItems.sort(vm.sort);
+        if (this.autosort){
+          vm.originalItems.sort(vm.sort);
+        }
       }
     }
   }

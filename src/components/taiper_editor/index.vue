@@ -4,6 +4,7 @@
       <lister
         ref="sortableLister"
         :items="value"
+        :autosort="false"
         cardBreakpoints="xs12"
         searchText
         hideSearchbar
