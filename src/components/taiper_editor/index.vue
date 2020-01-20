@@ -12,15 +12,13 @@
         emptyListMessage="Clique no botão de + para inserir textos, imagens, vídeos, áudios ou arquivos em geral."
       >
         <template v-slot:default="slotProps">
-          <div class="pa-2">
-            <clayblock v-model="slotProps.item" />
-          </div>
+          <clayblock v-model="slotProps.item" @remove="removeItem(slotProps.item)"/>
         </template>
       </lister>
     </v-flex>
     <v-menu bottom origin="center center" transition="slide-y-transition">
       <template v-slot:activator="{on}">
-        <v-btn class="mt-2" v-on="on" fab color="primary" dark small>
+        <v-btn class="my-2" v-on="on" fab color="primary" dark small>
           <v-icon>add</v-icon>
         </v-btn>
       </template>
@@ -47,7 +45,7 @@ export default {
     return {
       menuOptions: [
         { title: "Subtítulo", icon: "title" },
-        { title: "Texto", icon: "text_fields" },
+        { title: "Parágrafo", icon: "text_fields" },
         { title: "Imagem", icon: "image" },
         { title: "Video", icon: "movie" }
       ]
@@ -68,6 +66,12 @@ export default {
     }
   },
   methods: {
+    removeItem(item){
+      const newList = this.value;
+      const index = newList.indexOf(item);
+      newList.splice(index, 1);
+      this.updateValue(newList);
+    },
     dragReorder ({oldIndex, newIndex}) {
       const newList = this.value;
       const movedItem = newList.splice(oldIndex, 1)[0];
@@ -92,7 +96,7 @@ export default {
         this.addToValue({type: 'text/title', value: ''})
       }
 
-      if (item.title === "Texto"){
+      if (item.title === "Parágrafo"){
         this.addToValue({type: 'text/body', value: ''})
       }
 

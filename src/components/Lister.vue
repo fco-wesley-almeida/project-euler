@@ -20,7 +20,7 @@
       class="layout align-start wrap sortableContainer"
     >
       <v-flex class="sortable" v-for="(item, index) in shownItems" :key="item.id || index" :class="cardBreakpoints || 'xs12'">
-        <slot v-bind:item="item"></slot>
+        <slot v-bind:item="item" v-bind:index="index"></slot>
       </v-flex>
     </transition-group>
     <template v-if="searching">
