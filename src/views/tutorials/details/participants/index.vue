@@ -6,11 +6,13 @@
         style="color: #555555"
       >Compartilhe para adicionar novos participantes:</h4>
       <v-layout justify-center align-center wrap :column="$vuetify.breakpoint.smAndDown">
-        <v-card class="ma-1">
+        <v-card class="ma-1" height="100" width="100">
+          <v-layout align-center justify-center fill-height>
           <qrcode
             :value="$route.params.tutorialID"
-            :options="{ width: 100, color:{ dark:'#0d47a1ff',}, }"
+            :options="{ width: 90, color:{ dark:'#0d47a1ff',}, }"
           ></qrcode>
+          </v-layout>
         </v-card>
         <h3 class="text-xs-center ma-1"
         style="color: #555555">ou</h3>

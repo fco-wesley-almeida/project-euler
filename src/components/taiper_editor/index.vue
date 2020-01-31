@@ -10,13 +10,15 @@
         hideSearchbar
         :customSearchFunction="customSearch"
         emptyListIcon="edit"
-        emptyListMessage="Clique no botão de + para inserir textos, imagens, vídeos, áudios ou arquivos em geral."
+        :emptyListMessage="placeholderMessage || 'Clique no botão de + para inserir textos, imagens, vídeos, áudios ou arquivos em geral.'"
       >
         <template v-slot:default="slotProps">
           <clayblock v-model="slotProps.item" @remove="removeItem(slotProps.item)"/>
         </template>
       </lister>
     </v-flex>
+    
+    <template v-if="only == null">
     <v-menu bottom origin="center center" transition="slide-y-transition">
       <template v-slot:activator="{on}">
         <v-btn class="my-2" v-on="on" fab color="primary" dark small>
@@ -32,6 +34,12 @@
         </v-list-item-group>
       </v-list>
     </v-menu>
+    </template>
+    <template v-else>
+      <v-btn class="my-2" @click.stop="onOnlyClick" fab color="primary" dark small>
+          <v-icon>add</v-icon>
+        </v-btn>
+    </template>
   </v-layout>
 </template>
 
@@ -64,6 +72,12 @@ export default {
   props: {
     value: {
       type: Array
+    },
+    placeholderMessage: {
+      type: String
+    },
+    only: {
+      type: String
     }
   },
   methods: {
@@ -104,6 +118,9 @@ export default {
       if (item.title === "Imagem"){
         this.addToValue({type: 'image/web', value: ''})
       }
+    },
+    onOnlyClick: function(item) {
+        this.addToValue({type: this.$props.only, value: ''})
     },
     addToValue(item){
       const newValue = this.value;

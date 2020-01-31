@@ -91,3 +91,10 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+.v-card__title{
+  word-wrap: break-word;
+  hyphens: auto;
+}
+</style>

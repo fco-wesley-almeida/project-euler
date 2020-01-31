@@ -13,6 +13,7 @@
     </v-toolbar>
     </v-flex>
     <v-card-text>
+      <v-form>
       <v-layout align-center justify-center my-5>
         <v-flex xs12 md8 lg6>
           <v-stepper non-linear v-model="stepper" vertical>
@@ -34,7 +35,7 @@
               <span class="title">Conteúdo</span>
               <span
                 class="subtitle-2 disabled--text"
-              >5000 caracteres. 3 vídeos. 2 fotos.</span>
+              >{{contentDescription}}</span>
             </v-stepper-step>
 
             <v-stepper-content step="2">
@@ -45,15 +46,16 @@
               <span class="title">Objetivos</span>
               <span
                 class="subtitle-2 disabled--text"
-              >Total: 5</span>
+              >{{objectivesDescription}}</span>
             </v-stepper-step>
 
             <v-stepper-content step="3">
-              <v-card color="grey lighten-1" class="mb-12" height="200px"></v-card>
+              <taiper-editor only="text/body" placeholder-message="Clique no botão de + para adicionar um objetivo" v-model="objectives"/>
             </v-stepper-content>
           </v-stepper>
         </v-flex>
       </v-layout>
+      </v-form>
     </v-card-text>
   </v-card>
 </template>
@@ -74,10 +76,17 @@ export default {
       tutorialCase: {
         title: "",
         content: []
-      }
+      },
+      objectives: []
     };
   },
   computed: {
+    contentDescription() {
+      return this.tutorialCase.content.length + " items";
+    },
+    objectiveDescription() {
+      return "Total: " + this.objectives.length;
+    },
     user() {
       return this.$store.state.app.user;
     },
@@ -110,19 +119,8 @@ export default {
       if (this.valid) {
         const vm = this;
         vm.loading = true;
-        tutorials
-          .add({
-            name: this.name,
-            date: Timestamp.fromDate(new Date(this.computedDate)),
-            description: this.description,
-            creationDate: Timestamp.now(),
-            teacherID: this.$store.state.app.userID,
-            students: [],
-            cases: [],
-            finishedCases: 0,
-            scheduledCases: 0,
-            currentCase: null
-          })
+        cases
+          .add(this.tutorialCase)
           .then(() => {
             vm.close();
           });

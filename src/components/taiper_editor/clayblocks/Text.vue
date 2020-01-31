@@ -3,7 +3,6 @@
     :rules="[formRules.required]"
     v-model="value.value"
     class="mx-2"
-    hint="Subtítulo"
     v-if="type === 'title'"
     :class="textStyle"
   ></v-text-field>
@@ -11,7 +10,6 @@
     :rules="[formRules.required]"
     v-model="value.value"
     class="mx-2"
-    hint="Parágrafo"
     auto-grow
     rows="1"
     v-else

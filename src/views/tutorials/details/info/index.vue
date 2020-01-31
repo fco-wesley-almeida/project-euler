@@ -37,7 +37,7 @@
                   readonly
                 />
                 <v-layout wrap column align-start justify-center>
-                  <v-date-picker class="mx-auto" v-model="computedDate" locale="pt-br" />
+                  <v-date-picker landscape full-width class="mx-auto" v-model="computedDate" locale="pt-br" />
                 </v-layout>
               </v-flex>
             </v-layout>

@@ -25,24 +25,24 @@
       fab
       @click.native.stop="showingCreationDialog = true"
     >
-      <!-- Creation dialog -->
-      <v-dialog v-model="showingCreationDialog" fullscreen transition="fade-transition">
-        <new-tutorial-form @finished="showingCreationDialog = false" />
-      </v-dialog>
       <v-icon>add</v-icon>
     </v-btn>
+          <!-- Creation dialog -->
+    <v-dialog v-model="showingCreationDialog" fullscreen transition="dialog-bottom-transition" scrollable>
+        <new-tutorial @finished="showingCreationDialog = false" />
+      </v-dialog>
   </v-layout>
 </template>
 
 <script>
 import { db } from "@/firebase/db";
-import NewTutorialForm from "./creation/index.vue";
+import NewTutorial from "./creation/index.vue";
 import Lister from "@/components/Lister";
 import TutorialCard from "./Card.vue";
 
 export default {
   name: "Tutorials",
-  components: { NewTutorialForm, TutorialCard, Lister },
+  components: { NewTutorial, TutorialCard, Lister },
   data: () => ({
     tutorials: [],
     showingFAB: false,
