@@ -1,25 +1,11 @@
 <template>
   <v-card class="pa-2">
-    <v-layout>
-      <div>
-        <v-layout align-center justify-center fill-height>
-          <v-avatar size="88">
-            <v-img :src="receivedStudent.imageURL" />
-          </v-avatar>
-        </v-layout>
-      </div>
-      <div>
-        <v-card-title>{{receivedStudent.name}}</v-card-title>
-        <v-card-subtitle>
-          <div>
-            <v-icon color="primary">mail</v-icon>
-            {{receivedStudent.email}}
-          </div>
-        </v-card-subtitle>
-      </div>
-    </v-layout>
+    <v-card-title>{{receivedTutorialCase.title}}</v-card-title>
     <v-card-actions class="pa-0">
     <v-spacer/>
+    <v-btn x-small color="primary" @click.stop="didTapEdit">
+      Editar <v-icon x-small>edit</v-icon>
+    </v-btn>
     <v-btn x-small color="error" @click.stop="didTapRemove">
       Remover <v-icon x-small>delete</v-icon>
     </v-btn>
@@ -49,7 +35,7 @@
             <v-btn
               color="error darken-1"
               text
-              @click="removeStudent"
+              @click="removeTutorialCase"
             >
               Remover
             </v-btn>
@@ -64,29 +50,30 @@
 <script lang="ts">
 import Vue from 'vue';
 import Router from 'vue-router/types/vue';
-import { removeStudentFromTutorial } from '@/firebase/api/student';
-import { Student } from '@/models/student';
+import { removeCaseFromTutorial } from '@/firebase/api/case';
+import { TutorialCase } from '@/models/case';
 
 export default Vue.extend({
-  name: 'StudentCard',
+  name: 'TutorialCaseCard',
   data: () => ({
     deletionDialog: false,
   }),
   props: {
-    student: Object,
+    tutorialCase: Object,
   },
   computed: {
-    receivedStudent() : Student {
-      return this.$props.student;
+    receivedTutorialCase() : TutorialCase {
+      return this.$props.tutorialCase;
     },
   },
   methods: {
     didTapRemove() {
-      console.log(this.receivedStudent);
+      console.log(this.receivedTutorialCase);
       this.deletionDialog = true;
     },
-    removeStudent(){
-      removeStudentFromTutorial(this.receivedStudent.id, this.$route.params.tutorialID);
+    removeTutorialCase() {
+      if (this.receivedTutorialCase.id)
+        removeCaseFromTutorial(this.receivedTutorialCase.id, this.$route.params.tutorialID);
     }
   },
 });

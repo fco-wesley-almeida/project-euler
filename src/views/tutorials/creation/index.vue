@@ -50,13 +50,9 @@ export default {
       let form = this.$refs.form as any;
       form.validate();
       if (this.valid) {
-        console.log(this.valid);
         const vm = this;
         vm.loading = true;
-        this.tutorial.teacherID = this.userData.uid;
-        this.tutorial.teacherName = this.userData.name;
-        this.tutorial.creationDate = Timestamp.fromDate(new Date());
-        createTutorial(this.tutorial).then(() => {
+        createTutorial(this.tutorial, this.userData.uid, this.userData.name).then(() => {
           vm.close();
         });
       }
@@ -68,7 +64,7 @@ export default {
       this.valid = v;
     },
     close() {
-      this.tutorial = {} as Tutorial;
+      this.tutorial = new Tutorial();
       let form = this.$refs.form as any;
       form.clear();
       this.$emit("finished");

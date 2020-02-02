@@ -1,10 +1,10 @@
-import firestore from "@firebase/firestore-types";
+import firebase from 'firebase';
 export class Tutorial {
     id: string | undefined = undefined;
     name: string = "";
     password: string = "";
-    date: firestore.Timestamp | null = null;
-    creationDate: firestore.Timestamp | null = null;
+    date: firebase.firestore.Timestamp | null = null;
+    creationDate: firebase.firestore.Timestamp | null = null;
     description: string = "";
     fixedGroups: boolean = false;
     teacherID: string = "";

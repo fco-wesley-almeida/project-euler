@@ -19,6 +19,7 @@
         :items="activeCases"
         cardBreakpoints="xs12 md6 lg4"
         :searchText="searchText"
+        :customSearchFunction="customSearch"
         hideSearchbar
         emptyListIcon="edit"
         emptyListMessage="Nenhum caso ativo"
@@ -26,7 +27,7 @@
       >
         <template v-slot:default="slotProps">
           <div class="pa-2">
-            <case-card :case="slotProps.item" />
+            <case-card :tutorialCase="slotProps.item" />
           </div>
         </template>
       </lister>
@@ -37,6 +38,7 @@
         :items="scheduledCases"
         cardBreakpoints="xs12 md6 lg4"
         :searchText="searchText"
+        :customSearchFunction="customSearch"
         hideSearchbar
         emptyListIcon="calendar_today"
         emptyListMessage="Nenhum caso agendado"
@@ -44,7 +46,7 @@
       >
         <template v-slot:default="slotProps">
           <div class="pa-2">
-            <case-card :case="slotProps.item" />
+            <case-card :tutorialCase="slotProps.item" />
           </div>
         </template>
       </lister>
@@ -55,6 +57,7 @@
         :items="finishedCases"
         cardBreakpoints="xs12 md6 lg4"
         :searchText="searchText"
+        :customSearchFunction="customSearch"
         hideSearchbar
         emptyListIcon="check"
         emptyListMessage="Nenhum caso finalizado"
@@ -62,7 +65,7 @@
       >
         <template v-slot:default="slotProps">
           <div class="pa-2">
-            <case-card :case="slotProps.item" />
+            <case-card :tutorialCase="slotProps.item" />
           </div>
         </template>
       </lister>
@@ -108,6 +111,13 @@ export default {
     showingFAB: false,
     showingCreationDialog: false
   }),
+  methods: {
+    customSearch(value) {
+      return (item, searchString) => {
+        return item.title.toLowerCase().includes(searchString.toLowerCase());
+      };
+    }
+  },
   computed: {
     searching() {
       return this.searchText !== "";
