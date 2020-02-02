@@ -36,7 +36,7 @@ import { createTutorial } from "@/firebase/api/tutorial";
 export default {
   components: { TutorialForm },
   data: () => ({
-    tutorial: null as Tutorial | null,
+    tutorial: {} as Tutorial,
     valid: false,
     loading: false
   }),
@@ -49,7 +49,8 @@ export default {
     didTapSave() {
       let form = this.$refs.form as any;
       form.validate();
-      if (this.valid && this.tutorial != null) {
+      if (this.valid) {
+        console.log(this.valid);
         const vm = this;
         vm.loading = true;
         this.tutorial.teacherID = this.userData.uid;
@@ -67,7 +68,7 @@ export default {
       this.valid = v;
     },
     close() {
-      this.tutorial = null;
+      this.tutorial = {} as Tutorial;
       let form = this.$refs.form as any;
       form.clear();
       this.$emit("finished");

@@ -1,8 +1,9 @@
 <template>
-  <v-form lazy-validation ref="form" v-model="valid">
+  <v-form ref="form" v-model="valid">
     <v-flex xs12>
       <v-textarea
         v-model="name"
+        v-on="updateValue()"
         :rules="[formRules.required]"
         color="accent"
         label="Título"
@@ -13,6 +14,7 @@
     <v-flex xs12>
       <v-textarea
         v-model="description"
+        v-on="updateValue()"
         prepend-icon="assignment"
         color="accent"
         label="Descrição"
@@ -26,6 +28,7 @@
         slot="activator"
         :rules="[formRules.required]"
         v-model="formattedDate"
+        v-on="updateValue()"
         xs12
         pb-2
         label="Data de início"
@@ -58,6 +61,17 @@ export default {
   }),
   props: {
     value: Object
+  },
+  watch: {
+    value(newValue) {
+      let timestamp = newValue.date;
+      if (timestamp != null) {
+        let date = timestamp.toDate();
+        this.isoDate = date.toISOString().split("T")[0]
+      }
+      this.name = newValue.name;
+      this.description = newValue.description;
+    }
   },
   computed: {
     tutorial(): Object {
@@ -104,14 +118,14 @@ export default {
       }
       this.$emit("validate", this.valid);
     },
-    clear(){
+    clear() {
       let form = this.$refs.form as HTMLFormElement;
       form.reset();
     },
     updateValue() {
       let newValue = this.value;
-      if (!newValue){
-          newValue = {};
+      if (!newValue) {
+        newValue = {};
       }
       newValue = Object.assign(newValue, this.tutorial);
       this.$emit("input", newValue);
