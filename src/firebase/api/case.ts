@@ -10,8 +10,8 @@ export const createCase = (tutorialCase: TutorialCase, tutorialID: string): Prom
   return db.collection("cases").add(JSON.parse(JSON.stringify(tutorialCase)));
 };
 
-export const updateCase = (tutorialCase: TutorialCase): Promise<void> => {
-  return db.collection("cases").doc(tutorialCase.id).update(tutorialCase);
+export const updateCase = (tutorialCase: TutorialCase, id: string | undefined): Promise<void> => {
+  return db.collection("cases").doc(id).update(tutorialCase);
 };
 
 export const removeCaseFromTutorial = (caseID: string, tutorialID: string) : void => {

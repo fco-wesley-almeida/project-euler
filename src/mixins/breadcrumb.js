@@ -19,6 +19,7 @@ export default {
               },
               text: this.checkStorage(meta.breadcrumb) || meta.placeholder || path,
               title: meta.placeholder,
+              label: meta.label
             });
           }
         }

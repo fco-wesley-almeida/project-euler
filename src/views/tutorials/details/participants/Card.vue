@@ -82,7 +82,6 @@ export default Vue.extend({
   },
   methods: {
     didTapRemove() {
-      console.log(this.receivedStudent);
       this.deletionDialog = true;
     },
     removeStudent(){

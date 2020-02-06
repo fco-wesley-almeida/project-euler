@@ -62,7 +62,6 @@ export default {
   },
   mounted() {
     let lister = this.$refs.sortableLister.$el.getElementsByClassName('sortableContainer')[0];
-    console.log(lister);
     Sortable.create(lister, {
       draggable: '.sortable',
       handle: '.handle',
@@ -98,7 +97,7 @@ export default {
       if (!this.itemKeys.has(item)) this.itemKeys.set(item, ++this.currentItemKey)
       return this.itemKeys.get(item)
     },
-    customSearch(value){
+    customSearch(){
       return (item, searchString) => {
         return true;
       };

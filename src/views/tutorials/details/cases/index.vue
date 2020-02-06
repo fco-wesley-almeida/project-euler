@@ -1,6 +1,6 @@
 <template>
-  <v-layout wrap justify-center align-center pa-5 fill-height>
-    <v-flex xs12 md8 lg7>
+  <v-layout wrap justify-center align-center fill-height>
+    <v-flex xs12 md8 lg7 pa-0>
       <v-flex xs12>
         <v-layout wrap mb-3>
           <v-toolbar style="border-radius: 20px">
@@ -21,7 +21,7 @@
         :searchText="searchText"
         :customSearchFunction="customSearch"
         hideSearchbar
-        emptyListIcon="edit"
+        emptyListIcon="check"
         emptyListMessage="Nenhum caso ativo"
         emptySearchMessage="Nenhum caso encontrado"
       >
@@ -59,7 +59,7 @@
         :searchText="searchText"
         :customSearchFunction="customSearch"
         hideSearchbar
-        emptyListIcon="check"
+        emptyListIcon="history"
         emptyListMessage="Nenhum caso finalizado"
         emptySearchMessage="Nenhum caso encontrado"
       >
@@ -83,7 +83,7 @@
       </v-btn>
     </v-scale-transition>
     <v-dialog v-model="showingCreationDialog" fullscreen transition="dialog-bottom-transition" scrollable>
-      <new-case-form @finished="showingCreationDialog = false" />
+      <new-case-form v-if="showingCreationDialog" @finished="showingCreationDialog = false" />
     </v-dialog>
   </v-layout>
 </template>
@@ -111,16 +111,14 @@ export default {
     showingFAB: false,
     showingCreationDialog: false
   }),
-  methods: {
-    customSearch(value) {
-      return (item, searchString) => {
-        return item.title.toLowerCase().includes(searchString.toLowerCase());
-      };
-    }
-  },
   computed: {
     searching() {
       return this.searchText !== "";
+    },
+    customSearch() {
+      return (item, searchString) => {
+        return item.title.toLowerCase().includes(searchString.toLowerCase());
+      };
     },
     activeCases() {
       return this.cases.filter(item => {

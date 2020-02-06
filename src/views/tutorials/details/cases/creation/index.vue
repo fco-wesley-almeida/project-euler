@@ -9,7 +9,7 @@
       </v-btn>
       <v-toolbar-title>Criação de Caso</v-toolbar-title>
       <v-spacer />
-      <v-btn text @click.native="didTapSave()">Salvar</v-btn>
+      <v-btn text :loading="loading" @click.native="didTapSave()">Salvar</v-btn>
     </v-toolbar>
     </v-flex>
     <v-card-text>
@@ -56,9 +56,6 @@ export default {
     },
     close() {
       this.loading = false;
-      this.tutorialCase = new TutorialCase();
-      let form = this.$refs.form as any;
-      form.clear();
       this.$emit("finished");
     }
   }

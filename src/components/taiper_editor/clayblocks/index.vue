@@ -25,7 +25,6 @@ export default {
   },
   computed: {
     shownComponent() {
-      console.log(this.value.type);
       if (this.value.type.includes("text")) {
         return TextClayblock;
       }

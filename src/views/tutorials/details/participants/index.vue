@@ -72,7 +72,6 @@ export default {
         if (student.email) {
           searchableStrings.push(student.email.toLowerCase());
         }
-        console.log(searchableStrings);
         return searchableStrings.some(string => string.includes(searchString.toLowerCase()));
     };
     },
