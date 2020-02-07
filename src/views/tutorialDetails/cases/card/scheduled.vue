@@ -2,28 +2,28 @@
   <v-card class="pa-2">
     <v-card-title>{{receivedTutorialCase.title}}</v-card-title>
     <v-card-actions class="pa-0">
-      
+      <template v-if="canBeActive">
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn icon color="primary" v-on="on">
+          <v-btn class="ml-2" icon color="primary" v-on="on" @click.stop="didTapActivate">
             <v-icon>check</v-icon>
           </v-btn>
         </template>
         <span>Tornar ativo</span>
       </v-tooltip>
+      </template>
       <v-spacer />
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn icon color="disabled-lighten-3" v-on="on" @click.stop="didTapEdit">
+          <v-btn icon class="mr-1" color="disabled-lighten-3" v-on="on" @click.stop="didTapEdit">
             <v-icon>edit</v-icon>
           </v-btn>
         </template>
         <span>Editar</span>
       </v-tooltip>
-      <v-spacer />
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn icon color="error" v-on="on" @click.stop="didTapRemove">
+          <v-btn class="mr-2" icon color="error" v-on="on" @click.stop="didTapRemove">
             <v-icon>delete</v-icon>
           </v-btn>
         </template>
@@ -45,9 +45,9 @@
     </v-dialog>
     <v-dialog v-model="deletionDialog" transition="fade-transition" max-width="290">
       <v-card>
-        <v-card-title class="headline">Remoção</v-card-title>
+        <v-card-title class="headline">Exclusão</v-card-title>
 
-        <v-card-text>Deseja realmente remover este caso?</v-card-text>
+        <v-card-text>Deseja realmente excluir este caso?</v-card-text>
 
         <v-card-actions>
           <v-btn color="grey darken-1" text @click="deletionDialog = false">Cancelar</v-btn>
@@ -56,14 +56,40 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-dialog v-model="activationDialog" transition="fade-transition" max-width="290">
+      <v-card>
+        <v-card-title class="headline">Ativar</v-card-title>
+
+        <v-card-text>Deseja realmente ativar este caso? Não será mais possível editá-lo e os grupos serão formados somente pelos participantes atuais.</v-card-text>
+
+        <v-card-actions>
+          <v-btn color="grey darken-1" class="ml-2" text @click="activationDialog = false">Cancelar</v-btn>
+          <v-spacer />
+          <v-btn color="primary" class="mr-2"  text @click="confirmActivation">Ativar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog
+      v-model="groupCreationDialog"
+      fullscreen
+      transition="dialog-bottom-transition"
+      scrollable
+    >
+      <edit-case
+        v-if="groupCreationDialog"
+        :id="receivedTutorialCase.id"
+        :tutorialCase="receivedTutorialCase"
+        @finished="groupCreationDialog = false"
+      />
+    </v-dialog>
   </v-card>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Router from "vue-router/types/vue";
-import EditCase from "./edition/index.vue";
-import { removeCaseFromTutorial } from "@/firebase/api/case";
+import EditCase from "../edition/index.vue";
+import { removeCaseFromTutorial, updateCase } from "@/firebase/api/case";
 import { TutorialCase } from "@/models/case";
 
 export default Vue.extend({
@@ -71,10 +97,13 @@ export default Vue.extend({
   components: { EditCase },
   data: () => ({
     deletionDialog: false,
-    showingEditDialog: false
+    activationDialog: false,
+    showingEditDialog: false,
+    groupCreationDialog: false
   }),
   props: {
-    tutorialCase: Object
+    tutorialCase: Object,
+    canBeActive: Boolean
   },
   computed: {
     receivedTutorialCase(): TutorialCase {
@@ -82,6 +111,15 @@ export default Vue.extend({
     }
   },
   methods: {
+    didTapActivate() {
+      this.activationDialog = true;
+    },
+    confirmActivation() {
+        this.activationDialog = false;
+        this.receivedTutorialCase.status = "active";
+        updateCase(this.receivedTutorialCase, this.receivedTutorialCase.id)
+        //this.groupCreationDialog = true;
+    },
     didTapRemove() {
       this.deletionDialog = true;
     },

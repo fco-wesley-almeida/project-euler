@@ -2,6 +2,7 @@
   <v-text-field
     :rules="[formRules.required]"
     v-model="value.value"
+    autofocus
     class="mx-2"
     v-if="type === 'title'"
     :class="textStyle"
@@ -9,6 +10,7 @@
   <v-textarea
     :rules="[formRules.required]"
     v-model="value.value"
+    autofocus
     class="mx-2"
     auto-grow
     rows="1"

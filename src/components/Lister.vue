@@ -40,7 +40,7 @@
     <template v-else>
       <v-layout wrap column align-center justify-center fill-height v-show="showPlaceholder">
         <v-spacer />
-        <v-flex xs1>
+        <v-flex xs1 v-if="emptyListIcon">
           <v-icon large class="text-xs-center mt-2">{{emptyListIcon || 'close'}}</v-icon>
         </v-flex>
         <v-flex xs6>
