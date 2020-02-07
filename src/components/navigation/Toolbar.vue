@@ -33,7 +33,7 @@ export default {
     logo: '/assets/logo.png',
     title: null,
     menuOptions: [
-      { title: 'Editar perfil', route: '/editarPerfil' },
+      { title: 'Editar perfil', route: '/perfil' },
       { title: 'Sair', route: '/login' },
     ],
   }),
@@ -46,7 +46,7 @@ export default {
       return auth.currentUser.displayName;
     },
     avatarContent() {
-      return auth.currentUser.photoURL;
+      return this.$store.state.app.user.imageURL || auth.currentUser.photoURL;
     },
   },
 

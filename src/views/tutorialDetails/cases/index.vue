@@ -1,6 +1,6 @@
 <template>
   <v-layout wrap justify-center align-center fill-height>
-    <v-flex xs12 md10 lg8 pa-0>
+    <v-flex xs12 md8 lg7 pa-0>
       <v-flex xs12>
         <v-layout wrap mb-3>
           <v-toolbar style="border-radius: 20px">
@@ -32,7 +32,7 @@
         </template>
       </lister>
     </v-flex>
-    <v-flex xs12 md10 lg8 class="my-2">
+    <v-flex xs12 md8 lg7 class="my-2">
       <h3 v-if="scheduledCases.length > 0 || searching">Casos Agendados</h3>
       <lister
         :items="scheduledCases"
@@ -51,7 +51,7 @@
         </template>
       </lister>
     </v-flex>
-    <v-flex xs12 md10 lg8 class="my-2">
+    <v-flex xs12 md8 lg7 class="my-2">
       <h3 v-if="finishedCases.length > 0 || searching">Casos Finalizados</h3>
       <lister
         :items="finishedCases"
