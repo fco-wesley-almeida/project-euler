@@ -5,7 +5,7 @@
       
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn icon color="primary" v-on="on" @click.stop="didTapEdit">
+          <v-btn icon color="primary" v-on="on">
             <v-icon>check</v-icon>
           </v-btn>
         </template>
@@ -14,7 +14,7 @@
       <v-spacer />
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn icon color="disabled" v-on="on" @click.stop="didTapEdit">
+          <v-btn icon color="disabled-lighten-3" v-on="on" @click.stop="didTapEdit">
             <v-icon>edit</v-icon>
           </v-btn>
         </template>
