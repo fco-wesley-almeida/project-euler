@@ -46,6 +46,10 @@ export default {
 
 <style>
 
+body{
+    background-color: var(--v-background-base);
+}
+
 #app {
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -54,7 +58,7 @@ export default {
   background-color: var(--v-background-base);
 }
 
-.theme--light.v-card .v-card__subtitle, .theme--light.v-card > .v-card__text {
-  color: #ff0000;
+::placeholder{
+   opacity: 1;
 }
 </style>

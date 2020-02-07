@@ -82,7 +82,6 @@ export default Vue.extend({
   },
   methods: {
     didTapRemove() {
-      console.log(this.receivedStudent);
       this.deletionDialog = true;
     },
     removeStudent(){
@@ -91,3 +90,10 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+.v-card__title{
+  word-wrap: break-word;
+  hyphens: auto;
+}
+</style>

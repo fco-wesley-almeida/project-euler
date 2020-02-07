@@ -6,11 +6,13 @@
         style="color: #555555"
       >Compartilhe para adicionar novos participantes:</h4>
       <v-layout justify-center align-center wrap :column="$vuetify.breakpoint.smAndDown">
-        <v-card class="ma-1">
+        <v-card class="ma-1" height="100" width="100">
+          <v-layout align-center justify-center fill-height>
           <qrcode
             :value="$route.params.tutorialID"
-            :options="{ width: 100, color:{ dark:'#0d47a1ff',}, }"
+            :options="{ width: 90, color:{ dark:'#0d47a1ff',}, }"
           ></qrcode>
+          </v-layout>
         </v-card>
         <h3 class="text-xs-center ma-1"
         style="color: #555555">ou</h3>
@@ -25,7 +27,7 @@
     </v-flex>
     <!-- Content -->
     <v-flex xs12 md8 lg7>
-      <lister :items="students" cardBreakpoints="xs12 md6" searchPlaceholder="Buscar por nome ou email" :customSearch="filteredStudents">
+      <lister :items="students" cardBreakpoints="xs12 md6" searchPlaceholder="Buscar por nome ou email" :customSearchFunction="filteredStudents">
           <template v-slot:default="slotProps">
             <div class="pa-2">
               <student-card :student="slotProps.item" />
@@ -70,7 +72,6 @@ export default {
         if (student.email) {
           searchableStrings.push(student.email.toLowerCase());
         }
-        console.log(searchableStrings);
         return searchableStrings.some(string => string.includes(searchString.toLowerCase()));
     };
     },

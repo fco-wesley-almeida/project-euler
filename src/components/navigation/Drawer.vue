@@ -25,11 +25,11 @@
 
               <v-list-item-content>
                 <v-list-item-title>
-                    {{ item.title || item.text }}
+                    {{ item.title || item.label || item.text}}
                 </v-list-item-title>
 
                 <v-list-item-subtitle v-if="item.title && item.title !== item.text">
-                    {{ item.text }}
+                    {{ item.label || item.text }}
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -70,7 +70,6 @@ export default {
   },
   methods: {
     didTapItem(item) {
-      console.log(item);
       this.$router.push(item.to.path);
     },
   },

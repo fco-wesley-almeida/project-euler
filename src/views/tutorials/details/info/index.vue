@@ -3,45 +3,7 @@
     <v-flex xs12 md10 lg6>
       <v-card>
         <v-card-text>
-          <v-form ref="form" v-model="valid">
-            <v-layout wrap pa-5 justify-center align-center>
-              <v-flex xs12>
-                <v-textarea
-                  v-model="tutorial.name"
-                  :rules="[formRules.required]"
-                  color="accent"
-                  label="Título"
-                  auto-grow
-                  rows="1"
-                />
-              </v-flex>
-              <v-flex xs12>
-                <v-textarea
-                  v-model="tutorial.description"
-                  prepend-icon="assignment"
-                  color="accent"
-                  label="Descrição"
-                  auto-grow
-                  rows="1"
-                />
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field
-                  slot="activator"
-                  :rules="[formRules.required]"
-                  v-model="formattedDate"
-                  xs12
-                  pb-2
-                  label="Data de início"
-                  prepend-icon="event"
-                  readonly
-                />
-                <v-layout wrap column align-start justify-center>
-                  <v-date-picker class="mx-auto" v-model="computedDate" locale="pt-br" />
-                </v-layout>
-              </v-flex>
-            </v-layout>
-          </v-form>
+          <tutorial-form ref="form" v-model="tutorial" @validate="checkValidation" />
         </v-card-text>
       </v-card>
     </v-flex>
@@ -51,7 +13,7 @@
       small
       dark
       fab
-      style="position: fixed; bottom: 0; right: 0; margin-right: 112px; margin-bottom: 64px"
+      style="position: fixed; bottom: 0; right: 0; margin-right: 120px; margin-bottom: 72px"
       @click="didTapRevert"
       color="disabled"
     >
@@ -63,7 +25,7 @@
       v-show="tutorialHasChanged"
       primary
       dark
-      style="position: fixed; bottom: 0; right: 0; margin-right: 8px; margin-bottom: 64px"
+      style="position: fixed; bottom: 0; right: 0; margin-right: 16px; margin-bottom: 72px"
       @click="didTapSave"
       :loading="loading"
       color="primary"
@@ -82,20 +44,16 @@
 
 <script>
 import { db, Timestamp } from '@/firebase/db';
-import formRules from '@/utils/formRules';
+import TutorialForm from '@/views/tutorials/creation/form'
 
 export default {
   name: 'TutorialInfo',
-  mixins: [formRules],
+  components: {TutorialForm},
   data() {
     return {
-      tutorial: {
-        name: '',
-        description: '',
-        date: '',
-      },
+      tutorial: undefined,
       snackbar: false,
-      originalTutorial: {},
+      originalTutorial: undefined,
       formattedDate: '',
       isoDate: null,
       valid: false,
@@ -114,11 +72,15 @@ export default {
   },
   computed: {
     tutorialHasChanged() {
+      if (this.tutorial && this.originalTutorial){
+
       return (
         this.tutorial.name !== this.originalTutorial.name
         || this.tutorial.description !== this.originalTutorial.description
-        || this.tutorial.date !== this.originalTutorial.date
+        || this.tutorial.date.toDate().toISOString() !== this.originalTutorial.date.toDate().toISOString()
       );
+      }
+      return false; 
     },
     user() {
       return this.$store.state.app.user;
@@ -151,6 +113,9 @@ export default {
     },
   },
   methods: {
+    checkValidation(value){
+      this.valid = value;
+    },
     updateFormattedDate(v) {
       const date = new Date(v);
       let day = date.getUTCDate();
@@ -173,11 +138,10 @@ export default {
       }
     },
     didTapRevert() {
-      this.tutorial.name = this.originalTutorial.name;
-      this.tutorial.description = this.originalTutorial.description;
-      this.tutorial.date = this.originalTutorial.date;
+      let revertObject = {};
+      Object.assign(revertObject, this.originalTutorial);
+      this.tutorial = revertObject;
     },
-
     close() {
       this.loading = false;
       this.name = '';

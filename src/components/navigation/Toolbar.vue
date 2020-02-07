@@ -56,7 +56,7 @@ export default {
 
   watch: {
     $route(val) {
-      if (val.meta.breadcrumb !== 'disabled') {
+      if (val.meta && val.meta.breadcrumb !== 'disabled') {
         this.title = this.$store.state.app[val.meta.breadcrumb] || val.name;
       } else {
         this.title = val.name;

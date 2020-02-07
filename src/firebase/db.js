@@ -23,5 +23,4 @@ export const db = firestore;
 export const auth = firebase.auth();
 
 export const storage = firebase.storage(app);
-
-export const { Timestamp, FieldValue } = firebase.firestore;
+export const { Timestamp, FieldValue, DocumentSnapshot, DocumentReference } = firebase.firestore;

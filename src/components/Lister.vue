@@ -1,50 +1,53 @@
 <template>
-  <v-layout wrap>
-    <v-flex xs12>
+  <v-layout wrap align-center>
+    <v-flex xs12 v-show="!hideSearchbar">
       <v-layout wrap pa-3>
-      <v-toolbar style="border-radius: 20px">
-      <v-text-field
-        v-model="searchString"
-        hide-details
-        prepend-icon="search"
-        single-line
-        :placeholder="searchPlaceholder || 'Buscar'"
-      ></v-text-field>
-    </v-toolbar>
+        <v-toolbar style="border-radius: 20px">
+          <v-text-field
+            v-model="internalSearchString"
+            hide-details
+            prepend-icon="search"
+            single-line
+            :placeholder="searchPlaceholder || 'Buscar'"
+          ></v-text-field>
+        </v-toolbar>
       </v-layout>
     </v-flex>
-    <template v-if="!showPlaceholder">
-      <transition-group name="list-complete" tag="div" class="layout align-start wrap">
-        <v-flex v-for="item in shownItems" :key="item.id" :class="cardBreakpoints || 'xs12'">
-          <slot v-bind:item="item"></slot>
-        </v-flex>
-      </transition-group>
-    </template>
-    <template v-else-if="searching">
-      <v-layout wrap column align-center justify-center fill-height>
+    <transition-group
+      v-show="!showPlaceholder"
+      name="list-complete"
+      tag="div"
+      class="layout align-start wrap sortableContainer"
+    >
+      <v-flex class="sortable" v-for="(item, index) in shownItems" :key="item.id || index" :class="cardBreakpoints || 'xs12'">
+        <slot v-bind:item="item" v-bind:index="index"></slot>
+      </v-flex>
+    </transition-group>
+    <template v-if="searching">
+      <v-layout wrap column align-center justify-center fill-height v-show="showPlaceholder">
         <v-spacer />
         <v-flex xs1>
           <v-icon large class="text-xs-center mt-2">search</v-icon>
         </v-flex>
         <v-flex xs6>
           <h4
-            class="text-xs-center mt-2 font-weight-regular"
-            style="color: #aaaaaa"
-          >Nenhum item encontrado...</h4>
+            class="text-xs-center mt-2"
+            style="color: #888888"
+          >{{emptySearchMessage || 'Nenhum item encontrado...'}}</h4>
         </v-flex>
       </v-layout>
     </template>
     <template v-else>
-      <v-layout wrap column align-center justify-center fill-height>
+      <v-layout wrap column align-center justify-center fill-height v-show="showPlaceholder">
         <v-spacer />
         <v-flex xs1>
-          <v-icon large class="text-xs-center mt-2">close</v-icon>
+          <v-icon large class="text-xs-center mt-2">{{emptyListIcon || 'close'}}</v-icon>
         </v-flex>
         <v-flex xs6>
           <h4
-            class="text-xs-center mt-2 font-weight-regular"
-            style="color: #aaaaaa"
-          >Nenhum item cadastrado, adicione novos com o botão +</h4>
+            class="text-xs-center mt-2 "
+            style="color: #888888"
+          >{{emptyListMessage || 'Nenhum item cadastrado, adicione novos com o botão +'}}</h4>
         </v-flex>
       </v-layout>
     </template>
@@ -57,37 +60,52 @@ export default {
   props: {
     items: Array,
     cardBreakpoints: String,
+    emptyListIcon: String,
     emptyListMessage: String,
     emptySearchMessage: String,
     searchPlaceholder: String,
-    customSearch: Function
+    customSearchFunction: Function,
+    searchText: String,
+    hideSearchbar: { type: Boolean, default: false },
+    reorderable: { type: Boolean, default: false },
+    autosort: { type: Boolean, default: true },
   },
   computed: {
     receivedItems() {
       return this.$props.items;
     },
-    receivedSearching() {
-      return this.$props.searching;
+    receivedSearchString() {
+      return this.$props.searchText;
+    },
+    searchString() {
+      if (this.$props.hideSearchbar) {
+        return this.receivedSearchString;
+      }
+      return this.internalSearchString;
     },
     showPlaceholder() {
       return this.shownItems.length === 0;
     },
     searching() {
-      return this.searchString !== '';
+      if (this.$props.hideSearchbar) {
+        return this.receivedSearchString !== "";
+      }
+      return this.searchString !== "";
     },
     shownItems() {
-      return this.originalItems.filter((item) => {
-        if (this.customSearch){
-          console.log(this.customSearch);
-          return this.customSearch(item, this.searchString);
+      return this.originalItems.filter(item => {
+        if (this.customSearchFunction) {
+          return this.customSearchFunction(item, this.searchString);
         }
-        return item.name.toLowerCase().includes(this.searchString.toLowerCase());
+        return item.name
+          .toLowerCase()
+          .includes(this.searchString.toLowerCase());
       });
-    },
+    }
   },
   data: () => ({
     originalItems: [],
-    searchString: '',
+    internalSearchString: ""
   }),
   methods: {
     sort(a, b) {
@@ -99,7 +117,9 @@ export default {
       immediate: true,
       handler(newItems) {
         const vm = this;
-        let toBeAdded = newItems.filter(item => !vm.originalItems.includes(item));
+        let toBeAdded = newItems.filter(
+          item => !vm.originalItems.includes(item)
+        );
         let toBeRemoved = this.originalItems.filter(
           item => !newItems.includes(item)
         );
@@ -110,7 +130,9 @@ export default {
           let index = this.originalItems.indexOf(item);
           this.originalItems.splice(index, 1);
         }
-        vm.originalItems.sort(vm.sort);
+        if (this.autosort){
+          vm.originalItems.sort(vm.sort);
+        }
       }
     }
   }

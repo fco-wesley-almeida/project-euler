@@ -32,38 +32,37 @@ export default [
       },
       {
         path: ':tutorialID',
-        name: 'Tutoria',
         meta: { breadcrumb: 'currentTutorialName', placeholder: 'Detalhes sobre tutoria' },
         view: 'tutorials/details/index',
         children: [
           {
             path: '',
             name: 'Informações',
-            meta: { breadcrumb: 'disabled' },
+            meta: { breadcrumb: 'currentTutorialName', label: "Informações" },
             view: 'tutorials/details/info/index',
           },
           {
             path: 'informacoes',
             name: 'Informações',
-            meta: { breadcrumb: 'disabled' },
+          meta: { breadcrumb: 'currentTutorialName', label: "Informações" },
             view: 'tutorials/details/info/index',
           },
           {
             path: 'casos',
             name: 'Casos',
-            meta: { breadcrumb: 'disabled' },
+            meta: { breadcrumb: 'currentTutorialName', label: "Casos" },
             view: 'tutorials/details/cases/index',
           },
           {
             path: 'notas',
             name: 'Notas',
-            meta: { breadcrumb: 'disabled' },
+            meta: { breadcrumb: 'currentTutorialName', label: "Notas" },
             view: 'tutorials/details/evaluations/index',
           },
           {
             path: 'participantes',
             name: 'Participantes',
-            meta: { breadcrumb: 'disabled' },
+            meta: { breadcrumb: 'currentTutorialName', label: "Participantes" },
             view: 'tutorials/details/participants/index',
           },
         ],

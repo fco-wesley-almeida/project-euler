@@ -27,7 +27,6 @@ function route(path, view, name, meta, children) {
     component: resolve => import(`@/views/${view}.vue`).then(resolve),
     children: childRoutes,
   };
-  console.log(r);
   return r;
 }
 
