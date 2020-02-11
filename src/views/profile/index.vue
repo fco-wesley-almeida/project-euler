@@ -4,7 +4,7 @@
       <v-layout align-start justify-center wrap>
         <v-flex xs12>
           <v-layout align-center justify-center>
-        <v-flex xs11 md8 lg6 offset-(lg)(0)>
+        <v-flex xs10 md8 lg4>
           <v-card class="mt-3">
             <v-layout class="pa-2">
               <div class="my-auto" style="width: 100px; margin-right: -10px">

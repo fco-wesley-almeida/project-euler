@@ -1,23 +1,25 @@
 <template>
-  <v-card class="pa-2">
+  <v-card progre color="primary" dark class="pa-2">
     <v-card-title>{{receivedTutorialCase.title}}</v-card-title>
     <v-card-subtitle>
-      <div>Passo atual: {{receivedTutorialCase.currentStep || 1}}</div>
+      <div>Passo atual: {{(receivedTutorialCase.currentStep || 1) + " / 9"}}</div>
+      <v-progress-linear  color="white" class="mt-1" value="75" />
     </v-card-subtitle>
+    
     <v-card-actions class="pa-0">
-      <v-btn class="ml-2" text color="primary" v-on="on">
+      <v-btn class="ml-2" text color="white" v-on="on">
         <v-icon>group</v-icon>
         <p class="my-auto">Grupos</p>
       </v-btn>
-      <v-btn text class="mr-5" color="primary" v-on="on">
+      <v-btn text class="mr-5" color="white" v-on="on">
         <v-icon>timeline</v-icon>
         <p class="my-auto">Linha do tempo</p>
       </v-btn>
       <v-spacer />
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn fab x-small class="mr-2" color="primary" v-on="on">
-            <v-icon>redo</v-icon>
+          <v-btn fab x-small class="mr-2" color="white" light v-on="on">
+            <v-icon color="primary">redo</v-icon>
           </v-btn>
         </template>
         <span>Ir ao próximo passo</span>

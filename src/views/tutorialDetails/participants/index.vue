@@ -1,5 +1,5 @@
 <template>
-  <v-layout wrap justify-center align-center pa-0>
+  <v-layout wrap justify-center align-start pa-0>
     <v-flex xs12 md8 lg6>
       <h4
         class="text-xs-center ma-1"

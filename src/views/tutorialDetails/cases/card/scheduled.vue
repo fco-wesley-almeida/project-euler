@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-2">
+  <v-card class="pa-2 round" >
     <v-card-title>{{receivedTutorialCase.title}}</v-card-title>
     <v-card-actions class="pa-0">
       <template v-if="canBeActive">
@@ -136,3 +136,9 @@ export default Vue.extend({
   }
 });
 </script>
+
+<style scoped>
+.round{
+  border-radius: 10px;
+}
+</style>

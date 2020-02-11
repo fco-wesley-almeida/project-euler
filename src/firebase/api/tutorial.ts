@@ -7,7 +7,9 @@ export const createTutorial = (tutorial: Tutorial, teacherID: string, teacherNam
   tutorial.teacherID = teacherID;
   tutorial.teacherName = teacherName;
   tutorial.creationDate = Timestamp.fromDate(new Date());
-  return db.collection("tutorials").add(JSON.parse(JSON.stringify(tutorial)));
+  let object = {}
+  Object.assign(object, tutorial);
+  return db.collection("tutorials").add(object);
 };
 
 export const updateTutorial = (tutorial: Tutorial): Promise<void> => {
