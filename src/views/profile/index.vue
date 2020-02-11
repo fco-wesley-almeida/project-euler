@@ -1,117 +1,123 @@
 <template>
-  <v-container fill-height fluid grid-list-xl>
-    <v-layout align-center justify-center wrap>
-      <v-layout align-start justify-center wrap>
-        <v-flex xs12>
-          <v-layout align-center justify-center>
-        <v-flex xs10 md8 lg4>
-          <v-card class="mt-3">
-            <v-layout class="pa-2">
-              <div class="my-auto" style="width: 100px; margin-right: -10px">
-                <v-layout align-center justify-center fill-height>
-                  <input
+  <v-layout align-center justify-center wrap>
+    <v-flex xs11 md8 lg6>
+      <v-card class="mt-3">
+        <v-form class="pa-1" ref="form" v-model="valid">
+          <v-layout class="pa-2">
+            <div class="my-auto" style="width: 100px; margin-left: 10px; margin-right: 0px">
+              <v-layout column align-center justify-center fill-height>
+                <input
                   id="fileInput"
                   name="myFile"
                   type="file"
                   accept="image/png, image/jpeg"
                   @change="didChangeImage"
                 />
-                  <v-avatar size="80" style="cursor: pointer" @click.stop="didTapAddImage()">
-                    <v-img
-                      id="previewImage"
-                      ref="previewImage"
-                      :src="resultFile || user.imageURL || '/img/profile-default.jpg'"
-                      class="elevation-2"
-                    />
-                  </v-avatar>
-                </v-layout>
-              </div>
-              <div>
-                <v-card-title>{{user.name}}</v-card-title>
-                <v-card-subtitle>
-                  <div>
-                    <v-icon color="primary">mail</v-icon>
-                    {{user.email}}
-                  </div>
-                  <div>
-                    <v-icon color="disabled">school</v-icon>
-                    {{user.institution}}
-                  </div>
-                  <div>
-                    <v-icon color="disabled">public</v-icon>
-                    {{user.state}}
-                  </div>
-                </v-card-subtitle>
-              </div>
-            </v-layout>
-          </v-card>
-        </v-flex>
+                <v-avatar size="80" style="cursor: pointer" @click.stop="didTapAddImage()">
+                  <v-img
+                    id="previewImage"
+                    ref="previewImage"
+                    :src="resultFile || user.imageURL || '/img/profile-default.jpg'"
+                    class="elevation-2"
+                  />
+                </v-avatar>
+                <v-btn small text color="primary" @click.stop="didTapAddImage()">
+                  Trocar
+                  <v-icon x-small>camera_alt</v-icon>
+                </v-btn>
+              </v-layout>
+            </div>
+            <div style="width: 100%">
+              <v-card-title>
+                <v-text-field
+                  class="my-1"
+                  v-model="user.name"
+                  :rules="[formRules.required]"
+                  required
+                  hide-details="auto"
+                  label="Nome"
+                />
+              </v-card-title>
+              <v-card-subtitle>
+                <div class="my-1">
+                  <v-icon class="mr-2" color="primary">mail</v-icon>
+                  <span>{{user.email}}</span>
+                </div>
+                <div>
+                  <v-text-field
+                    class="my-1"
+                    prepend-icon="school"
+                    v-model="user.institution"
+                    :rules="[formRules.required]"
+                    required
+                    hide-details="auto"
+                    label="Instituição"
+                  />
+                </div>
+                <div>
+                  <v-text-field
+                    prepend-icon="public"
+                    v-model="user.state"
+                    :rules="[formRules.required]"
+                    required
+                    hide-details="auto"
+                    label="Estado"
+                  />
+                </div>
+              </v-card-subtitle>
+            </div>
           </v-layout>
-        </v-flex>
-        <v-flex xs12>
-          <v-layout align-center justify-center>
-        <v-flex xs11 md8 lg6>
-          <v-card text="Insira seus dados">
-            <v-card-title>Editar Perfil</v-card-title>
-            <v-form class="pa-1" ref="form" v-model="valid">
-              <v-container py-0>
-                <v-layout wrap>
-                  <v-flex xs12>
-                    <v-text-field v-model="user.email" label="Email" disabled />
-                  </v-flex>
-                  <v-flex xs12>
-                    <v-text-field
-                      v-model="user.name"
-                      :rules="[formRules.required]"
-                      required
-                      label="Nome"
-                    />
-                  </v-flex>
+        </v-form>
+      </v-card>
+    </v-flex>
+    <v-scale-transition>
+    <v-btn
+      v-show="profileHasChanged"
+      small
+      dark
+      fab
+      style="position: fixed; bottom: 0; right: 0; margin-right: 120px; margin-bottom: 16px"
+      @click="didTapRevert"
+      color="disabled"
+    >
+      <v-icon>undo</v-icon>
+    </v-btn>
+    </v-scale-transition>
+    <v-scale-transition>
+    <v-btn
+      v-show="profileHasChanged"
+      primary
+      dark
+      style="position: fixed; bottom: 0; right: 0; margin-right: 16px; margin-bottom: 16px"
+      @click.native.stop="didTapUpdate"
+      color="primary"
+    >Salvar</v-btn>
+    </v-scale-transition>
 
-                  <v-flex xs12>
-                    <v-text-field v-model="user.institution" rows="1" label="Instituição" />
-                  </v-flex>
-
-                  <v-flex xs12>
-                    <v-text-field v-model="user.state" rows="1" label="Estado" />
-                  </v-flex>
-
-                  <v-flex xs12 text-xs-right>
-                    <v-btn
-                      class="mx-0 font-weight-light"
-                      color="accent"
-                      text
-                      @click.native="didTapUpdate()"
-                    >
-                      <v-icon>check</v-icon>Salvar
-                    </v-btn>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-            </v-form>
-            <UploadDialogs
-              :is-uploading="uploading"
-              :upload-progress="progress"
-              :show-snackbar="snackbar"
-              :upload-name="uploadName"
-              :upload-size="uploadSize"
-              @hideSnackbar="snackbar = false"
-              @didTapCancel="didTapCancel"
-            />
-          </v-card>
-        </v-flex>
-      </v-layout>
-        </v-flex>
-      </v-layout>
-    </v-layout>
-  </v-container>
+    <v-snackbar
+      v-model="snackbar"
+      color="success"
+      bottom
+      right
+      :timeout="2000"
+    >Salvo com sucesso!</v-snackbar>
+    <UploadDialogs
+      :is-uploading="uploading"
+      :upload-progress="progress"
+      :show-snackbar="snackbar"
+      :upload-name="uploadName"
+      :upload-size="uploadSize"
+      @hideSnackbar="snackbar = false"
+      @didTapCancel="didTapCancel"
+    />
+  </v-layout>
 </template>
 
 <script>
 import { db, auth } from "@/firebase/db";
 import photoupload from "@/mixins/photoupload";
 import formRules from "@/utils/formRules";
-import UploadDialogs from "@/components/PhotoUploadDialogs";
+import UploadDialogs from "@/components/dialogs/PhotoUpload";
 
 const users = db.collection("teachers");
 
@@ -122,6 +128,7 @@ export default {
   data() {
     return {
       user: {},
+      firebaseUser: {},
       snackbar: false,
       valid: false
     };
@@ -141,17 +148,30 @@ export default {
     },
     filepath() {
       return "teachers/" + this.$store.state.app.userID;
+    },
+    profileHasChanged() {
+      if (this.user && this.firebaseUser){
+
+      return (
+        this.user.name !== this.firebaseUser.name
+        || this.user.state !== this.firebaseUser.state
+        || this.user.institution !== this.firebaseUser.institution
+        || this.user.imageURL !== this.firebaseUser.imageURL
+      );
+      }
+      return false; 
     }
   },
   mounted() {
     this.$bind("user", users.doc(this.$store.state.app.userID));
+    this.$bind("firebaseUser", users.doc(this.$store.state.app.userID));
   },
   methods: {
     didTapUpdate() {
       if (this.valid) {
         this.$firestoreRefs.user.set(this.user);
         this.$store.state.app.user = this.user;
-        auth.currentUser.updateProfile({displayName: this.user.name});
+        auth.currentUser.updateProfile({ displayName: this.user.name });
 
         if (this.file != null) {
           this.createFile();
@@ -162,12 +182,17 @@ export default {
         this.$refs.form.validate();
       }
     },
+    didTapRevert() {
+      let revertObject = {};
+      Object.assign(revertObject, this.firebaseUser);
+      this.user = revertObject;
+    },
     uploadFinished(photoURL) {
       this.uploading = false;
       this.file = null;
       this.snackbar = true;
       this.progress = 0;
-      auth.currentUser.updateProfile({photoURL});
+      auth.currentUser.updateProfile({ photoURL });
     }
   }
 };

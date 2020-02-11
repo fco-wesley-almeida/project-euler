@@ -21,23 +21,29 @@
         </v-list-item-group>
       </v-list>
     </v-menu>
+    <fullscreen-dialog v-model="profileDialog" title="Editar perfil">
+        <edit-profile />
+    </fullscreen-dialog>
   </v-app-bar>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import { auth } from '@/firebase/db';
+import { mapMutations } from "vuex";
+import { auth } from "@/firebase/db";
+import EditProfile from "@/views/profile/index";
+import FullscreenDialog from "@/components/dialogs/Fullscreen";
 
 export default {
   data: () => ({
-    logo: '/assets/logo.png',
+    logo: "/assets/logo.png",
     title: null,
+    profileDialog: false,
     menuOptions: [
-      { title: 'Editar perfil', route: '/perfil' },
-      { title: 'Sair', route: '/login' },
-    ],
+      { title: "Editar perfil", route: "profileDialog" },
+      { title: "Sair", route: "/login" }
+    ]
   }),
-
+components: { FullscreenDialog, EditProfile },
   computed: {
     mini() {
       return this.$vuetify.breakpoint.mdAndDown;
@@ -47,7 +53,7 @@ export default {
     },
     avatarContent() {
       return this.$store.state.app.user.imageURL || auth.currentUser.photoURL;
-    },
+    }
   },
 
   mounted() {
@@ -56,23 +62,28 @@ export default {
 
   watch: {
     $route(val) {
-      if (val.meta && val.meta.breadcrumb !== 'disabled') {
+      if (val.meta && val.meta.breadcrumb !== "disabled") {
         this.title = this.$store.state.app[val.meta.breadcrumb] || val.name;
       } else {
         this.title = val.name;
       }
-    },
+    }
   },
 
   methods: {
-    ...mapMutations('app', ['setDrawer', 'toggleDrawer', 'user']),
+    ...mapMutations("app", ["setDrawer", "toggleDrawer", "user"]),
     onClickBtn() {
       this.setDrawer(!this.$store.state.app.drawer);
     },
     onMenuClick(item) {
+      if (item.route == "profileDialog"){
+        this.profileDialog = true;
+      }
+      else{
       this.$router.push(item.route);
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 

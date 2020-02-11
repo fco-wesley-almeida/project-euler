@@ -2,7 +2,7 @@
   <v-layout wrap align-center>
     <v-flex xs12 v-show="!hideSearchbar">
       <v-layout wrap pa-3>
-        <v-toolbar style="border-radius: 20px">
+        <v-toolbar class="rounded" style="border-radius: 5px">
           <v-text-field
             v-model="internalSearchString"
             hide-details
