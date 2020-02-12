@@ -7,8 +7,8 @@
       <v-card>
         <v-card-title class="accent title white--text">Fazendo upload</v-card-title>
         <v-card-text>
-          <p class="black--text subheading text-xs-left">{{ name + " - " + size }}</p>
-          <p class="grey--text subtitle text-xs-center">{{ progress + "%" }}</p>
+          <p class="black--text subhead mt-2 mb-0 text-xs-left">{{ name + " - " + size }}</p>
+          <p class="mb-1 text-xs-center">{{ progress + "%" }}</p>
           <v-progress-linear :value="progress"/>
         </v-card-text>
         <v-card-actions>

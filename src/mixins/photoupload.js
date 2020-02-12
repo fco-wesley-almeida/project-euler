@@ -161,7 +161,7 @@ export default {
             function (error) {
               // Handle unsuccessful uploads
               if (error) {
-                vm.uploadFinished()
+                vm.didTapCancel();
               }
             },
             function () {

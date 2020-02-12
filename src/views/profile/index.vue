@@ -156,7 +156,7 @@ export default {
         this.user.name !== this.firebaseUser.name
         || this.user.state !== this.firebaseUser.state
         || this.user.institution !== this.firebaseUser.institution
-        || this.user.imageURL !== this.firebaseUser.imageURL
+        || this.resultFile
       );
       }
       return false; 
@@ -186,6 +186,7 @@ export default {
       let revertObject = {};
       Object.assign(revertObject, this.firebaseUser);
       this.user = revertObject;
+      this.resultFile = null
     },
     uploadFinished(photoURL) {
       this.uploading = false;
