@@ -52,7 +52,7 @@ components: { FullscreenDialog, EditProfile },
       return auth.currentUser.displayName;
     },
     avatarContent() {
-      return this.$store.state.app.user.imageURL || auth.currentUser.photoURL;
+      return this.$store.state.app.user.imageURL || auth.currentUser.photoURL || '/img/profile-default.jpg';
     }
   },
 
