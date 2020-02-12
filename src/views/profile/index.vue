@@ -193,6 +193,7 @@ export default {
       this.file = null;
       this.snackbar = true;
       this.progress = 0;
+      this.$store.state.app.user.imageURL = photoURL;
       auth.currentUser.updateProfile({ photoURL });
     }
   }
