@@ -26,7 +26,7 @@
       primary
       dark
       style="position: fixed; bottom: 0; right: 0; margin-right: 16px; margin-bottom: 72px"
-      @click="didTapSave"
+      @click.native.stop="didTapSave"
       :loading="loading"
       color="primary"
     >Salvar</v-btn>
@@ -126,6 +126,7 @@ export default {
       this.formattedDate = `${day}/${month}/${date.getUTCFullYear()}`;
     },
     didTapSave() {
+      this.$refs.form.validate();
       if (this.valid) {
         const vm = this;
         vm.loading = true;
@@ -133,8 +134,6 @@ export default {
           vm.loading = false;
           vm.snackbar = true;
         });
-      } else {
-        this.$refs.form.validate();
       }
     },
     didTapRevert() {

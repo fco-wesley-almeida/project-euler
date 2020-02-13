@@ -9,7 +9,7 @@
         searchText
         hideSearchbar
         :customSearchFunction="customSearch"
-        emptyListIcon="edit"
+        emptyListIcon=""
         :emptyListMessage="placeholderMessage || 'Clique no botão de + para inserir textos, imagens, vídeos, áudios ou arquivos em geral.'"
       >
         <template v-slot:default="slotProps">

@@ -4,7 +4,7 @@
       <div>
         <v-layout align-center justify-center fill-height>
           <v-avatar size="88">
-            <v-img :src="receivedStudent.imageURL" />
+            <v-img :src="receivedStudent.imageURL || '/img/profile-default.jpg'" />
           </v-avatar>
         </v-layout>
       </div>
@@ -12,7 +12,7 @@
         <v-card-title>{{receivedStudent.name}}</v-card-title>
         <v-card-subtitle>
           <div>
-            <v-icon color="primary">mail</v-icon>
+            <v-icon small color="primary">mail</v-icon>
             {{receivedStudent.email}}
           </div>
         </v-card-subtitle>

@@ -2,7 +2,7 @@
   <v-layout wrap align-center>
     <v-flex xs12 v-show="!hideSearchbar">
       <v-layout wrap pa-3>
-        <v-toolbar style="border-radius: 20px">
+        <v-toolbar class="rounded" style="border-radius: 5px">
           <v-text-field
             v-model="internalSearchString"
             hide-details
@@ -40,7 +40,7 @@
     <template v-else>
       <v-layout wrap column align-center justify-center fill-height v-show="showPlaceholder">
         <v-spacer />
-        <v-flex xs1>
+        <v-flex xs1 v-if="emptyListIcon">
           <v-icon large class="text-xs-center mt-2">{{emptyListIcon || 'close'}}</v-icon>
         </v-flex>
         <v-flex xs6>

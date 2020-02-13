@@ -8,14 +8,14 @@
               </div>
             </v-card-subtitle>
             <v-card-text>
-              <div>Caso atual: {{caseCount}}</div>
+              <div>Caso atual: {{receivedTutorial.currentCase || "Nenhum"}}</div>
               <div>
                 <v-icon color="primary">assignment</v-icon>
-                Casos futuros: {{caseCount}}
+                Casos agendados: {{receivedTutorial.scheduledCases || 0}}
               </div>
               <div>
                 <v-icon color="disabled">assignment</v-icon>
-                Casos finalizados: {{caseCount}}
+                Casos finalizados: {{receivedTutorial.finishedCases || 0}}
               </div>
             </v-card-text>
           </v-card>

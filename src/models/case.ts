@@ -5,6 +5,7 @@ export class TutorialCase {
     tutorialID: string = "";
     content: Array<any> = [];
     studyObjectives: Array<any> = [];
+    currentStep: number = 1;
     creationDate: firebase.firestore.Timestamp | null = null;
     status : "scheduled" | "active" | "finished" = "scheduled";
 

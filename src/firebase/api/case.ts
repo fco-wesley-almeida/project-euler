@@ -3,11 +3,13 @@ import { db } from '../db';
 import firebase from 'firebase';
 import { TutorialCase } from '@/models/case';
 
-export const createCase = (tutorialCase: TutorialCase, tutorialID: string): Promise<firebase.firestore.DocumentReference> => {
+export const createCase = (tutorialCase: TutorialCase, tutorialID: string, caseID: string): Promise<firebase.firestore.DocumentReference> => {
   tutorialCase.tutorialID = tutorialID;
   tutorialCase.creationDate = firebase.firestore.Timestamp.fromDate(new Date());
-  
-  return db.collection("cases").add(JSON.parse(JSON.stringify(tutorialCase)));
+  let obj = new Object();
+  Object.assign(obj, tutorialCase);
+  Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : {});
+  return db.collection("cases").add(obj);
 };
 
 export const updateCase = (tutorialCase: TutorialCase, id: string | undefined): Promise<void> => {

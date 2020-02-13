@@ -1,9 +1,9 @@
 <template>
-  <v-layout wrap justify-center align-center fill-height>
+  <v-layout wrap justify-center>
     <v-flex xs12 md8 lg7 pa-0>
       <v-flex xs12>
         <v-layout wrap mb-3>
-          <v-toolbar style="border-radius: 20px">
+          <v-toolbar style="border-radius: 5px">
             <v-text-field
               v-model="searchText"
               hide-details
@@ -14,10 +14,11 @@
           </v-toolbar>
         </v-layout>
       </v-flex>
-      <h3 v-if="activeCases.length > 0 || searching">Casos Ativos</h3>
+      <h3 v-if="activeCases.length > 0 || searching">Caso Ativo</h3>
       <lister
         :items="activeCases"
-        cardBreakpoints="xs12 md6 lg4"
+        v-if="activeCases.length > 0 || searching"
+        cardBreakpoints="xs12"
         :searchText="searchText"
         :customSearchFunction="customSearch"
         hideSearchbar
@@ -36,6 +37,7 @@
       <h3 v-if="scheduledCases.length > 0 || searching">Casos Agendados</h3>
       <lister
         :items="scheduledCases"
+        v-if="scheduledCases.length > 0 || searching"
         cardBreakpoints="xs12 md6 lg4"
         :searchText="searchText"
         :customSearchFunction="customSearch"
@@ -46,7 +48,7 @@
       >
         <template v-slot:default="slotProps">
           <div class="pa-2">
-            <case-card :tutorialCase="slotProps.item" />
+            <case-card :tutorialCase="slotProps.item" :canBeActive="!hasActiveCase" />
           </div>
         </template>
       </lister>
@@ -90,7 +92,7 @@
 
 <script>
 import { db } from "@/firebase/db";
-import CaseCard from "./Card.vue";
+import CaseCard from "./card/index.vue";
 import Lister from "@/components/Lister";
 import NewCaseForm from "./creation/index";
 
@@ -112,6 +114,9 @@ export default {
     showingCreationDialog: false
   }),
   computed: {
+    hasActiveCase() {
+      return this.activeCases.length > 0;
+    },
     searching() {
       return this.searchText !== "";
     },

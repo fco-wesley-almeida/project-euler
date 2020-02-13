@@ -1,5 +1,5 @@
 <template>
-  <v-layout wrap justify-center align-center pa-5 fill-height>
+  <v-layout wrap pa-5>
   <v-fade-transition mode="out-in">
     <router-view style="margin-bottom: 76px" />
   </v-fade-transition>
