@@ -191,6 +191,7 @@ export default {
     uploadFinished(photoURL) {
       this.uploading = false;
       this.file = null;
+      this.resultFile = null;
       this.snackbar = true;
       this.progress = 0;
       this.$store.state.app.user.imageURL = photoURL;
