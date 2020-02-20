@@ -69,19 +69,13 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog
-      v-model="groupCreationDialog"
-      fullscreen
-      transition="dialog-bottom-transition"
-      scrollable
-    >
-      <edit-case
-        v-if="groupCreationDialog"
+    <fullscreen-dialog v-model="groupCreationDialog" :title="'Criação de grupos - ' + receivedTutorialCase.title">
+        <group-creation
         :id="receivedTutorialCase.id"
         :tutorialCase="receivedTutorialCase"
         @finished="groupCreationDialog = false"
       />
-    </v-dialog>
+    </fullscreen-dialog>
   </v-card>
 </template>
 
@@ -89,12 +83,15 @@
 import Vue from "vue";
 import Router from "vue-router/types/vue";
 import EditCase from "../edition/index.vue";
+import GroupCreation from "../group/creation.vue";
+
+import FullscreenDialog from "@/components/dialogs/Fullscreen.vue";
 import { removeCaseFromTutorial, updateCase } from "@/firebase/api/case";
 import { TutorialCase } from "@/models/case";
 
 export default Vue.extend({
   name: "TutorialCaseCard",
-  components: { EditCase },
+  components: { EditCase, FullscreenDialog, GroupCreation },
   data: () => ({
     deletionDialog: false,
     activationDialog: false,
@@ -116,8 +113,9 @@ export default Vue.extend({
     },
     confirmActivation() {
         this.activationDialog = false;
-        this.receivedTutorialCase.status = "active";
-        updateCase(this.receivedTutorialCase, this.receivedTutorialCase.id)
+        this.groupCreationDialog = true;
+        // this.receivedTutorialCase.status = "active";
+        // updateCase(this.receivedTutorialCase, this.receivedTutorialCase.id)
         //this.groupCreationDialog = true;
     },
     didTapRemove() {

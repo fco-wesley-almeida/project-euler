@@ -10,7 +10,7 @@
         <v-list-item-group color="white" :multiple="false" v-model="selectedItem">
           <template v-for="(item, index) in breadcrumbs">
             <v-list-item
-              :key="item.text"
+              :key="item.to.path"
               :inactive="index < breadcrumbs.length-1"
               :disabled="index == breadcrumbs.length-1"
               style="cursor: pointer"

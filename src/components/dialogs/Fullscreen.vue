@@ -21,7 +21,7 @@ export default {
   name: "FullscreenDialog",
   props: {
     value: {
-      type: Array
+      type: Boolean
     },
     title: {
       type: String
