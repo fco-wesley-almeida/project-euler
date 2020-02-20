@@ -59,6 +59,11 @@
     methods: {
       didTapSave(){
         this.$refs.groupForm.validate();
+        console.log(this.valid);
+        console.log(this.groups)
+      },
+      didTapAutofill(){
+
       },
       didFinishGroupSize(groupSize, numberOfGroups, remainder) {
         let groups = [];
