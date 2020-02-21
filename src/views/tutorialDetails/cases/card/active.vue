@@ -5,13 +5,13 @@
       <div>Passo atual: {{(receivedTutorialCase.currentStep || 1) + " / 9"}}</div>
       <v-progress-linear  color="white" class="mt-1" value="75" />
     </v-card-subtitle>
-    
+
     <v-card-actions class="pa-0">
-      <v-btn class="ml-2" text color="white" v-on="on">
+      <v-btn class="ml-2" text color="white">
         <v-icon>group</v-icon>
         <p class="my-auto">Grupos</p>
       </v-btn>
-      <v-btn text class="mr-5" color="white" v-on="on">
+      <v-btn text class="mr-5" color="white">
         <v-icon>timeline</v-icon>
         <p class="my-auto">Linha do tempo</p>
       </v-btn>

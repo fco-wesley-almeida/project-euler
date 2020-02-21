@@ -56,7 +56,7 @@ export default {
         { title: "Subtítulo", icon: "title" },
         { title: "Parágrafo", icon: "text_fields" },
         { title: "Imagem", icon: "image" },
-        { title: "Video", icon: "movie" },
+        { title: "Vídeo", icon: "movie" },
         { title: "Arquivo", icon: "attach_file"}
       ]
     };
@@ -121,6 +121,10 @@ export default {
 
       if (item.title === "Arquivo"){
         this.addToValue({type: 'file', value: '', props: {label: ''}})
+      }
+
+      if (item.title === "Vídeo"){
+        this.addToValue({type: 'video', value: ''})
       }
     },
     onOnlyClick: function(item) {

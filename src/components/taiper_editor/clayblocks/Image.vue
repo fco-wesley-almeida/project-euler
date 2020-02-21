@@ -1,12 +1,13 @@
 <template>
-  <v-layout>
+  <v-layout class="my-2">
     <input
       ref="input"
       id="fileInput"
       type="file"
+      accept="image/png, image/jpeg"
       @change="didChangeFile"
     />
-    <v-img contain ref="previewImage" @click="didTapFile" aspect-ratio="1" height="200" :src="value.value">
+    <v-img style="cursor: pointer" contain ref="previewImage" @click="didTapFile" aspect-ratio="1" height="200" :src="image">
       <template slot="placeholder">
         <v-layout align-center fill-height justify-center>
           <v-btn x-large color="primary">
@@ -23,9 +24,18 @@
   import formRules from "@/utils/formRules";
   export default {
     mixins: [formRules],
+    data: () => ({image: ''}),
     props: {
       value: {
         type: Object
+      }
+    },
+    mounted(){
+      if (typeof this.value.value == "string"){
+        this.image = this.value.value;
+      } else {
+        if (this.value.value)
+        this.setPreviewImage(this.value.value);
       }
     },
     methods: {
@@ -48,11 +58,12 @@
         var fr = new FileReader()
 
         fr.onload = function () {
-          _this.$refs.previewImage.src = fr.result // is the data URL because called with readAsDataURL
+          _this.image = fr.result // is the data URL because called with readAsDataURL
         }
 
         fr.readAsDataURL(file)
       },
+
     },
     computed: {
       fileName() {
