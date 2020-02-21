@@ -6,10 +6,7 @@ import { TutorialCase } from '@/models/case';
 export const createCase = (tutorialCase: TutorialCase, tutorialID: string, caseID: string): Promise<firebase.firestore.DocumentReference> => {
   tutorialCase.tutorialID = tutorialID;
   tutorialCase.creationDate = firebase.firestore.Timestamp.fromDate(new Date());
-  let obj = new Object();
-  Object.assign(obj, tutorialCase);
-  Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : {});
-  return db.collection("cases").add(obj);
+  return db.collection("cases").add(tutorialCase.toObject());
 };
 
 export const updateCase = (tutorialCase: TutorialCase, id: string | undefined): Promise<void> => {

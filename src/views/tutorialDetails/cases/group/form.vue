@@ -1,5 +1,5 @@
 <template>
-  <v-layout align-center justify-center wrap>
+  <v-layout xs12 lg8 align-center justify-center wrap>
     <lister
       :items="value"
       cardBreakpoints="xs12 lg6"
@@ -14,10 +14,13 @@
           <v-card>
             <v-card-title>{{'Grupo ' + (slotProps.index + 1)}}</v-card-title>
             <v-card-text>
-              <v-autocomplete v-for="(participant, index) in slotProps.item.participants"
+              <v-autocomplete class="my-3"
+                              v-for="(participant, index) in slotProps.item.participants"
                               :rules="[formRules.required]"
                               :key="participant.key"
                               :items="sortedStudents"
+                              :hint="participant.value ? participant.value.email : ''"
+                              persistent-hint
                               item-text="name"
                               item-value="id"
                               no-data-text="Nenhum estudante encontrado"
@@ -40,7 +43,7 @@
                 <template
                   slot="item"
                   slot-scope="data">
-                  <v-layout align-center>
+                  <v-layout align-center class="my-2">
                     <div class="my-auto" style="height: 40px">
                       <v-img
                         :src="(data.item.imageURL) || '/img/profile-default.jpg'"
@@ -56,18 +59,18 @@
                         </template>
                       </v-img>
                     </div>
-                    <div>
-                      <p
-                        style="margin: auto; margin-left: 12px"
-                      >{{ data.item.name }}</p>
-                      <p
+                    <v-layout column align-center justify-start>
+                      <span
+                        style="margin: auto; margin-left: 12px; margin-bottom: -6px"
+                      >{{ data.item.name }}</span>
+                      <span
                         class="grey--text"
                         style="margin: auto; margin-left: 12px"
-                      >{{ data.item.email }}</p>
-                    </div>
-                    <v-spacer/>
-                    <div class="my-auto" style="height: 40px; width: 100px;">
-                      <span>{{participantMap[data.item.id] ? 'Com grupo' : 'Sem grupo'}}</span>
+                      >{{ data.item.email }}</span>
+                    </v-layout>
+                    <v-flex/>
+                    <div class="my-auto" style="height: 100%;">
+                      <span class="my-auto caption text-color-grey text-align-right">{{participantMap[data.item.id] ? 'Grupo ' + (participantMap[data.item.id].groupIndex+1) : 'Sem grupo'}}</span>
                     </div>
                   </v-layout>
                 </template>
@@ -89,6 +92,7 @@
 <script>
   import Lister from "@/components/Lister";
   import formRules from "@/utils/formRules";
+  import {shuffle} from "@/utils/array";
 
   export default {
     name: "GroupCreationForm",
@@ -116,13 +120,29 @@
       }
     },
     methods: {
+      autofill(){
+        let newStudents = shuffle(this.$props.students.slice());
+        let newValue = this.$props.value.slice();
+        let newParticipantMap = {};
+        for (var groupIndex = 0; groupIndex < newValue.length; groupIndex++){
+          let group = newValue[groupIndex];
+          for (var participantIndex = 0; participantIndex < group.participants.length; participantIndex++){
+            let student = newStudents.pop();
+            group.participants[participantIndex].value = student;
+            newParticipantMap[student.id] = {groupIndex, participantIndex};
+          }
+          newValue[groupIndex] = group;
+        }
+        this.participantMap = newParticipantMap;
+        this.updateValue(newValue);
+        console.log(newValue);
+      },
       participantChanged(student, newKey) {
         let oldKey = this.participantMap[student.id];
         this.swap(oldKey, newKey, student);
         let newStudents = this.$props.students.slice();
         newStudents.sort(this.sortStudent);
         this.sortedStudents = newStudents;
-        console.log(this.value);
       },
       swap(oldKey, newKey, student) {
         let swappedStudent = this.getParticipantMapEntry(newKey);
