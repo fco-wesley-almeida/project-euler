@@ -17,7 +17,7 @@
         </template>
       </lister>
     </v-flex>
-    
+
     <template v-if="only == null">
     <v-menu bottom origin="center center" transition="slide-y-transition">
       <template v-slot:activator="{on}">
@@ -56,7 +56,8 @@ export default {
         { title: "Subtítulo", icon: "title" },
         { title: "Parágrafo", icon: "text_fields" },
         { title: "Imagem", icon: "image" },
-        { title: "Video", icon: "movie" }
+        { title: "Video", icon: "movie" },
+        { title: "Arquivo", icon: "attach_file"}
       ]
     };
   },
@@ -116,6 +117,10 @@ export default {
 
       if (item.title === "Imagem"){
         this.addToValue({type: 'image/web', value: ''})
+      }
+
+      if (item.title === "Arquivo"){
+        this.addToValue({type: 'file', value: '', props: {label: ''}})
       }
     },
     onOnlyClick: function(item) {
