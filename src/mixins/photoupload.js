@@ -12,9 +12,6 @@ export default {
     progress: 0
   }),
   computed: {
-    savesToFirestore(){
-      return true;
-    },
     fileinputID () {
       return 'fileInput'
     },
@@ -50,28 +47,6 @@ export default {
         reader.onload = e => resolve(e.target.result)
         reader.readAsDataURL(file)
       })
-    },
-
-    didChangeImage (e) {
-      var files = e.target.files || e.dataTransfer.files
-      if (!files.length) return
-      this.file = files[0]
-      this.currentMaxIndex = this.maxIndex
-      this.setPreviewImage(this.file)
-    },
-
-    setPreviewImage (file) {
-      var _this = this
-
-      var fr = new FileReader()
-
-      fr.onload = function () {
-        // file is loaded
-        _this.resultFile = fr.result
-        _this.$refs[_this.previewImageID].src = fr.result // is the data URL because called with readAsDataURL
-      }
-
-      fr.readAsDataURL(file)
     },
 
     rotate (img) {
@@ -126,6 +101,28 @@ export default {
       })
     },
 
+    didChangeImage (e) {
+      var files = e.target.files || e.dataTransfer.files
+      if (!files.length) return
+      this.file = files[0]
+      this.currentMaxIndex = this.maxIndex
+      this.setPreviewImage(this.file)
+    },
+
+    setPreviewImage (file) {
+      var _this = this
+
+      var fr = new FileReader()
+
+      fr.onload = function () {
+        // file is loaded
+        _this.resultFile = fr.result
+        _this.$refs[_this.previewImageID].src = fr.result // is the data URL because called with readAsDataURL
+      }
+
+      fr.readAsDataURL(file)
+    },
+
     createFile () {
       var vm = this
       var img = new Image()
@@ -152,7 +149,7 @@ export default {
               vm.uploading = true
               vm.progress = (
                 (snapshot.bytesTransferred / snapshot.totalBytes) *
-                              100
+                100
               ).toFixed(0) || 0
               switch (snapshot.state) {
                 case storage.TaskState.PAUSED: // or 'paused'
@@ -171,18 +168,18 @@ export default {
               // Handle successful uploads on complete
               // For instance, get the download URL: https://firebasestorage.googleapis.com/...
               vm.uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-                if (vm.savesToFirestore()) {
-                  db.collection(vm.collection)
-                    .doc(vm.document)
-                    .update({imageURL: downloadURL});
-                }
-                vm.uploadFinished(downloadURL)
+                db.collection(vm.collection)
+                  .doc(vm.document)
+                  .update({imageURL: downloadURL})
+                  .then(function () {
+                    vm.uploadFinished(downloadURL)
+                  })
               })
             }
           )
         })
       }
-      img.src = vm.resultFile;
+      img.src = vm.resultFile
     },
 
     uploadFinished (downloadURL) {}
