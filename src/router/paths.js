@@ -70,14 +70,13 @@ export default [
   },
   {
     path: '/tutorias/:tutorialID/casos/:caseID',
-    meta: {breadcrumb: 'currentCaseName', placeholder: 'Detalhes sobre caso'},
+    meta: {breadcrumb: 'currentTutorialName', placeholder: 'Tutoria'},
     view: 'caseDetails/index',
-
     children: [
           {
             path: 'passos',
             name: 'Passos',
-            meta: {breadcrumb: 'currentTutorialName', label: "Passos"},
+            meta: {breadcrumb: 'currentCaseName', placeholder: "Caso"},
             view: 'caseDetails/steps/index',
           }
         ],

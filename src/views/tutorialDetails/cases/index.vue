@@ -94,7 +94,7 @@
 import { db } from "@/firebase/db";
 import CaseCard from "./card/index.vue";
 import Lister from "@/components/Lister";
-import NewCaseForm from "./creation/index";
+import NewCaseForm from "./edition/index";
 
 export default {
   name: "TutorialCases",

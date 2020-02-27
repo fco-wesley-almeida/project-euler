@@ -25,16 +25,16 @@ export default {
   },
   computed: {
     shownComponent() {
-      if (this.value.type.includes("text")) {
-        return TextClayblock;
-      }
-      if (this.value.type.includes("image")) {
-        return ImageClayblock;
-      }
       if (this.value.type.includes("file")) {
         return FileClayblock;
       }
-      if (this.value.type.includes("video")) {
+      else if (this.value.type.includes("text")) {
+        return TextClayblock;
+      }
+      else if (this.value.type.includes("image")) {
+        return ImageClayblock;
+      }
+      else if (this.value.type.includes("video")) {
         return VideoClayblock;
       }
       return TextClayblock;

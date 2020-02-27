@@ -44,7 +44,7 @@
 
 <script>
 import { db, Timestamp } from '@/firebase/db';
-import TutorialForm from '@/views/tutorials/creation/form'
+import TutorialForm from '@/views/tutorials/edition/form'
 
 export default {
   name: 'TutorialInfo',
@@ -80,7 +80,7 @@ export default {
         || this.tutorial.date.toDate().toISOString() !== this.originalTutorial.date.toDate().toISOString()
       );
       }
-      return false; 
+      return false;
     },
     user() {
       return this.$store.state.app.user;

@@ -29,6 +29,9 @@ export default {
       if (lastRoute) {
         lastRoute.disabled = true;
       }
+      if (this.$route.params.caseID && breadcrumbs[0].text !== "Tutorias"){
+        //return this.addCasePrefix(breadcrumbs);
+      }
       return breadcrumbs;
     },
   },
@@ -36,5 +39,30 @@ export default {
     checkStorage(stateProperty) {
       return this.$store.state.app[stateProperty];
     },
+    addCasePrefix(array) {
+      let newArray = array.slice();
+      newArray.unshift({
+        disabled: false,
+        link: true,
+        to: {
+          path: `/tutorias/${this.$route.params.tutorialID}`,
+        },
+        text: this.$store.state.app.currentTutorialName,
+        title: "lkamsd",
+        label: "lkamlsd"
+      });
+      newArray.unshift({
+        disabled: false,
+        link: true,
+        to: {
+          path:"/tutorias/",
+        },
+        text: "Tutorias",
+        title: "kjnkj",
+        label: "lkmlk"
+      });
+      console.log(newArray);
+      return newArray;
+    }
   },
 };

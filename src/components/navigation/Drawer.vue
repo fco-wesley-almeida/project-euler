@@ -70,6 +70,7 @@ export default {
   },
   methods: {
     didTapItem(item) {
+      console.log(`Drawer item selected: ${item.to.path}`);
       this.$router.push(item.to.path);
     },
   },

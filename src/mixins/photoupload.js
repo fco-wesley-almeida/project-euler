@@ -149,7 +149,7 @@ export default {
               vm.uploading = true
               vm.progress = (
                 (snapshot.bytesTransferred / snapshot.totalBytes) *
-                              100
+                100
               ).toFixed(0) || 0
               switch (snapshot.state) {
                 case storage.TaskState.PAUSED: // or 'paused'

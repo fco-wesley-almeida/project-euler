@@ -47,11 +47,13 @@ export default Vue.extend({
   },
   methods: {
     didTapGroup(){
+      this.$store.state.app.currentCaseName = this.tutorialCase.title;
       let path = this.routePrefix + "/grupos";
       console.log(path);
       this.$router.push(path);
     },
     didTapSteps(){
+      this.$store.state.app.currentCaseName = this.tutorialCase.title;
       let path = this.routePrefix + "/passos";
       console.log(path);
       this.$router.push(path);
