@@ -9,7 +9,11 @@ import vuetify from './plugins/vuetify';
 
 import { auth, db } from '@/firebase/db';
 
-let app: Vue;
+// @ts-ignore
+import VueChatScroll from 'vue-chat-scroll';
+
+let app : Vue;
+Vue.use(VueChatScroll);
 
 Vue.config.productionTip = false;
 Vue.use(firestorePlugin);

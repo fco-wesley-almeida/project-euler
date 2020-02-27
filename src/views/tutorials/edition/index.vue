@@ -24,30 +24,26 @@
   </v-card>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import Router from "vue-router/types/vue";
+<script>
 import TutorialForm from "./form.vue";
 import { Tutorial } from "@/models/tutorial";
-import { UserData } from "@/models/user";
-import { db, Timestamp } from "@/firebase/db";
 import { createTutorial } from "@/firebase/api/tutorial";
 
 export default {
   components: { TutorialForm },
   data: () => ({
-    tutorial: {} as Tutorial,
+    tutorial: {},
     valid: false,
     loading: false
   }),
   computed: {
-    userData(): UserData {
+    userData() {
       return this.$store.state.app.user;
     }
   },
   methods: {
     didTapSave() {
-      let form = this.$refs.form as any;
+      let form = this.$refs.form;
       form.validate();
       if (this.valid) {
         const vm = this;
@@ -60,12 +56,12 @@ export default {
     didTapCancel() {
       this.close();
     },
-    checkValidation(v: boolean) {
+    checkValidation(v) {
       this.valid = v;
     },
     close() {
       this.tutorial = new Tutorial();
-      let form = this.$refs.form as any;
+      let form = this.$refs.form;
       form.clear();
       this.$emit("finished");
     }

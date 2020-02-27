@@ -19,11 +19,10 @@
         </v-btn>
       </v-layout>
 
-
     </template>
       <template v-else>
-        <v-layout align-center fill-height justify-center>
-          <v-btn @click="didTapFile" x-large color="primary">
+        <v-layout align-center fill-height class="my-5" justify-center>
+          <v-btn @click="didTapFile" large color="primary">
             Escolher vídeo
             <v-icon>movie</v-icon>
           </v-btn>
@@ -44,7 +43,7 @@
     },
     mounted(){
       if (typeof this.value.value == "string"){
-        this.image = this.value.value;
+        this.video = this.value.value;
       } else {
         if (this.value.value)
           this.setPreviewVideo(this.value.value);

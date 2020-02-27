@@ -3,7 +3,7 @@
     <v-card-title>{{receivedTutorialCase.title}}</v-card-title>
     <v-card-subtitle>
       <div>Passo atual: {{(receivedTutorialCase.currentStep || 1) + " / 9"}}</div>
-      <v-progress-linear  color="white" class="mt-1" value="75" />
+      <v-progress-linear color="white" class="mt-1" value="75" />
     </v-card-subtitle>
 
     <v-card-actions class="pa-0">
