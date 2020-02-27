@@ -7,7 +7,7 @@
     </v-card-subtitle>
 
     <v-card-actions class="pa-0">
-      <v-btn @click="didTapGroup" class="ml-2" text color="white">
+      <v-btn small @click="didTapGroup" class="ml-2" text color="white">
         <v-icon>group</v-icon>
         <p class="my-auto">Grupos</p>
       </v-btn>

@@ -12,4 +12,11 @@ export class TutorialCase {
     public constructor(init?:Partial<TutorialCase>) {
         return Object.assign(this, init);
     }
+
+    public toObject(){
+      let obj = new Object();
+      Object.assign(obj, this);
+      Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : {});
+      return obj;
+    }
 }
