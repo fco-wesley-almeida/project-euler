@@ -87,7 +87,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Router from "vue-router/types/vue";
 import EditCase from "../edition/index.vue";
 import { removeCaseFromTutorial, updateCase } from "@/firebase/api/case";
 import { TutorialCase } from "@/models/case";
