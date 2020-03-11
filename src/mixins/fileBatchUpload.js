@@ -15,7 +15,8 @@ export default {
     uploading: false,
     uploadName: "",
     uploadSize: 0,
-    progress: 0
+    progress: 0,
+    loading: false,
   }),
   computed:{
     collection () {
@@ -33,6 +34,7 @@ export default {
         reader.readAsDataURL(file);
       });
     },
+
     getFilepath (filename) {
       return this.collection + '/' + this.document + '/content/' + filename;
     },
@@ -89,6 +91,7 @@ export default {
       if (this.uploadTask) {
         this.uploadTask.cancel();
       }
+      this.loading = false;
       this.uploading = false;
       this.files = [];
       this.currentFileIndex = 0;
@@ -172,6 +175,6 @@ export default {
         }
       );
     },
-    uploadsFinished () {}
+    async uploadsFinished () {}
   }
 };

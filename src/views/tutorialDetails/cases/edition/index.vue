@@ -4,7 +4,7 @@
   >
     <v-flex>
     <v-toolbar color="primary" dark>
-      <v-btn icon @click.native="didTapCancel()">
+      <v-btn icon @click.native="close()">
         <v-icon>close</v-icon>
       </v-btn>
       <v-toolbar-title>Criação de Caso</v-toolbar-title>
@@ -21,7 +21,6 @@
       :show-snackbar="false"
       :upload-name="uploadName"
       :upload-size="uploadSize"
-      :show-cancel-button="false"
       @hideSnackbar="snackbar = false"
       @didTapCancel="didTapCancel"
     />
@@ -32,7 +31,7 @@
 import formRules from "@/utils/formRules";
 import CaseForm from "./form.vue"
 import { TutorialCase } from "@/models/case";
-import {createCase, updateCase} from "@/firebase/api/case";
+import {setCase, getNewID} from "@/firebase/api/case";
 import fileBatchUpload from "@/mixins/fileBatchUpload";
 import {setCaseContent} from "@/firebase/api/case";
 import UploadDialogs from "@/components/dialogs/PhotoUpload";
@@ -44,7 +43,6 @@ export default {
   data: () => ({
       editingTutorialCase: new TutorialCase(),
       valid: false,
-      loading: false,
       docID: "",
       content: [],
       contentMap: []
@@ -78,28 +76,24 @@ export default {
         const vm = this;
         this.loading = true;
         this.content = this.editingTutorialCase.content.slice();
-        this.editingTutorialCase.content = undefined;
         if (this.id){
-          updateCase(this.editingTutorialCase, this.id).then(() => {
-            vm.docID = vm.id;
-            vm.setupBatch(vm.extractFiles());
-          });
+          this.docID = this.id;
         } else {
-          createCase(this.editingTutorialCase, this.$route.params.tutorialID).then((doc) => {
-            vm.docID = doc.id;
-            vm.setupBatch(vm.extractFiles());
-          });
+         this.docID = getNewID();
         }
+        vm.setupBatch(vm.extractFiles());
       }
     },
-    uploadsFinished() {
+    async uploadsFinished() {
       for (var map of this.contentMap){
         let url = this.resultURLs[map.fileIndex];
         this.content[map.contentIndex].value = url;
       }
       console.log("Uploads finished")
       console.log(this.resultURLs);
-      setCaseContent(this.content, this.docID);
+      this.editingTutorialCase.tutorialID = this.$route.params.tutorialID;
+      await setCase(this.editingTutorialCase, this.docID);
+      await setCaseContent(this.content, this.docID);
       this.close();
     },
     extractFiles(){
@@ -115,9 +109,6 @@ export default {
         }
       }
       return files;
-    },
-    didTapCancel() {
-      this.close();
     },
     checkValidation(v) {
       this.valid = v;
