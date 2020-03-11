@@ -49,7 +49,7 @@ components: { FullscreenDialog, EditProfile },
       return this.$vuetify.breakpoint.mdAndDown;
     },
     userName() {
-      return auth.currentUser.displayName;
+      return auth.currentUser.displayName || auth.currentUser.email;
     },
     avatarContent() {
       return this.$store.state.app.user.imageURL || auth.currentUser.photoURL || '/img/profile-default.jpg';
