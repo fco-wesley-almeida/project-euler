@@ -13,7 +13,7 @@
     <v-card-text>
       <v-layout wrap justify-center align-center>
         <v-flex xs12 md8 lg6>
-          <v-card>
+          <v-card class="mt-3">
             <v-card-text>
               <tutorial-form ref="form" v-model="tutorial" @validate="checkValidation" />
             </v-card-text>
