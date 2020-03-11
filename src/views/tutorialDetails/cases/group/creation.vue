@@ -34,6 +34,19 @@
         </v-btn>
       </v-scale-transition>
     </v-layout>
+    <v-dialog v-model="showErrorDialog" persistent>
+      <v-card color="error" dark>
+        <v-card-title class="headline">Erro</v-card-title>
+
+        <v-card-text>É necessário ter pelo menos 1 participante na tutoria para ativar um caso
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer/>
+          <v-btn color="white" class="mr-2" text @click="close">OK</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-form>
 </template>
 
@@ -48,7 +61,8 @@
     name: "GroupCreation",
     components: {GroupSize, GroupForm},
     data: () => ({
-      students: [],
+      students: null,
+      showErrorDialog: false,
       configIsSet: false,
       groups: [],
       valid: false
@@ -64,11 +78,20 @@
           .collection('students')
           .where('tutorials', 'array-contains', this.$route.params.tutorialID),
       );
+      setTimeout(() =>{ if (this.students) {
+        if (this.students.length === 0) {
+          this.showErrorDialog = true;
+        }
+      } }, 1000);
+
     },
     computed: {
       numberOfParticipants() {
-        return this.students.length;
-      }
+        if (this.students) {
+          return this.students.length;
+        }
+        return 0;
+      },
     },
     methods: {
       didTapSave() {
