@@ -73,12 +73,18 @@ export default [
     meta: {breadcrumb: 'currentTutorialName', placeholder: 'Tutoria'},
     view: 'caseDetails/index',
     children: [
-          {
-            path: 'passos',
-            name: 'Passos',
-            meta: {breadcrumb: 'currentCaseName', placeholder: "Caso"},
-            view: 'caseDetails/steps/index',
-          }
-        ],
+      {
+        path: 'passos',
+        name: 'Passos',
+        meta: {breadcrumb: 'currentCaseName', placeholder: "Caso"},
+        view: 'caseDetails/steps/index',
+      },
+      {
+        path: 'grupos',
+        name: 'Grupos',
+        meta: {breadcrumb: 'currentCaseName', placeholder: "Caso"},
+        view: 'caseDetails/groups/index',
+      }
+    ],
   },
 ];
