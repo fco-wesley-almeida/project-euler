@@ -8,14 +8,14 @@
       color="primary"
       fixed
     >
-      <v-btn :to="`${routePrefix}/individual`">
+      <v-btn :to="{ name: 'TermosIndividual', params: this.$route.params }">
         <span>Individual</span>
         <v-icon>person</v-icon>
       </v-btn>
 
-      <v-btn :to="`${routePrefix}/geral`">
-        <span>Grupos</span>
-        <v-icon>trophy</v-icon>
+      <v-btn :to="{ name: 'TermosGeral', params: this.$route.params }">
+        <span>Geral</span>
+        <v-icon>view_list</v-icon>
       </v-btn>
     </v-bottom-navigation>
   </v-layout>

@@ -8,12 +8,12 @@
       color="primary"
       fixed
     >
-      <v-btn :to="`${routePrefix}/passos`">
+      <v-btn :to="{name: 'CasoPassos', params: $route.params}">
         <span>Passos</span>
         <v-icon>info</v-icon>
       </v-btn>
 
-      <v-btn :to="`${routePrefix}/grupos`">
+      <v-btn :to="{name: 'CasoGrupos', params: $route.params}">
         <span>Grupos</span>
         <v-icon>group</v-icon>
       </v-btn>

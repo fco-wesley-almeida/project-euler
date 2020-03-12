@@ -80,13 +80,13 @@ export default [
     children: [
       {
         path: 'passos',
-        name: 'Passos',
+        name: 'CasoPassos',
         meta: {breadcrumbs: breadcrumbs.tutorialCase},
         view: 'caseDetails/steps/index',
       },
       {
-        path: 'grupos',
-        name: 'Grupos',
+        path: 'geral',
+        name: 'CasoGrupos',
         meta: {breadcrumbs: breadcrumbs.tutorialCase},
         view: 'caseDetails/groups/index',
       }

@@ -19,7 +19,7 @@ export const tutorial = tutorials.concat([{
 export const tutorialCase = tutorial.concat([{
   disabled: false,
   link: true,
-  to: { name: 'Case' },
+  to: { name: 'CasoPassos' },
   text: 'currentCaseName',
   label: '',
   title: 'Caso',

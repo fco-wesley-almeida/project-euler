@@ -5,7 +5,7 @@
         :items="participants"
         cardBreakpoints="xs12 md6 lg4"
         searchPlaceholder="Buscar por nome ou email do participante"
-        :customSearchFunction="searchGroup"
+        :customSearchFunction="searchParticipant"
       >
         <template v-slot:default="slotProps">
           <div class="pa-2">
@@ -43,20 +43,15 @@
       );
     },
     computed: {
-      routePrefix() {
-        return `/tutorias/${this.$route.params.tutorialID}/caso/${this.$route.params.caseID}`;
-      },
-      searchGroup() {
-        return (group, searchString) => {
+      searchParticipant() {
+        return (participant, searchString) => {
           let searchableStrings = [];
-          let groupParticipants = this.getParticipants(group);
-
-          if (group.title) {
-            searchableStrings.push(group.title.toLowerCase());
+          if (participant.name) {
+            searchableStrings.push(participant.name.toLowerCase());
           }
-          searchableStrings = searchableStrings.concat(groupParticipants.map((participant) => participant.name.toLowerCase()));
-          searchableStrings = searchableStrings.concat(groupParticipants.map((participant) => participant.email.toLowerCase()));
-          console.log(searchableStrings);
+          if (participant.email) {
+            searchableStrings.push(participant.email.toLowerCase());
+          }
           return searchableStrings.some(string =>
             string.includes(searchString.toLowerCase())
           );
@@ -69,9 +64,15 @@
         this.tutorialCase.currentStep++;
       },
       getTerms(participant) {
-        return this.answers.filter( (answer) => {
+        let answers = this.answers.filter( (answer) => {
           return answer.id === participant.id
-        })[0].terms;
+        });
+
+        if (answers[0]) {
+          console.log(answers[0].terms);
+          return answers[0].terms;
+        }
+        return [];
       },
 
     }
