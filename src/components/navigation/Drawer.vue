@@ -10,7 +10,7 @@
         <v-list-item-group color="white" :multiple="false" v-model="selectedItem">
           <template v-for="(item, index) in breadcrumbs">
             <v-list-item
-              :key="item.to.path"
+              :key="item.to.name"
               :inactive="index < breadcrumbs.length-1"
               :disabled="index == breadcrumbs.length-1"
               style="cursor: pointer"
@@ -70,8 +70,7 @@ export default {
   },
   methods: {
     didTapItem(item) {
-      console.log(`Drawer item selected: ${item.to.path}`);
-      this.$router.push(item.to.path);
+      this.$router.push(item.to);
     },
   },
 };

@@ -3,6 +3,7 @@
  * for more information on routes, see the
  * official documentation https://router.vuejs.org/en/
  */
+import * as breadcrumbs from './breadcrumbs'
 export default [
   {
     path: '/semautorizacao',
@@ -27,41 +28,45 @@ export default [
   {
     path: '/tutorias',
     view: 'BreadcrumbContainer',
-    meta: {placeholder: 'Tutorias'},
+    meta: {
+      breadcrumbs: breadcrumbs.tutorials
+    },
     children: [
       {
         path: '',
         name: 'Tutorias',
-        meta: {breadcrumb: 'disabled'},
+        meta: {
+          breadcrumbs: breadcrumbs.tutorials
+        },
         view: 'tutorials/index',
       },
       {
         path: ':tutorialID',
-        meta: {breadcrumb: 'currentTutorialName', placeholder: 'Detalhes sobre tutoria'},
+        meta: {breadcrumbs: [breadcrumbs.tutorials, breadcrumbs.tutorial]},
         view: 'tutorialDetails/index',
         children: [
           {
             path: 'informacoes',
-            name: 'Informações',
-            meta: {breadcrumb: 'currentTutorialName', label: "Informações"},
+            name: 'Tutoria',
+            meta: {breadcrumbs: breadcrumbs.tutorial},
             view: 'tutorialDetails/info/index',
           },
           {
             path: 'casos',
-            name: 'Casos',
-            meta: {breadcrumb: 'currentTutorialName', label: "Casos"},
+            name: 'TutoriaCasos',
+            meta: {breadcrumbs: breadcrumbs.tutorial},
             view: 'tutorialDetails/cases/index',
           },
           {
             path: 'notas',
-            name: 'Notas',
-            meta: {breadcrumb: 'currentTutorialName', label: "Notas"},
+            name: 'TutoriaNotas',
+            meta: {breadcrumbs: breadcrumbs.tutorial},
             view: 'tutorialDetails/evaluations/index',
           },
           {
             path: 'participantes',
-            name: 'Participantes',
-            meta: {breadcrumb: 'currentTutorialName', label: "Participantes"},
+            name: 'TutoriaParticipantes',
+            meta: {breadcrumbs: breadcrumbs.tutorial},
             view: 'tutorialDetails/participants/index',
           },
         ],
@@ -70,20 +75,39 @@ export default [
   },
   {
     path: '/tutorias/:tutorialID/casos/:caseID',
-    meta: {breadcrumb: 'currentTutorialName', placeholder: 'Tutoria'},
+    meta: {breadcrumbs: breadcrumbs.tutorialCase},
     view: 'caseDetails/index',
     children: [
       {
         path: 'passos',
         name: 'Passos',
-        meta: {breadcrumb: 'currentCaseName', placeholder: "Caso"},
+        meta: {breadcrumbs: breadcrumbs.tutorialCase},
         view: 'caseDetails/steps/index',
       },
       {
         path: 'grupos',
         name: 'Grupos',
-        meta: {breadcrumb: 'currentCaseName', placeholder: "Caso"},
+        meta: {breadcrumbs: breadcrumbs.tutorialCase},
         view: 'caseDetails/groups/index',
+      }
+    ],
+  },
+  {
+    path: '/tutorias/:tutorialID/casos/:caseID/passos/1',
+    meta: {breadcrumbs: breadcrumbs.step1},
+    view: 'caseSteps/terms/index',
+    children: [
+      {
+        path: 'individual',
+        name: 'TermosIndividual',
+        meta: {breadcrumbs: breadcrumbs.step1},
+        view: 'caseSteps/terms/individual/index',
+      },
+      {
+        path: 'geral',
+        name: 'TermosGeral',
+        meta: {breadcrumbs: breadcrumbs.step1},
+        view: 'caseSteps/terms/ranking/index',
       }
     ],
   },

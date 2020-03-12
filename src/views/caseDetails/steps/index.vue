@@ -14,7 +14,7 @@
             <v-card-text class="body-1 black--text mt-3">Leitura do caso e demarcação de termos desconhecidos</v-card-text>
             <v-card-actions>
               <v-spacer />
-              <v-btn text color="primary">Ver respostas</v-btn>
+              <v-btn @click="stepTapped(i)" text color="primary">Ver respostas</v-btn>
             </v-card-actions>
           </v-card>
             </v-flex>
@@ -52,6 +52,12 @@
     methods: {
       didTapAdvance() {
         this.tutorialCase.currentStep++;
+      },
+      stepTapped(index) {
+        console.log(index)
+        if (index === 1){
+          this.$router.push({ name: 'TermosIndividual', params: this.$route.params });
+        }
       }
     }
   };
