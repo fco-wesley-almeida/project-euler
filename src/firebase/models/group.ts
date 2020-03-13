@@ -12,7 +12,7 @@ export class Group {
   public toObject(){
     let obj = new Object();
     Object.assign(obj, this);
-    Object.keys(obj).forEach(key => obj[key] === undefined ? delete obj[key] : {});
+    Object.keys(obj).forEach(key => (obj as any)[key] === undefined ? delete (obj as any)[key] : {});
     return obj;
   }
 }

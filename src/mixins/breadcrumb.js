@@ -2,8 +2,9 @@ export default {
   computed: {
     breadcrumbs() {
       const { meta } = this.$route;
-      return meta.breadcrumbs.map( (breadcrumb) =>
-        ({
+      if (meta.breadcrumbs) {
+        return meta.breadcrumbs.map((breadcrumb) =>
+          ({
             disabled: breadcrumb.disabled,
             link: breadcrumb.disabled,
             to: breadcrumb.to,
@@ -11,7 +12,9 @@ export default {
             label: breadcrumb.label,
             title: breadcrumb.title,
           })
-      );
+        );
+      }
+      return [];
     },
   },
   methods: {

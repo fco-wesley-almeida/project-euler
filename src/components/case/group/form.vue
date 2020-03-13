@@ -8,6 +8,7 @@
       emptyListIcon="check"
       emptyListMessage="Nenhum caso ativo"
       emptySearchMessage="Nenhum caso encontrado"
+      centersSingleItem
     >
       <template v-slot:default="slotProps">
         <div class="pa-2">

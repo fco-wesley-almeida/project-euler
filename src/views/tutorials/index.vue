@@ -36,9 +36,9 @@
 
 <script>
 import { db } from "@/firebase/db";
-import NewTutorial from "./edition/index.vue";
+import NewTutorial from "@/components/tutorial/edition/index";
 import Lister from "@/components/Lister";
-import TutorialCard from "./Card.vue";
+import TutorialCard from "@/components/tutorial/Card";
 
 export default {
   name: "Tutorials",

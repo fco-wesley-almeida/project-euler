@@ -30,7 +30,7 @@
 <script>
 import formRules from "@/utils/formRules";
 import CaseForm from "./form.vue"
-import { TutorialCase } from "@/models/case";
+import { TutorialCase } from "@/firebase/models/case";
 import {setCase, getNewID} from "@/firebase/api/case";
 import fileBatchUpload from "@/mixins/fileBatchUpload";
 import {setCaseContent} from "@/firebase/api/case";
@@ -53,7 +53,7 @@ export default {
   },
   mounted(){
     if (this.tutorialCase) {
-      let obj = new Object();
+      let obj = new TutorialCase();
       Object.assign(obj, this.tutorialCase);
       this.editingTutorialCase = obj;
     } else {

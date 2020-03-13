@@ -10,10 +10,10 @@
         <v-btn text @click.native="didTapSave()">Salvar</v-btn>
       </v-toolbar>
     </v-flex>
-    <v-card-text>
+    <v-card-text class="pa-5">
       <v-layout wrap justify-center align-center>
         <v-flex xs12 md8 lg6>
-          <v-card class="mt-3">
+          <v-card>
             <v-card-text>
               <tutorial-form ref="form" v-model="tutorial" @validate="checkValidation" />
             </v-card-text>
@@ -26,13 +26,13 @@
 
 <script>
 import TutorialForm from "./form.vue";
-import { Tutorial } from "@/models/tutorial";
+import { Tutorial } from "@/firebase/models/tutorial";
 import { createTutorial } from "@/firebase/api/tutorial";
 
 export default {
   components: { TutorialForm },
   data: () => ({
-    tutorial: {},
+    tutorial: new Tutorial(),
     valid: false,
     loading: false
   }),
@@ -48,7 +48,11 @@ export default {
       if (this.valid) {
         const vm = this;
         vm.loading = true;
-        createTutorial(this.tutorial, this.userData.uid, this.userData.name).then(() => {
+        createTutorial(
+          this.tutorial,
+          this.userData.uid,
+          this.userData.name
+        ).then(() => {
           vm.close();
         });
       }

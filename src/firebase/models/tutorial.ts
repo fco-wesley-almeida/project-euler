@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 export class Tutorial {
-    id: string | null = null;
+    id: string | undefined = undefined;
     name: string = "";
     password: string = "";
     date: firebase.firestore.Timestamp | null = null;
@@ -15,7 +15,14 @@ export class Tutorial {
     cases: Array<String> = [];
     students: Array<String> = [];
 
-    public constructor(init?:Partial<Tutorial>) {
+    public constructor(init?: Partial<Tutorial>) {
         return Object.assign(this, init);
+    }
+
+    public toObject() {
+        let obj = new Object();
+        Object.assign(obj, this);
+        Object.keys(obj).forEach(key => (obj as any)[key] === undefined ? delete (obj as any)[key] : {});
+        return obj;
     }
 }

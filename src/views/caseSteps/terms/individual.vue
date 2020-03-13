@@ -20,7 +20,7 @@
 <script>
   import {db} from '@/firebase/db';
   import Lister from '@/components/Lister';
-  import ParticipantTermsCard from './ParticipantTermsCard';
+  import ParticipantTermsCard from '@/components/steps/terms/cards/participant';
 
   export default {
     name: 'CaseSteps',

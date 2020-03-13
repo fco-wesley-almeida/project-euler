@@ -69,6 +69,7 @@ export default {
     hideSearchbar: { type: Boolean, default: false },
     reorderable: { type: Boolean, default: false },
     autosort: { type: Boolean, default: true },
+    centersSingleItem: { type: Boolean, default: false}
   },
   computed: {
     receivedItems() {
@@ -103,10 +104,10 @@ export default {
       });
     },
     listClass() {
-      if (this.shownItems.length > 1) {
-        return 'layout align-start wrap sortableContainer'
+      if (this.shownItems.length <= 1 && this.centersSingleItem) {
+        return 'layout align-start justify-center wrap sortableContainer'
       }
-      return 'layout justify-center wrap sortableContainer'
+      return 'layout align-start justify-start wrap sortableContainer'
     }
   },
   data: () => ({

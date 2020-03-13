@@ -20,7 +20,7 @@
     </v-layout>
     <v-card-actions class="pa-0">
     <v-spacer/>
-    <v-btn x-small color="error" @click.stop="didTapRemove">
+    <v-btn v-if="showRemoveButton" x-small color="error" @click.stop="didTapRemove">
       Remover <v-icon x-small>delete</v-icon>
     </v-btn>
     </v-card-actions>
@@ -65,7 +65,7 @@
 import Vue from 'vue';
 import Router from 'vue-router/types/vue';
 import { removeStudentFromTutorial } from '@/firebase/api/student';
-import { Student } from '@/models/student';
+import { Student } from '@/firebase/models/student';
 
 export default Vue.extend({
   name: 'StudentCard',
@@ -74,6 +74,7 @@ export default Vue.extend({
   }),
   props: {
     student: Object,
+    showRemoveButton: {type: Boolean, default: false}
   },
   computed: {
     receivedStudent() : Student {

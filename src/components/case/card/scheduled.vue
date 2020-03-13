@@ -86,7 +86,7 @@ import GroupCreation from "../group/creation.vue";
 
 import FullscreenDialog from "@/components/dialogs/Fullscreen.vue";
 import { removeCaseFromTutorial, updateCase } from "@/firebase/api/case";
-import { TutorialCase } from "@/models/case";
+import { TutorialCase } from "@/firebase/models/case";
 
 export default Vue.extend({
   name: "TutorialCaseCard",
@@ -113,9 +113,6 @@ export default Vue.extend({
     confirmActivation() {
         this.activationDialog = false;
         this.groupCreationDialog = true;
-        // this.receivedTutorialCase.status = "active";
-        // updateCase(this.receivedTutorialCase, this.receivedTutorialCase.id)
-        //this.groupCreationDialog = true;
     },
     didTapRemove() {
       this.deletionDialog = true;

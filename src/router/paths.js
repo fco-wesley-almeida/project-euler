@@ -27,49 +27,40 @@ export default [
   },
   {
     path: '/tutorias',
-    view: 'BreadcrumbContainer',
-    meta: {
-      breadcrumbs: breadcrumbs.tutorials
-    },
-    children: [
-      {
-        path: '',
-        name: 'Tutorias',
+    name: 'Tutorias',
         meta: {
           breadcrumbs: breadcrumbs.tutorials
         },
         view: 'tutorials/index',
+  },
+  {
+    path: '/tutorias/:tutorialID',
+    meta: {breadcrumbs: [breadcrumbs.tutorial]},
+    view: 'tutorialDetails/index',
+    children: [
+      {
+        path: 'informacoes',
+        name: 'Tutoria',
+        meta: {breadcrumbs: breadcrumbs.tutorial},
+        view: 'tutorialDetails/info',
       },
       {
-        path: ':tutorialID',
-        meta: {breadcrumbs: [breadcrumbs.tutorials, breadcrumbs.tutorial]},
-        view: 'tutorialDetails/index',
-        children: [
-          {
-            path: 'informacoes',
-            name: 'Tutoria',
-            meta: {breadcrumbs: breadcrumbs.tutorial},
-            view: 'tutorialDetails/info/index',
-          },
-          {
-            path: 'casos',
-            name: 'TutoriaCasos',
-            meta: {breadcrumbs: breadcrumbs.tutorial},
-            view: 'tutorialDetails/cases/index',
-          },
-          {
-            path: 'notas',
-            name: 'TutoriaNotas',
-            meta: {breadcrumbs: breadcrumbs.tutorial},
-            view: 'tutorialDetails/evaluations/index',
-          },
-          {
-            path: 'participantes',
-            name: 'TutoriaParticipantes',
-            meta: {breadcrumbs: breadcrumbs.tutorial},
-            view: 'tutorialDetails/participants/index',
-          },
-        ],
+        path: 'casos',
+        name: 'TutoriaCasos',
+        meta: {breadcrumbs: breadcrumbs.tutorial},
+        view: 'tutorialDetails/cases',
+      },
+      {
+        path: 'notas',
+        name: 'TutoriaNotas',
+        meta: {breadcrumbs: breadcrumbs.tutorial},
+        view: 'tutorialDetails/evaluations',
+      },
+      {
+        path: 'participantes',
+        name: 'TutoriaParticipantes',
+        meta: {breadcrumbs: breadcrumbs.tutorial},
+        view: 'tutorialDetails/participants',
       },
     ],
   },
@@ -82,13 +73,13 @@ export default [
         path: 'passos',
         name: 'CasoPassos',
         meta: {breadcrumbs: breadcrumbs.tutorialCase},
-        view: 'caseDetails/steps/index',
+        view: 'caseDetails/steps',
       },
       {
         path: 'geral',
         name: 'CasoGrupos',
         meta: {breadcrumbs: breadcrumbs.tutorialCase},
-        view: 'caseDetails/groups/index',
+        view: 'caseDetails/groups',
       }
     ],
   },
@@ -101,13 +92,13 @@ export default [
         path: 'individual',
         name: 'TermosIndividual',
         meta: {breadcrumbs: breadcrumbs.step1},
-        view: 'caseSteps/terms/individual/index',
+        view: 'caseSteps/terms/individual',
       },
       {
         path: 'geral',
         name: 'TermosGeral',
         meta: {breadcrumbs: breadcrumbs.step1},
-        view: 'caseSteps/terms/ranking/index',
+        view: 'caseSteps/terms/ranking',
       }
     ],
   },

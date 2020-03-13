@@ -1,8 +1,8 @@
 
 import { db } from '../db';
 import firebase from 'firebase';
-import { TutorialCase } from '@/models/case';
-import {Group} from "@/models/group";
+import { TutorialCase } from '@/firebase/models/case';
+import {Group} from "@/firebase/models/group";
 
 export const createGroups = (caseID: string, groups: Array<Group>): Promise<void> => {
   let batch = db.batch();

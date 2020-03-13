@@ -1,4 +1,4 @@
-import {TutorialCase} from "@/models/case";
+import {TutorialCase} from "@/firebase/models/case";
 import {db} from "@/firebase/db";
 import firebase from 'firebase';
 

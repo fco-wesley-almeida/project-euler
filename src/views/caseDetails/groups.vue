@@ -20,7 +20,7 @@
 <script>
   import {db} from '@/firebase/db';
   import Lister from '@/components/Lister';
-  import GroupCard from './GroupCard';
+  import GroupCard from '@/components/group/card';
 
   export default {
     name: 'CaseSteps',

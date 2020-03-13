@@ -34,7 +34,7 @@
         </v-btn>
       </v-scale-transition>
     </v-layout>
-    <v-dialog v-model="showErrorDialog" persistent>
+    <v-dialog v-model="showErrorDialog" persistent max-width="300">
       <v-card color="error" dark>
         <v-card-title class="headline">Erro</v-card-title>
 
@@ -55,7 +55,7 @@
   import GroupForm from "./form.vue";
   import {db} from '@/firebase/db';
   import {createGroups} from "@/firebase/api/group";
-  import {Group} from "@/models/group";
+  import {Group} from "@/firebase/models/group";
 
   export default {
     name: "GroupCreation",

@@ -13,7 +13,7 @@ import EditCase from "./edition/index.vue";
 import ActiveCaseCard from "./active.vue";
 import ScheduledCaseCard from "./scheduled.vue";
 import { removeCaseFromTutorial } from "@/firebase/api/case";
-import { TutorialCase } from "@/models/case";
+import { TutorialCase } from "@/firebase/models/case";
 
 export default Vue.extend({
   name: "TutorialCaseCard",

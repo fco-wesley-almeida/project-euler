@@ -1,5 +1,5 @@
 <template>
-  <v-layout wrap justify-center>
+  <v-layout wrap justify-center align-content-start>
     <v-flex xs12 md8 lg7 pa-0>
       <v-flex xs12>
         <v-layout wrap mb-3>
@@ -74,7 +74,10 @@
       </lister>
     </v-flex>
     <v-flex xs12 v-if="cases.length === 0">
-      <p class="subtitle-2" style="text-align: center; width: 100%">Nenhum caso cadastrado. Crie novos com o botão +</p>
+      <p
+        class="subtitle-2"
+        style="text-align: center; width: 100%"
+      >Nenhum caso cadastrado. Crie novos com o botão +</p>
     </v-flex>
     <v-scale-transition>
       <v-btn
@@ -88,7 +91,12 @@
         <v-icon>add</v-icon>
       </v-btn>
     </v-scale-transition>
-    <v-dialog v-model="showingCreationDialog" fullscreen transition="dialog-bottom-transition" scrollable>
+    <v-dialog
+      v-model="showingCreationDialog"
+      fullscreen
+      transition="dialog-bottom-transition"
+      scrollable
+    >
       <new-case-form v-if="showingCreationDialog" @finished="showingCreationDialog = false" />
     </v-dialog>
   </v-layout>
@@ -96,9 +104,10 @@
 
 <script>
 import { db } from "@/firebase/db";
-import CaseCard from "./card/index.vue";
+import CaseCard from "@/components/case/card/index.vue";
 import Lister from "@/components/Lister";
-import NewCaseForm from "./edition/index";
+import NewCaseForm from "@/components/case/edition/index";
+import { TutorialCase } from "../../firebase/models/case";
 
 export default {
   name: "TutorialCases",
@@ -118,6 +127,13 @@ export default {
     showingCreationDialog: false
   }),
   computed: {
+    tutorialCases() {
+      return this.cases.map(value => {
+        let tutorialCase = new TutorialCase(value);
+        tutorialCase.id = value.id;
+        return tutorialCase;
+      });
+    },
     hasActiveCase() {
       return this.activeCases.length > 0;
     },
@@ -130,17 +146,17 @@ export default {
       };
     },
     activeCases() {
-      return this.cases.filter(item => {
+      return this.tutorialCases.filter(item => {
         return item.status === "active";
       });
     },
     scheduledCases() {
-      return this.cases.filter(item => {
+      return this.tutorialCases.filter(item => {
         return item.status === "scheduled";
       });
     },
     finishedCases() {
-      return this.cases.filter(item => {
+      return this.tutorialCases.filter(item => {
         return item.status === "finished";
       });
     }
