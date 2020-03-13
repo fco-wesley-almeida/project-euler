@@ -50,12 +50,7 @@
   </v-form>
 </template>
 
-<script lang="ts">
-import { db, Timestamp } from "@/firebase/db";
-import { Tutorial } from "@/models/tutorial";
-import { UserData } from "@/models/user";
-import Vue from "vue";
-import Router from "vue-router/types/vue";
+<script>
 import formRules from "@/utils/formRules";
 import TaiperEditor from "@/components/taiper_editor/index.vue";
 
@@ -76,7 +71,7 @@ export default {
   watch: {
     value: {
       immediate: true,
-      handler(newValue: any) {
+      handler(newValue) {
         this.title = newValue.title || "";
         this.content = newValue.content || [];
         this.objectives = newValue.objectives || [];
@@ -85,7 +80,7 @@ export default {
   },
   computed: {
     valid() {
-      let form = this.$refs.tutorialCaseForm as HTMLFormElement;
+      let form = this.$refs.tutorialCaseForm;
       form.validate();
       return this.validForm && this.validContent && this.validObjectives;
     },
@@ -107,7 +102,7 @@ export default {
           }))
       );
     },
-    tutorialCase(): Object {
+    tutorialCase() {
       return {
         title: this.title,
         content: this.content,
@@ -116,7 +111,7 @@ export default {
     },
     contentDescription() {
       if (this.content){
-        return this.content.length + " items";
+        return "Total: "+ this.content.length + " items";
       }
       return "Nenhum conteúdo inserido";
     },
@@ -143,7 +138,7 @@ export default {
       this.$emit("input", newValue);
     },
     clear() {
-      let form = this.$refs.tutorialCaseForm as HTMLFormElement;
+      let form = this.$refs.tutorialCaseForm;
       form.reset();
       this.content = [];
       this.objectives = [];

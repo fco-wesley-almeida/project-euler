@@ -14,8 +14,9 @@
         <v-card-actions>
           <v-spacer/>
           <v-btn
+            v-if="showCancelButton"
             color="grey"
-            flat
+            text
             dark
             @click.native="$emit('didTapCancel')">Cancelar</v-btn>
           <v-spacer/>
@@ -57,6 +58,10 @@ export default {
     showSnackbar: {
       type: Boolean,
       default: false
+    },
+    showCancelButton: {
+      type: Boolean,
+      default: true
     },
     uploadProgress: {
       type: Number,

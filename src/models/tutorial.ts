@@ -1,6 +1,6 @@
 import firebase from 'firebase';
 export class Tutorial {
-    id: string | undefined = undefined;
+    id: string | null = null;
     name: string = "";
     password: string = "";
     date: firebase.firestore.Timestamp | null = null;

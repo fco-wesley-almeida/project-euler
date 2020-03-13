@@ -17,7 +17,7 @@ const app = firebase
 firebase.analytics();
 
 const firestore = app.firestore();
-firestore.enablePersistence();
+firestore.enablePersistence({})
 export const db = firestore;
 
 export const auth = firebase.auth();

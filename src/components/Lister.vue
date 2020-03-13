@@ -17,7 +17,7 @@
       v-show="!showPlaceholder"
       name="list-complete"
       tag="div"
-      class="layout align-start wrap sortableContainer"
+      :class="listClass"
     >
       <v-flex class="sortable" v-for="(item, index) in shownItems" :key="item.id || index" :class="cardBreakpoints || 'xs12'">
         <slot v-bind:item="item" v-bind:index="index"></slot>
@@ -46,7 +46,7 @@
         <v-flex xs6>
           <h4
             class="text-xs-center mt-2 "
-            style="color: #888888"
+            style="color: #888888; text-align: center"
           >{{emptyListMessage || 'Nenhum item cadastrado, adicione novos com o botão +'}}</h4>
         </v-flex>
       </v-layout>
@@ -101,6 +101,12 @@ export default {
           .toLowerCase()
           .includes(this.searchString.toLowerCase());
       });
+    },
+    listClass() {
+      if (this.shownItems.length > 1) {
+        return 'layout align-start wrap sortableContainer'
+      }
+      return 'layout justify-center wrap sortableContainer'
     }
   },
   data: () => ({

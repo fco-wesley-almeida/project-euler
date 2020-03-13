@@ -4,4 +4,5 @@ export default {
   setUserID: set('userID'),
   setUser: set('user'),
   setCurrentTutorialName: set('currentTutorialName'),
+  setCurrentCaseName: set('currentCaseName'),
 };

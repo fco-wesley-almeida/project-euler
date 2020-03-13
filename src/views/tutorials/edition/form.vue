@@ -41,12 +41,8 @@
   </v-form>
 </template>
 
-<script lang="ts">
-import { db, Timestamp } from "@/firebase/db";
-import { Tutorial } from "@/models/tutorial";
-import { UserData } from "@/models/user";
-import Vue from "vue";
-import Router from "vue-router/types/vue";
+<script>
+import { Timestamp } from "@/firebase/db";
 import formRules from "@/utils/formRules";
 
 export default {
@@ -56,7 +52,7 @@ export default {
     description: "",
     date: "",
     valid: false,
-    isoDate: null as string | null,
+    isoDate: null,
     loading: false
   }),
   props: {
@@ -74,7 +70,7 @@ export default {
     }
   },
   computed: {
-    tutorial(): Object {
+    tutorial() {
       let date = null;
       if (this.isoDate != null) {
         date = Timestamp.fromDate(new Date(this.isoDate));
@@ -85,10 +81,10 @@ export default {
         date: date
       };
     },
-    userData(): UserData {
+    userData() {
       return this.$store.state.app.user;
     },
-    formattedDate(): string | null {
+    formattedDate() {
       if (this.isoDate == null) {
         return null;
       }
@@ -111,7 +107,7 @@ export default {
   },
   methods: {
     validate() {
-      let form = this.$refs.form as HTMLFormElement;
+      let form = this.$refs.form;
       form.validate();
       if (this.valid) {
         this.updateValue();
@@ -119,7 +115,7 @@ export default {
       this.$emit("validate", this.valid);
     },
     clear() {
-      let form = this.$refs.form as HTMLFormElement;
+      let form = this.$refs.form;
       form.reset();
     },
     updateValue() {

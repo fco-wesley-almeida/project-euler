@@ -57,6 +57,7 @@
       <h3 v-if="finishedCases.length > 0 || searching">Casos Finalizados</h3>
       <lister
         :items="finishedCases"
+        v-if="finishedCases.length > 0 || searching"
         cardBreakpoints="xs12 md6 lg4"
         :searchText="searchText"
         :customSearchFunction="customSearch"
@@ -71,6 +72,9 @@
           </div>
         </template>
       </lister>
+    </v-flex>
+    <v-flex xs12 v-if="cases.length === 0">
+      <p class="subtitle-2" style="text-align: center; width: 100%">Nenhum caso cadastrado. Crie novos com o botão +</p>
     </v-flex>
     <v-scale-transition>
       <v-btn
@@ -94,7 +98,7 @@
 import { db } from "@/firebase/db";
 import CaseCard from "./card/index.vue";
 import Lister from "@/components/Lister";
-import NewCaseForm from "./creation/index";
+import NewCaseForm from "./edition/index";
 
 export default {
   name: "TutorialCases",

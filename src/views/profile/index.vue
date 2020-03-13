@@ -159,7 +159,7 @@ export default {
         || this.resultFile
       );
       }
-      return false; 
+      return false;
     }
   },
   mounted() {
@@ -195,6 +195,7 @@ export default {
       this.snackbar = true;
       this.progress = 0;
       this.$store.state.app.user.imageURL = photoURL;
+      this.$firestoreRefs.user.update({imageURL: photoURL});
       auth.currentUser.updateProfile({ photoURL });
     }
   }

@@ -36,7 +36,7 @@
 
 <script>
 import { db } from "@/firebase/db";
-import NewTutorial from "./creation/index.vue";
+import NewTutorial from "./edition/index.vue";
 import Lister from "@/components/Lister";
 import TutorialCard from "./Card.vue";
 
