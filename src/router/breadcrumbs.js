@@ -25,7 +25,16 @@ export const tutorialCase = tutorial.concat([{
   title: 'Caso',
 }]);
 
-export const step1 = tutorialCase.concat([{
+export const step = tutorialCase.concat([{
+  disabled: false,
+  link: true,
+  to: { name: 'CasoPassos' },
+  text: '',
+  label: '',
+  title: 'Passos',
+}]);
+
+export const step1 = step.concat([{
   disabled: false,
   link: true,
   to: { name: 'TermosIndividual' },

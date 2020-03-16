@@ -4,6 +4,7 @@
  * official documentation https://router.vuejs.org/en/
  */
 import * as breadcrumbs from './breadcrumbs'
+
 export default [
   {
     path: '/semautorizacao',
@@ -28,10 +29,10 @@ export default [
   {
     path: '/tutorias',
     name: 'Tutorias',
-        meta: {
-          breadcrumbs: breadcrumbs.tutorials
-        },
-        view: 'tutorials/index',
+    meta: {
+      breadcrumbs: breadcrumbs.tutorials
+    },
+    view: 'tutorials/index',
   },
   {
     path: '/tutorias/:tutorialID',
@@ -84,22 +85,29 @@ export default [
     ],
   },
   {
-    path: '/tutorias/:tutorialID/casos/:caseID/passos/1',
-    meta: {breadcrumbs: breadcrumbs.step1},
-    view: 'caseSteps/terms/index',
+    path: '/tutorias/:tutorialID/casos/:caseID/passos',
+    meta: {breadcrumbs: breadcrumbs.step},
+    view: 'caseSteps/index',
     children: [
       {
-        path: 'individual',
-        name: 'TermosIndividual',
+        path: '1',
         meta: {breadcrumbs: breadcrumbs.step1},
-        view: 'caseSteps/terms/individual',
+        view: 'caseSteps/terms/index',
+        children: [
+          {
+            path: 'individual',
+            name: 'TermosIndividual',
+            meta: {breadcrumbs: breadcrumbs.step1},
+            view: 'caseSteps/terms/individual',
+          },
+          {
+            path: 'geral',
+            name: 'TermosGeral',
+            meta: {breadcrumbs: breadcrumbs.step1},
+            view: 'caseSteps/terms/ranking',
+          }
+        ],
       },
-      {
-        path: 'geral',
-        name: 'TermosGeral',
-        meta: {breadcrumbs: breadcrumbs.step1},
-        view: 'caseSteps/terms/ranking',
-      }
     ],
-  },
+  }
 ];

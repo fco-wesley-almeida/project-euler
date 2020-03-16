@@ -1,7 +1,7 @@
 <template>
   <v-layout wrap pa-5>
     <v-fade-transition mode="out-in">
-      <router-view style="margin-bottom: 76px" />
+      <router-view :participants="participants" :tutorialCase="tutorialCase" style="margin-bottom: 76px" />
     </v-fade-transition>
     <v-bottom-navigation
       v-model="bottomNav"
@@ -13,7 +13,7 @@
         <v-icon>person</v-icon>
       </v-btn>
 
-      <v-btn :to="{ name: 'TermosGeral', params: this.$route.params }">
+      <v-btn v-if="hasRanking" :to="{ name: 'TermosGeral', params: this.$route.params }">
         <span>Geral</span>
         <v-icon>view_list</v-icon>
       </v-btn>
@@ -26,11 +26,16 @@
     name: 'Step1',
     data: () => ({
       bottomNav: 0,
+      activationDialog: false,
     }),
-    computed: {
-      routePrefix() {
-        return `/tutorias/${this.$route.params.tutorialID}/casos/${this.$route.params.caseID}/steps/1`;
-      },
+    props: {
+      tutorialCase: Object,
+      participants: Array
     },
+    computed: {
+      hasRanking() {
+        return this.tutorialCase.currentStep > 1;
+      }
+    }
   };
 </script>
