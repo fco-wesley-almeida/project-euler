@@ -17,11 +17,6 @@
         <span>Grupos</span>
         <v-icon>group</v-icon>
       </v-btn>
-
-      <v-btn :to="`${routePrefix}/notas`">
-        <span>Notas</span>
-        <v-icon>assignment_turned_in</v-icon>
-      </v-btn>
     </v-bottom-navigation>
   </v-layout>
 </template>
