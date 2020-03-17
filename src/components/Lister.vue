@@ -65,6 +65,7 @@ export default {
     emptySearchMessage: String,
     searchPlaceholder: String,
     customSearchFunction: Function,
+    customSortFunction: Function,
     searchText: String,
     hideSearchbar: { type: Boolean, default: false },
     reorderable: { type: Boolean, default: false },
@@ -137,7 +138,10 @@ export default {
           let index = this.originalItems.indexOf(item);
           this.originalItems.splice(index, 1);
         }
-        if (this.autosort){
+        if (vm.customSortFunction){
+          vm.originalItems.sort(vm.customSortFunction);
+        }
+        else if (vm.autosort){
           vm.originalItems.sort(vm.sort);
         }
       }

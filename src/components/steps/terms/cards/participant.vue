@@ -17,7 +17,7 @@
           class="my-auto"
           v-if="terms.length > 0"
         >
-          <v-chip :value="term" text-color="primary" color="primary" outlined v-for="term in terms" :key="term">
+          <v-chip :value="term" class="text-capitalize" text-color="primary" color="primary" outlined v-for="term in sortedTerms" :key="term">
             {{ term }}
           </v-chip>
         </v-chip-group>
@@ -33,7 +33,14 @@
       participant: Object,
       terms: Array
     },
-    mounted() {
+    computed: {
+      sortedTerms() {
+        let newArray = [];
+        newArray = newArray.concat(this.terms);
+        return newArray.sort( (a, b) => {
+          return a.toLowerCase().localeCompare(b.toLowerCase());
+        });
+      }
     }
   }
 </script>

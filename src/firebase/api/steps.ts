@@ -11,7 +11,6 @@ export const advanceStep = async (id: string, currentStep: number): Promise<void
 
 export const proccessTerms = async (caseID: string, answers: Array<any>): Promise<void> => {
   let rankingEntries = new Map<string, TermRankingEntry>();
-  console.log(answers);
   answers.forEach((answerObj) => {
     let answer = new TermAnswer(answerObj);
     answer.id = answerObj.id;
@@ -37,5 +36,15 @@ export const proccessTerms = async (caseID: string, answers: Array<any>): Promis
   await advanceStep(caseID, 1);
 
   return batch.commit();
+}
+
+export const processTermsWithID = async (caseID: string): Promise<void> => {
+  let answersQuery = await db.collection(`timelines/${caseID}/step1/`).get();
+  let answers = answersQuery.docs.map( doc => {
+    let data = doc.data();
+    data.id = doc.id;
+    return data;
+  })
+  return proccessTerms(caseID, answers);
 }
 
