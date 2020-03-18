@@ -13,10 +13,10 @@
                 </v-card-title>
                 <v-card-subtitle :class="`${i == 1 ? 'primary' : ''} pb-1`">
                   <v-icon small class="mr-2 mb-2"
-                          :color="`${i >= 1 ? 'rgba(255, 255, 255, 0.75)' : 'grey'}`">calendar_today
+                          :color="`${i == 1 ? 'rgba(255, 255, 255, 0.75)' : 'grey'}`">calendar_today
                   </v-icon>
                   <span class="body-1 my-auto"
-                        :style="`height: 100%; ${i >= 1 ? 'color: rgba(255, 255, 255, 0.75)' : 'grey'}`">24/20/2020</span>
+                        :style="`height: 100%; ${i == 1 ? 'color: rgba(255, 255, 255, 0.75)' : 'grey'}`">24/20/2020</span>
                 </v-card-subtitle>
                 <v-card-text class="body-1 black--text mt-3">Leitura do caso e demarcação de termos
                   desconhecidos

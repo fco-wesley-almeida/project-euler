@@ -15,15 +15,6 @@
         <v-icon>timeline</v-icon>
         <p class="my-auto">Passos</p>
       </v-btn>
-      <v-spacer />
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn fab x-small class="mr-2" color="white" light v-on="on">
-            <v-icon color="primary">redo</v-icon>
-          </v-btn>
-        </template>
-        <span>Ir ao próximo passo</span>
-      </v-tooltip>
     </v-card-actions>
   </v-card>
 </template>
@@ -40,23 +31,24 @@ export default Vue.extend({
   computed: {
     receivedTutorialCase() {
       return this.$props.tutorialCase;
-    },
-    routePrefix() {
-      return `/tutorias/${this.$route.params.tutorialID}/casos/${this.tutorialCase.id}`;
     }
   },
   methods: {
-    didTapGroup(){
-      this.$store.state.app.currentCaseName = this.tutorialCase.title;
-      let path = this.routePrefix + "/grupos";
-      console.log(path);
-      this.$router.push(path);
+    didTapGroup() {
+      console.log(this.$route.params);
+      this.$router.push({
+        name: "CasoGrupos",
+        params: {
+          tutorialID: this.$route.params.tutorialID,
+          caseID: this.tutorialCase.id
+        }
+      });
     },
-    didTapSteps(){
-      this.$store.state.app.currentCaseName = this.tutorialCase.title;
-      let path = this.routePrefix + "/passos";
-      console.log(path);
-      this.$router.push(path);
+    didTapSteps() {
+      this.$router.push({
+        name: "CasoPassos",
+        params: { tutorialID: this.$route.params.tutorialID, caseID: this.tutorialCase.id }
+      });
     }
   }
 });
