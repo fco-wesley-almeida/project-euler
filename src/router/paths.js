@@ -41,7 +41,7 @@ export default [
     children: [
       {
         path: 'informacoes',
-        name: 'Tutoria',
+        name: 'TutoriaInfo',
         meta: {breadcrumbs: breadcrumbs.tutorial},
         view: 'tutorialDetails/info',
       },
