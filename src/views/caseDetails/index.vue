@@ -4,13 +4,12 @@
       <router-view style="margin-bottom: 76px" />
     </v-fade-transition>
     <v-bottom-navigation
-      v-model="bottomNav"
       color="primary"
       fixed
     >
       <v-btn :to="{name: 'CasoPassos', params: $route.params}">
         <span>Passos</span>
-        <v-icon>info</v-icon>
+        <v-icon>timeline</v-icon>
       </v-btn>
 
       <v-btn :to="{name: 'CasoGrupos', params: $route.params}">
@@ -24,9 +23,6 @@
 <script>
   export default {
     name: 'Tutorial',
-    data: () => ({
-      bottomNav: 0,
-    }),
     computed: {
       routePrefix() {
         return `/tutorias/${this.$route.params.tutorialID}/casos/${this.$route.params.caseID}`;

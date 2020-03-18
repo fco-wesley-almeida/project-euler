@@ -77,7 +77,7 @@ export default [
         view: 'caseDetails/steps',
       },
       {
-        path: 'geral',
+        path: 'grupos',
         name: 'CasoGrupos',
         meta: {breadcrumbs: breadcrumbs.tutorialCase},
         view: 'caseDetails/groups',

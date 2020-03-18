@@ -10,7 +10,7 @@ export const tutorials = [{
 export const tutorial = tutorials.concat([{
   disabled: false,
   link: true,
-  to: { name: 'Tutoria' },
+  to: { name: 'TutoriaInfo' },
   text: 'currentTutorialName',
   label: '',
   title: 'Tutoria',
