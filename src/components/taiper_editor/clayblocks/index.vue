@@ -1,11 +1,11 @@
 <template>
   <v-card flat>
     <v-layout align-center>
-      <v-icon style="cursor: move" class="handle">drag_indicator</v-icon>
+      <v-icon v-if="!readonly" style="cursor: move" class="handle">drag_indicator</v-icon>
       <v-flex xs12>
-        <component v-bind:is="shownComponent" v-model="value"/>
+        <component :readonly="readonly" v-bind:is="shownComponent" v-model="value"/>
       </v-flex>
-      <v-icon color="error" @click="remove">delete</v-icon>
+      <v-icon v-if="!readonly" color="error" @click="remove">delete</v-icon>
     </v-layout>
   </v-card>
 </template>
@@ -21,6 +21,10 @@ export default {
   props: {
     value: {
       type: Object
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {

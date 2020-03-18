@@ -19,6 +19,7 @@
         ></v-text-field>
         <v-text-field
           label="Título exibido"
+          :readonly="readonly"
           :rules="[formRules.required]"
           v-model="value.props.label"
           class="mx-2"
@@ -36,6 +37,10 @@ export default {
   props: {
     value: {
       type: Object
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {
@@ -55,7 +60,9 @@ export default {
       win.document.write('<iframe src="' + this.preview  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
     },
     didTapFile() {
+      if (!this.readonly){
       this.$refs.input.click();
+      }
     },
     didChangeFile(e) {
       let files = e.target.files || e.dataTransfer.files;

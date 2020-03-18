@@ -95,6 +95,12 @@ export default [
         view: 'caseSteps/terms/index',
         children: [
           {
+            path: 'conteudo',
+            name: 'TermosConteudo',
+            meta: {breadcrumbs: breadcrumbs.step1},
+            view: 'caseSteps/terms/content',
+          },
+          {
             path: 'individual',
             name: 'TermosIndividual',
             meta: {breadcrumbs: breadcrumbs.step1},

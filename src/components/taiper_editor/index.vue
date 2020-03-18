@@ -1,5 +1,5 @@
 <template>
-  <v-layout wrap align-center justify-center pa-2>
+  <v-layout wrap align-center justify-center :pa-2="readonly">
     <v-flex xs12>
       <lister
         ref="sortableLister"
@@ -13,12 +13,12 @@
         :emptyListMessage="placeholderMessage || 'Clique no botão de + para inserir textos, imagens, vídeos, áudios ou arquivos em geral.'"
       >
         <template v-slot:default="slotProps">
-          <clayblock v-model="slotProps.item" @remove="removeItem(slotProps.item)"/>
+          <clayblock v-model="slotProps.item" @remove="removeItem(slotProps.item)" :readonly="readonly"/>
         </template>
       </lister>
     </v-flex>
 
-    <template v-if="only == null">
+    <template v-if="!readonly">
     <v-menu bottom origin="center center" transition="slide-y-transition">
       <template v-slot:activator="{on}">
         <v-btn class="my-2" v-on="on" fab color="primary" dark small>
@@ -34,11 +34,6 @@
         </v-list-item-group>
       </v-list>
     </v-menu>
-    </template>
-    <template v-else>
-      <v-btn class="my-2" @click.stop="onOnlyClick" fab color="primary" dark small>
-          <v-icon>add</v-icon>
-        </v-btn>
     </template>
   </v-layout>
 </template>
@@ -76,8 +71,9 @@ export default {
     placeholderMessage: {
       type: String
     },
-    only: {
-      type: String
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {

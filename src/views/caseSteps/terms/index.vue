@@ -8,6 +8,11 @@
       color="primary"
       fixed
     >
+      <v-btn :to="{ name: 'TermosConteudo', params: this.$route.params }">
+        <span>Conteúdo</span>
+        <v-icon>book</v-icon>
+      </v-btn>
+
       <v-btn :to="{ name: 'TermosIndividual', params: this.$route.params }">
         <span>Individual</span>
         <v-icon>person</v-icon>
