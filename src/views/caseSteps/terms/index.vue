@@ -4,7 +4,6 @@
       <router-view :participants="participants" :tutorialCase="tutorialCase" style="margin-bottom: 76px" />
     </v-fade-transition>
     <v-bottom-navigation
-      v-model="bottomNav"
       color="primary"
       fixed
     >
@@ -30,7 +29,6 @@
   export default {
     name: 'Step1',
     data: () => ({
-      bottomNav: 0,
       activationDialog: false,
     }),
     props: {
