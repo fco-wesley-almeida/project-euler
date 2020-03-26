@@ -27,9 +27,7 @@
         emptySearchMessage="Nenhum caso encontrado"
       >
         <template v-slot:default="slotProps">
-          <div class="pa-2">
             <case-card :tutorialCase="slotProps.item" />
-          </div>
         </template>
       </lister>
     </v-flex>

@@ -35,7 +35,7 @@
         <v-flex xs12>
           <lister
             :items="students"
-            cardBreakpoints="xs12 md6"
+            cardBreakpoints="xs12"
             searchPlaceholder="Buscar por nome ou email"
             :customSearchFunction="filteredStudents"
           >
@@ -71,7 +71,7 @@ export default {
     this.$bind(
       "students",
       db
-        .collection("students")
+        .collection("users")
         .where("tutorials", "array-contains", this.$route.params.tutorialID)
     );
   },

@@ -1,5 +1,5 @@
 <template>
-  <v-layout wrap align-center justify-center :pa-2="readonly">
+  <v-layout wrap align-center justify-center>
     <v-flex xs12>
       <lister
         ref="sortableLister"

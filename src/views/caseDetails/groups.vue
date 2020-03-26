@@ -3,9 +3,10 @@
     <v-flex xs12 md10 lg8>
       <lister
         :items="groups"
-        cardBreakpoints="xs12 md6 lg4"
+        cardBreakpoints="xs12 md6"
         searchPlaceholder="Buscar por título do grupo ou nome/email de participante"
         :customSearchFunction="searchGroup"
+        :customSortFunction="sortGroups"
       >
         <template v-slot:default="slotProps">
           <div class="pa-2">
@@ -43,9 +44,6 @@
       );
     },
     computed: {
-      routePrefix() {
-        return `/tutorias/${this.$route.params.tutorialID}/caso/${this.$route.params.caseID}`;
-      },
       searchGroup() {
         return (group, searchString) => {
           let searchableStrings = [];
@@ -61,7 +59,11 @@
             string.includes(searchString.toLowerCase())
           );
         };
-
+      },
+      sortGroups() {
+        return (a, b) => {
+          a.title.toLowerCase().localeCompare('' + b.title.toLowerCase());
+        };
       }
     },
     methods: {

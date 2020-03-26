@@ -1,7 +1,7 @@
 <template>
   <v-layout wrap align-center>
     <v-flex xs12 v-show="!hideSearchbar">
-      <v-layout wrap pa-3>
+      <v-layout wrap py-3 px-2>
         <v-toolbar class="rounded" style="border-radius: 5px">
           <v-text-field
             v-model="internalSearchString"
