@@ -132,7 +132,9 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.round{
-  border-radius: 10px;
+.v-card__title{
+  word-break: keep-all;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 </style>

@@ -94,6 +94,7 @@ export default Vue.extend({
 
 <style scoped>
 .v-card__title{
+  word-break: keep-all;
   word-wrap: break-word;
   hyphens: auto;
 }

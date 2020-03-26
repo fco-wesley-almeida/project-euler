@@ -54,7 +54,6 @@
           }
           searchableStrings = searchableStrings.concat(groupParticipants.map((participant) => participant.name.toLowerCase()));
           searchableStrings = searchableStrings.concat(groupParticipants.map((participant) => participant.email.toLowerCase()));
-            console.log(searchableStrings);
           return searchableStrings.some(string =>
             string.includes(searchString.toLowerCase())
           );
@@ -62,7 +61,7 @@
       },
       sortGroups() {
         return (a, b) => {
-          a.title.toLowerCase().localeCompare('' + b.title.toLowerCase());
+          return a.title.toLowerCase().localeCompare(b.title.toLowerCase(), 'en', {numeric: true});
         };
       }
     },
