@@ -75,7 +75,7 @@
       this.$bind(
         'students',
         db
-          .collection('students')
+          .collection('users')
           .where('tutorials', 'array-contains', this.$route.params.tutorialID),
       );
       setTimeout(() =>{ if (this.students) {

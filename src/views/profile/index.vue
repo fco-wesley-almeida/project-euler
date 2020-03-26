@@ -119,7 +119,7 @@ import photoupload from "@/mixins/photoupload";
 import formRules from "@/utils/formRules";
 import UploadDialogs from "@/components/dialogs/PhotoUpload";
 
-const users = db.collection("teachers");
+const users = db.collection("users");
 
 export default {
   name: "Perfil",
@@ -141,13 +141,13 @@ export default {
       return "previewImage";
     },
     collection() {
-      return "teachers";
+      return "users";
     },
     document() {
       return this.$store.state.app.userID;
     },
     filepath() {
-      return "teachers/" + this.$store.state.app.userID;
+      return "users/" + this.$store.state.app.userID;
     },
     profileHasChanged() {
       if (this.user && this.firebaseUser){

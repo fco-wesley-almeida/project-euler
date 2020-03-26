@@ -98,4 +98,8 @@ export default Vue.extend({
   word-wrap: break-word;
   hyphens: auto;
 }
+.v-card__subtitle{
+  word-wrap: break-word;
+  hyphens: auto;
+}
 </style>
