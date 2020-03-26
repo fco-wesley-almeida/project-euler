@@ -124,7 +124,7 @@ export default {
           .createUserWithEmailAndPassword(v.mail, v.password)
           .then(
             (response) => {
-              db.collection('teachers')
+              db.collection('users')
                 .doc(response.user.uid)
                 .set({
                   name: v.mail,

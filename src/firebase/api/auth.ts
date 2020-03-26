@@ -31,10 +31,10 @@ export const checkUserData = (user: firebase.User): void => {
     imageURL: user.photoURL,
     uid: user.uid,
   };
-  db.collection('teachers').doc(user.uid).get().then((doc) => {
+  db.collection('users').doc(user.uid).get().then((doc) => {
     if (!doc.exists) {
       console.log("User doesn't have data, creating teacher node.");
-      db.collection('teachers').doc(user.uid).set(userData);
+      db.collection('users').doc(user.uid).set(userData);
     } else {
       console.log("User already has data, doing nothing.");
     }

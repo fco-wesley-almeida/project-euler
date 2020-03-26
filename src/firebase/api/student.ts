@@ -2,7 +2,7 @@
 import { db, FieldValue } from '../db';
 
 export const removeStudentFromTutorial = (studentID: string, tutorialID: string) : void => {
-  db.collection('students').doc(studentID).update({
+  db.collection('users').doc(studentID).update({
     tutorials: FieldValue.arrayRemove(tutorialID),
   });
   db.collection('tutorials').doc(tutorialID).update({
@@ -11,7 +11,7 @@ export const removeStudentFromTutorial = (studentID: string, tutorialID: string)
 };
 
 export const addStudentToTutorial = (studentID: string, tutorialID: string) : void => {
-  db.collection('students').doc(studentID).update({
+  db.collection('users').doc(studentID).update({
     tutorials: FieldValue.arrayUnion(tutorialID),
   });
   db.collection('tutorials').doc(tutorialID).update({
