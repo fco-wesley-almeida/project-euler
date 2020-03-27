@@ -40,7 +40,7 @@
 </template>
 
 <script>
-  import {db} from '@/firebase/db';
+  import {db} from '@/firebase/config';
   import Lister from '@/components/Lister';
   import ParticipantTermsCard from '@/components/steps/terms/cards/participant';
   import { proccessTerms } from '@/firebase/api/steps'

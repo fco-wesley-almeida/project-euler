@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import {db} from '@/firebase/db';
+  import {db} from '@/firebase/config';
   import Lister from '@/components/Lister';
   import RankingTermsCard from '@/components/steps/terms/cards/ranking';
 

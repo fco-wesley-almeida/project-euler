@@ -53,7 +53,7 @@
 <script>
   import GroupSize from "./size.vue";
   import GroupForm from "./form.vue";
-  import {db} from '@/firebase/db';
+  import {db} from '@/firebase/config';
   import {createGroups} from "@/firebase/api/group";
   import {Group} from "@/firebase/models/group";
 

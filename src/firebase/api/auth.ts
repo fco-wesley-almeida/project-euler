@@ -1,25 +1,39 @@
-import {TutorialCase} from "@/firebase/models/case";
-import {db} from "@/firebase/db";
+import { db, auth } from "@/firebase/config";
 import firebase from 'firebase';
 
-export const login = async (mail: string, password: string): Promise<string | null> => {
+export const login = async (mail: string, password: string): Promise<Object | null> => {
   try {
-    await firebase
-      .auth()
-      .signInWithEmailAndPassword(mail, password);
-    return null;
-  } catch(error){
+    let result = await
+      auth
+        .signInWithEmailAndPassword(mail, password);
+
+    if (result.user !== null && result.user.emailVerified) {
+      return null;
+    }
+    return result.user;
+
+  } catch (error) {
     return error;
   }
 };
 
-export const signup = async (mail: string, password: string): Promise<string | null> => {
-  try{
-  await firebase
-    .auth()
-    .createUserWithEmailAndPassword(mail, password);
-  return null;
-  } catch(error){
+export const sendVerificationEmail = async (user: firebase.User): Promise<void> => {
+  try {
+    return user.sendEmailVerification();
+  } catch (error) {
+    return error;
+  }
+};
+
+export const signup = async (mail: string, password: string): Promise<void | null> => {
+  try {
+    let result = await auth
+      .createUserWithEmailAndPassword(mail, password);
+    if (result.user) {
+      await sendVerificationEmail(result.user);
+      return null;
+    }
+  } catch (error) {
     return error;
   }
 }
@@ -39,4 +53,23 @@ export const checkUserData = (user: firebase.User): void => {
       console.log("User already has data, doing nothing.");
     }
   });
+}
+
+export const userCanLogin = (user: firebase.User): boolean => {
+  let creationTime = user.metadata.creationTime || '';
+
+  if (user.emailVerified) {
+    return true;
+  }
+
+  let difference = Date.now() - Date.parse(creationTime);
+  console.log(difference);
+
+  difference = Math.floor((difference % 86400000) / 3600000);
+
+  if (difference < 24) {
+    return true;
+  }
+
+  return false;
 }

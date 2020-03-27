@@ -29,7 +29,7 @@
 
 <script>
 import { mapMutations } from "vuex";
-import { auth } from "@/firebase/db";
+import { auth } from "@/firebase/config";
 import EditProfile from "@/views/profile/index";
 import FullscreenDialog from "@/components/dialogs/Fullscreen";
 

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import {db} from '@/firebase/db';
+  import {db} from '@/firebase/config';
   export default {
     data: () => ({
       tutorialCase: {},

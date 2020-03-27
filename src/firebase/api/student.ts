@@ -1,5 +1,5 @@
 
-import { db, FieldValue } from '../db';
+import { db, FieldValue } from '../config';
 
 export const removeStudentFromTutorial = (studentID: string, tutorialID: string) : void => {
   db.collection('users').doc(studentID).update({

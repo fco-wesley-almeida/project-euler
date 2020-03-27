@@ -1,5 +1,5 @@
 
-import { db } from '../db';
+import { db } from '../config';
 import firebase from 'firebase';
 import { TutorialCase } from '@/firebase/models/case';
 

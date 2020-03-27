@@ -92,7 +92,7 @@
 
 <script>
 import firebase from 'firebase';
-import { db } from '@/firebase/db';
+import { db } from '@/firebase/config';
 import formRules from '@/utils/formRules';
 
 export default {

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import {db} from '@/firebase/db';
+  import {db} from '@/firebase/config';
   import Lister from '@/components/Lister';
   import GroupCard from '@/components/group/card';
 
@@ -39,7 +39,7 @@
       this.$bind(
         'participants',
       db
-        .collection('students')
+        .collection('users')
         .where('tutorials', 'array-contains', this.$route.params.tutorialID),
       );
     },

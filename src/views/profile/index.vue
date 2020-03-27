@@ -114,7 +114,7 @@
 </template>
 
 <script>
-import { db, auth } from "@/firebase/db";
+import { db, auth } from "@/firebase/config";
 import photoupload from "@/mixins/photoupload";
 import formRules from "@/utils/formRules";
 import UploadDialogs from "@/components/dialogs/PhotoUpload";

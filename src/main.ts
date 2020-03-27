@@ -7,11 +7,11 @@ import store from './store';
 import './registerServiceWorker';
 import vuetify from './plugins/vuetify';
 
-import { auth, db } from '@/firebase/db';
+import { auth, db } from '@/firebase/config';
 
 // @ts-ignore
 import VueChatScroll from 'vue-chat-scroll';
-import {checkUserData} from "@/firebase/api/auth";
+import { checkUserData, userCanLogin } from "@/firebase/api/auth";
 
 let app : Vue;
 Vue.use(VueChatScroll);
@@ -21,7 +21,7 @@ Vue.use(firestorePlugin);
 
 // Initialize app after checking if user has logged in
 auth.onAuthStateChanged((user) => {
-  if (user) {
+  if (user && userCanLogin(user)) {
     checkUserData(user);
     store.state.app.userID = user.uid;
 
@@ -33,6 +33,7 @@ auth.onAuthStateChanged((user) => {
     };
     store.state.app.user = userData;
   } else {
+    auth.signOut();
     store.state.app.userID = null;
     store.state.app.user = null;
   }

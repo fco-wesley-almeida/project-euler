@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { db } from "@/firebase/db";
+import { db } from "@/firebase/config";
 import CaseCard from "@/components/case/card/index.vue";
 import Lister from "@/components/Lister";
 import NewCaseForm from "@/components/case/edition/index";
