@@ -8,11 +8,11 @@
       @change="didChangeFile"
     />
     <v-flex xs12 class="px-10">
-      <v-img v-if="image" style="cursor: pointer" contain ref="previewImage" @click="didTapFile"
+      <v-img v-if="image" :style="readonly ? '' : 'cursor: pointer'" contain ref="previewImage" @click="didTapFile"
              aspect-ratio="1" :height="200" :src="image">
       </v-img>
     </v-flex>
-    <v-btn class="mt-2" @click="didTapFile" color="primary">
+    <v-btn v-if="!readonly" class="mt-2" @click="didTapFile" color="primary">
       {{image ? 'Mudar imagem' : 'Escolher imagem'}}
       <v-icon>image</v-icon>
     </v-btn>
@@ -28,6 +28,10 @@
     props: {
       value: {
         type: Object
+      },
+      readonly: {
+        type: Boolean,
+        default: false
       }
     },
     mounted() {
@@ -43,7 +47,9 @@
         this.$emit("input", value);
       },
       didTapFile() {
+        if (!this.readonly){
         this.$refs.input.click();
+        }
       },
       didChangeFile(e) {
         let files = e.target.files || e.dataTransfer.files

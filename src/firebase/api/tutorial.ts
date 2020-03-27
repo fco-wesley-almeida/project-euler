@@ -1,14 +1,13 @@
 
 import { db, Timestamp } from '../db';
-import { Tutorial } from '@/models/tutorial';
+import { Tutorial } from '@/firebase/models/tutorial';
 import firebase from 'firebase';
 
 export const createTutorial = (tutorial: Tutorial, teacherID: string, teacherName: string): Promise<firebase.firestore.DocumentReference> => {
   tutorial.teacherID = teacherID;
   tutorial.teacherName = teacherName;
   tutorial.creationDate = Timestamp.fromDate(new Date());
-  let object = {}
-  Object.assign(object, tutorial);
+  let object = tutorial.toObject();
   return db.collection("tutorials").add(object);
 };
 

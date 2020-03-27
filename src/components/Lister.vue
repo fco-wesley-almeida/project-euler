@@ -1,7 +1,7 @@
 <template>
   <v-layout wrap align-center>
     <v-flex xs12 v-show="!hideSearchbar">
-      <v-layout wrap pa-3>
+      <v-layout wrap py-3 px-2>
         <v-toolbar class="rounded" style="border-radius: 5px">
           <v-text-field
             v-model="internalSearchString"
@@ -65,10 +65,12 @@ export default {
     emptySearchMessage: String,
     searchPlaceholder: String,
     customSearchFunction: Function,
+    customSortFunction: Function,
     searchText: String,
     hideSearchbar: { type: Boolean, default: false },
     reorderable: { type: Boolean, default: false },
     autosort: { type: Boolean, default: true },
+    centersSingleItem: { type: Boolean, default: false}
   },
   computed: {
     receivedItems() {
@@ -103,10 +105,10 @@ export default {
       });
     },
     listClass() {
-      if (this.shownItems.length > 1) {
-        return 'layout align-start wrap sortableContainer'
+      if (this.shownItems.length <= 1 && this.centersSingleItem) {
+        return 'layout align-start justify-center wrap sortableContainer'
       }
-      return 'layout justify-center wrap sortableContainer'
+      return 'layout align-start justify-start wrap sortableContainer'
     }
   },
   data: () => ({
@@ -136,7 +138,10 @@ export default {
           let index = this.originalItems.indexOf(item);
           this.originalItems.splice(index, 1);
         }
-        if (this.autosort){
+        if (vm.customSortFunction){
+          vm.originalItems.sort(vm.customSortFunction);
+        }
+        else if (vm.autosort){
           vm.originalItems.sort(vm.sort);
         }
       }

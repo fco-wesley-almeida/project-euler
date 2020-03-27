@@ -62,8 +62,9 @@ components: { FullscreenDialog, EditProfile },
 
   watch: {
     $route(val) {
-      if (val.meta && val.meta.breadcrumb !== "disabled") {
-        this.title = this.$store.state.app[val.meta.breadcrumb] || val.name;
+      if (val.meta && val.meta.breadcrumbs) {
+        let text = val.meta.breadcrumbs[val.meta.breadcrumbs.length-1].text;
+        this.title = this.$store.state.app[text] || text || val.name;
       } else {
         this.title = val.name;
       }

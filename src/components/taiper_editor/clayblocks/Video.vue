@@ -13,7 +13,7 @@
           <source :src="video" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-        <v-btn class="mt-2" @click="didTapFile" color="primary">
+        <v-btn v-if="!readonly" class="mt-2" @click="didTapFile" color="primary">
           Mudar vídeo
           <v-icon>movie</v-icon>
         </v-btn>
@@ -39,7 +39,11 @@
     props: {
       value: {
         type: Object
-      }
+      },
+    readonly: {
+      type: Boolean,
+      default: false
+    }
     },
     mounted(){
       if (typeof this.value.value == "string"){
