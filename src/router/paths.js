@@ -36,84 +36,90 @@ export default [
   },
   {
     path: '/tutorias/:tutorialID',
-    meta: {breadcrumbs: [breadcrumbs.tutorial]},
+    meta: { breadcrumbs: [breadcrumbs.tutorial] },
     view: 'tutorialDetails/index',
     children: [
       {
         path: 'informacoes',
-        name: 'TutoriaInfo',
-        meta: {breadcrumbs: breadcrumbs.tutorial},
+        name: 'TutorialInfo',
+        meta: { breadcrumbs: breadcrumbs.tutorial },
         view: 'tutorialDetails/info',
       },
       {
         path: 'casos',
-        name: 'TutoriaCasos',
-        meta: {breadcrumbs: breadcrumbs.tutorial},
+        name: 'TutorialCases',
+        meta: { breadcrumbs: breadcrumbs.tutorial },
         view: 'tutorialDetails/cases',
       },
       {
         path: 'notas',
-        name: 'TutoriaNotas',
-        meta: {breadcrumbs: breadcrumbs.tutorial},
+        name: 'TutorialGrades',
+        meta: { breadcrumbs: breadcrumbs.tutorial },
         view: 'tutorialDetails/evaluations',
       },
       {
         path: 'participantes',
-        name: 'TutoriaParticipantes',
-        meta: {breadcrumbs: breadcrumbs.tutorial},
+        name: 'TutorialParticipants',
+        meta: { breadcrumbs: breadcrumbs.tutorial },
         view: 'tutorialDetails/participants',
       },
     ],
   },
   {
     path: '/tutorias/:tutorialID/casos/:caseID',
-    meta: {breadcrumbs: breadcrumbs.tutorialCase},
+    meta: { breadcrumbs: breadcrumbs.tutorialCase },
     view: 'caseDetails/index',
     children: [
       {
+        path: 'conteudo',
+        name: 'CaseContent',
+        meta: { breadcrumbs: breadcrumbs.tutorialCase },
+        view: 'caseDetails/content',
+      },
+      {
+        path: 'objetivos',
+        name: 'CaseObjectives',
+        meta: { breadcrumbs: breadcrumbs.tutorialCase },
+        view: 'caseDetails/objectives',
+      },
+      {
         path: 'passos',
-        name: 'CasoPassos',
-        meta: {breadcrumbs: breadcrumbs.tutorialCase},
+        name: 'CaseSteps',
+        meta: { breadcrumbs: breadcrumbs.tutorialCase },
         view: 'caseDetails/steps',
       },
       {
         path: 'grupos',
-        name: 'CasoGrupos',
-        meta: {breadcrumbs: breadcrumbs.tutorialCase},
+        name: 'CaseGroups',
+        meta: { breadcrumbs: breadcrumbs.tutorialCase },
         view: 'caseDetails/groups',
       }
     ],
   },
   {
-    path: '/tutorias/:tutorialID/casos/:caseID/passos',
-    meta: {breadcrumbs: breadcrumbs.step},
+    path: '/tutorias/:tutorialID/casos/:caseID/passos/:step',
+    meta: { breadcrumbs: breadcrumbs.step },
+    name: "CaseStep",
     view: 'caseSteps/index',
     children: [
       {
-        path: '1',
-        meta: {breadcrumbs: breadcrumbs.step1},
-        view: 'caseSteps/terms/index',
-        children: [
-          {
-            path: 'conteudo',
-            name: 'TermosConteudo',
-            meta: {breadcrumbs: breadcrumbs.step1},
-            view: 'caseSteps/terms/content',
-          },
-          {
-            path: 'individual',
-            name: 'TermosIndividual',
-            meta: {breadcrumbs: breadcrumbs.step1},
-            view: 'caseSteps/terms/individual',
-          },
-          {
-            path: 'geral',
-            name: 'TermosGeral',
-            meta: {breadcrumbs: breadcrumbs.step1},
-            view: 'caseSteps/terms/ranking',
-          }
-        ],
+        path: 'conteudo',
+        name: 'TermsContent',
+        meta: { breadcrumbs: breadcrumbs.step },
+        view: 'caseDetails/content',
       },
+      {
+        path: 'individual',
+        name: 'TermsIndividual',
+        meta: { breadcrumbs: breadcrumbs.step },
+        view: 'caseSteps/terms/individual',
+      },
+      {
+        path: 'geral',
+        name: 'TermsRanking',
+        meta: { breadcrumbs: breadcrumbs.step },
+        view: 'caseSteps/terms/ranking',
+      }
     ],
-  }
+  },
 ];

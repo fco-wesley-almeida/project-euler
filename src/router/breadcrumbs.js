@@ -10,7 +10,7 @@ export const tutorials = [{
 export const tutorial = tutorials.concat([{
   disabled: false,
   link: true,
-  to: { name: 'TutoriaInfo' },
+  to: { name: 'TutorialInfo' },
   text: 'currentTutorialName',
   label: '',
   title: 'Tutoria',
@@ -19,7 +19,7 @@ export const tutorial = tutorials.concat([{
 export const tutorialCase = tutorial.concat([{
   disabled: false,
   link: true,
-  to: { name: 'CasoPassos' },
+  to: { name: 'CaseSteps' },
   text: 'currentCaseName',
   label: '',
   title: 'Caso',
@@ -28,18 +28,9 @@ export const tutorialCase = tutorial.concat([{
 export const step = tutorialCase.concat([{
   disabled: false,
   link: true,
-  to: { name: 'CasoPassos' },
-  text: '',
+  to: { name: 'CaseSteps' },
+  text: 'currentStep',
   label: '',
   title: 'Passos',
-}]);
-
-export const step1 = step.concat([{
-  disabled: false,
-  link: true,
-  to: { name: 'TermosIndividual' },
-  text: 'Identificação de termos',
-  label: '',
-  title: 'Passo 1',
 }]);
 

@@ -1,5 +1,5 @@
 <template>
-  <v-layout wrap justify-center align-center pa-5>
+  <v-layout wrap justify-center align-start px-5>
     <v-flex xs12 md10 lg8>
       <lister
         :items="participants"

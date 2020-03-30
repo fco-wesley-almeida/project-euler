@@ -6,7 +6,7 @@
                          v-for="i in tutorialCase.currentStep" v-bind:key="i">
           <v-layout style="margin-left: -20px">
             <v-flex>
-              <v-card>
+              <v-card class="mr-2">
                 <v-card-title :class="`headline ${i == 1 ? 'primary white--text' : ''} pt-2`">Passo
                   {{tutorialCase.currentStep - i + 1}}
                   <v-spacer/>
@@ -72,16 +72,12 @@
 
   export default {
     name: 'CaseSteps',
+    props: {
+      tutorialCase: Object
+    },
     data: () => ({
-      tutorialCase: {currentStep: 0},
       activationDialog: false
     }),
-    mounted() {
-      this.$bind(
-        'tutorialCase',
-        db.collection('cases').doc(this.$route.params.caseID),
-      );
-    },
     computed: {
       routePrefix() {
         return `/tutorias/${this.$route.params.tutorialID}/caso/${this.$route.params.caseID}`;
@@ -97,10 +93,12 @@
         this.activationDialog = false;
       },
       stepTapped(index) {
-        console.log(index)
-        if (index === 1) {
-          this.$router.push({name: 'TermosIndividual', params: this.$route.params});
-        }
+        this.$store.state.app.currentStep = "Passo " + index;
+        // if (index === 1) {
+        //   this.$router.push({name: 'TermsIndividual', params: {...this.$route.params, step: 1}});
+        // } else {
+          this.$router.push({name: 'CaseStep', params: {...this.$route.params, step: index}});
+        // }
       }
     }
   };

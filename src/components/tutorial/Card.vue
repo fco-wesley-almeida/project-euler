@@ -30,7 +30,7 @@ export default {
   methods: {
     onClick() {
       this.$store.state.app.currentTutorialName = this.receivedTutorial.name;
-      this.$router.push({name: "TutoriaInfo", params: {tutorialID: this.receivedTutorial.id}});
+      this.$router.push({name: "TutorialInfo", params: {tutorialID: this.receivedTutorial.id}});
     },
   },
   computed: {

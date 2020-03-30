@@ -1,6 +1,6 @@
 <template>
-  <v-layout wrap justify-center align-content-start>
-    <v-flex xs12 md8 lg7 pa-0>
+  <v-layout wrap justify-center align-content-start px-2>
+    <v-flex xs12 md8 lg7>
       <v-flex xs12>
         <v-layout wrap mb-3>
           <v-toolbar style="border-radius: 5px">

@@ -5,9 +5,9 @@
       {{ title }}
     </v-toolbar-title>
     <v-spacer />
-    <v-menu>
+    <v-menu left bottom>
       <template v-slot:activator="{on}">
-        <v-avatar size="40" v-on="on" style="cursor: pointer">
+        <v-avatar size="40" v-on="on" style="cursor: pointer" class="mr-3">
           <v-img :src="avatarContent" />
         </v-avatar>
       </template>
