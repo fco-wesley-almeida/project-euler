@@ -92,7 +92,7 @@
 
 <script>
 import firebase from 'firebase';
-import { db } from '@/firebase/db';
+import { db } from '@/firebase/config';
 import formRules from '@/utils/formRules';
 
 export default {
@@ -124,7 +124,7 @@ export default {
           .createUserWithEmailAndPassword(v.mail, v.password)
           .then(
             (response) => {
-              db.collection('teachers')
+              db.collection('users')
                 .doc(response.user.uid)
                 .set({
                   name: v.mail,

@@ -1,5 +1,5 @@
 
-import { db, Timestamp } from '../db';
+import { db, Timestamp } from '../config';
 import { Tutorial } from '@/firebase/models/tutorial';
 import firebase from 'firebase';
 

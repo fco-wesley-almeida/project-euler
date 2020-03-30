@@ -47,7 +47,7 @@ export default {
 <style>
 
 body{
-    background-color: var(--v-background-base);
+  background-color: var(--v-background-base);
 }
 
 #app {

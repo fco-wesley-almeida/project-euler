@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { Timestamp } from "@/firebase/db";
+import { Timestamp } from "@/firebase/config";
 import formRules from "@/utils/formRules";
 
 export default {

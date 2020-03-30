@@ -1,4 +1,4 @@
-import {db} from '../db';
+import {db} from '../config';
 import firebase from 'firebase';
 import {TermAnswer} from '../models/answers/term';
 import {TermRankingEntry} from "@/firebase/models/answers/termRankingEntry";

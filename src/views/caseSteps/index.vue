@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import {db} from '@/firebase/db';
+  import {db} from '@/firebase/config';
   export default {
     data: () => ({
       tutorialCase: {},
@@ -21,7 +21,7 @@
       this.$bind(
         'participants',
         db
-          .collection('students')
+          .collection('users')
           .where('tutorials', 'array-contains', this.$route.params.tutorialID),
       );
     }

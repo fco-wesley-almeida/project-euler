@@ -54,7 +54,7 @@
 <script>
 import Vue from "vue";
 import VueQrcode from "@chenfengyuan/vue-qrcode";
-import { db } from "@/firebase/db";
+import { db } from "@/firebase/config";
 import StudentCard from "@/components/student/Card.vue";
 import Lister from "@/components/Lister";
 

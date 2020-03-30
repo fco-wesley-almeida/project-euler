@@ -1,6 +1,6 @@
 import exif from 'exif-js';
 import firebase from 'firebase';
-import {db, storage} from '@/firebase/db';
+import {db, storage} from '@/firebase/config';
 
 export default {
   data: () => ({

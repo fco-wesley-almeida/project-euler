@@ -66,7 +66,7 @@
 </template>
 
 <script>
-  import {db} from '@/firebase/db';
+  import {db} from '@/firebase/config';
   import {advanceStep} from "@/firebase/api/steps";
   import {processTermsWithID} from "../../firebase/api/steps";
 

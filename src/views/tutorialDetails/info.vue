@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { db, Timestamp } from "@/firebase/db";
+import { db, Timestamp } from "@/firebase/config";
 import TutorialForm from "@/components/tutorial/edition/form";
 
 export default {

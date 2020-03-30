@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { db } from "@/firebase/db";
+import { db } from "@/firebase/config";
 import NewTutorial from "@/components/tutorial/edition/index";
 import Lister from "@/components/Lister";
 import TutorialCard from "@/components/tutorial/Card";
