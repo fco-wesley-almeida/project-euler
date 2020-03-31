@@ -1,10 +1,10 @@
 <template>
-  <v-layout wrap justify-center align-start align-content-start px-2>
+  <v-layout wrap justify-center align-start align-content-start px-1>
     <v-flex xs12 md8 lg6>
       <v-layout wrap justify-center align-start align-content-start pa-0>
         <v-flex xs12>
         <h4
-          class="text-xs-center ma-1"
+          class="text-xs-center ma-1 ml-2"
           style="color: #555555"
         >Compartilhe para adicionar novos participantes:</h4>
         </v-flex>
@@ -54,7 +54,8 @@
 <script>
 import Vue from "vue";
 import VueQrcode from "@chenfengyuan/vue-qrcode";
-import { db } from "@/firebase/config";
+import { db, DocumentSnapshot } from "@/firebase/config";
+import { exportStudentToUser } from "@/firebase/api/student";
 import StudentCard from "@/components/student/Card.vue";
 import Lister from "@/components/Lister";
 
@@ -74,6 +75,13 @@ export default {
         .collection("users")
         .where("tutorials", "array-contains", this.$route.params.tutorialID)
     );
+     db
+        .collection("students")
+        .get().then((snapshot) => {
+          snapshot.forEach( (doc) => {
+            exportStudentToUser(doc.id, doc.data());
+          })
+        });
   },
   computed: {
     filteredStudents() {

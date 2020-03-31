@@ -18,3 +18,7 @@ export const addStudentToTutorial = (studentID: string, tutorialID: string) : vo
     students: FieldValue.arrayUnion(studentID),
   });
 };
+
+export const exportStudentToUser = (studentID: string, student: Object) : void => {
+  db.collection('users').doc(studentID).set(student);
+}

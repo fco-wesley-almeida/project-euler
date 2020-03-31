@@ -1,21 +1,69 @@
 <template>
-  <v-layout align-center justify-center wrap>
+  <v-layout align-center justify-center wrap px-4>
     <v-flex xs12 fill-height>
       <v-fade-transition>
-      <component :is="shownComponent" :tutorialCase="tutorialCase" :participants="participants" />
+        <component
+          :is="shownComponent"
+          :tutorialCase="tutorialCase"
+          :participants="participants"
+          :groups="groups"
+          :step="shownStep"
+        />
       </v-fade-transition>
     </v-flex>
-    <v-btn v-if="showsPreviousButton" @click.native.stop="didTapPrevious" small fab style="position: fixed; left: 16px; top: 50%">
-      <v-icon color="primary">navigate_before</v-icon>
+    <v-btn
+      v-if="showsPreviousButton"
+      @click.native.stop="didTapPrevious"
+      x-small
+      fab
+      color="primary"
+      style="position: fixed; left: 2px; top: 50%"
+    >
+      <v-icon>navigate_before</v-icon>
     </v-btn>
-    <v-btn v-if="showsNextButton" @click="didTapNext" small fab style="position: fixed; right: 16px; top: 50%">
-      <v-icon color="primary">navigate_next</v-icon>
+    <v-btn
+      v-if="showsNextButton"
+      @click="didTapNext"
+      x-small
+      fab
+      color="primary"
+      style="position: fixed; right: 2px; top: 50%"
+    >
+      <v-icon>navigate_next</v-icon>
     </v-btn>
+    <v-btn
+      v-if="showsAdvanceButton"
+      @click="activationDialog = true"
+      fab
+      color="primary"
+      fixed
+      bottom
+      right
+    >
+      <v-icon>redo</v-icon>
+    </v-btn>
+    <v-dialog v-model="activationDialog" transition="fade-transition" max-width="290">
+      <v-card>
+        <v-card-title class="headline">Passo {{tutorialCase.currentStep}}</v-card-title>
+
+        <v-card-text>
+          Deseja realmente finalizar este passo? Os alunos não poderão mais enviar
+          respostas.
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn color="grey darken-1" class="ml-2" text @click="activationDialog = false">Cancelar</v-btn>
+          <v-spacer />
+          <v-btn color="primary" class="mr-2" text @click="didTapAdvance">Avançar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-layout>
 </template>
 
 <script>
 import { db } from "@/firebase/config";
+import { advanceStep } from "@/firebase/api/steps";
 import TermStep from "@/views/caseSteps/terms/index";
 import GroupStep from "@/views/caseSteps/group/index";
 import IndividualStep from "@/views/caseSteps/individual/index";
@@ -25,17 +73,28 @@ export default {
   data: () => ({
     tutorialCase: {},
     participants: [],
+    activationDialog: false,
     groups: [],
     shownStep: 1
   }),
   methods: {
     didTapNext() {
-      this.$store.state.app.currentStep = "Passo " + (this.shownStep+1);
-      this.$router.push({name: 'CaseStep', params: {...this.$route.params, step: this.shownStep+1}});
+      this.$store.state.app.currentStep = "Passo " + (this.shownStep + 1);
+      this.$router.push({
+        name: "CaseStep",
+        params: { ...this.$route.params, step: this.shownStep + 1 }
+      });
     },
     didTapPrevious() {
-      this.$store.state.app.currentStep = "Passo " + (this.shownStep-1);
-      this.$router.push({name: 'CaseStep', params: {...this.$route.params, step: this.shownStep-1}});
+      this.$store.state.app.currentStep = "Passo " + (this.shownStep - 1);
+      this.$router.push({
+        name: "CaseStep",
+        params: { ...this.$route.params, step: this.shownStep - 1 }
+      });
+    },
+    didTapAdvance() {
+      advanceStep(this.$route.params.caseID, this.tutorialCase.currentStep);
+      this.activationDialog = false;
     }
   },
   mounted() {
@@ -72,18 +131,23 @@ export default {
     },
     showsPreviousButton() {
       return this.shownStep > 1;
+    },
+    showsAdvanceButton() {
+      return (
+        this.shownStep > 1 && this.shownStep === this.tutorialCase.currentStep
+      );
     }
   }
 };
 </script>
 
 <style>
-
 .fade-transition {
-   transition: opacity 1s ease;
- }
+  transition: opacity 1s ease;
+}
 
-.fade-enter, .fade-leave {
+.fade-enter,
+.fade-leave {
   opacity: 0;
 }
 </style>
