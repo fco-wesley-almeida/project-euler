@@ -36,7 +36,7 @@ import Ranking from "./ranking";
     components: {Content, Individual, Ranking},
     data: () => ({
       activationDialog: false,
-      tab: 0,
+      tab: 1,
       tabs: [Content, Individual, Ranking]
     }),
     props: {

@@ -134,7 +134,7 @@ export default {
     },
     showsAdvanceButton() {
       return (
-        this.shownStep > 1 && this.shownStep === this.tutorialCase.currentStep
+        this.shownStep > 1 && this.shownStep === this.tutorialCase.currentStep && this.shownStep < 9
       );
     }
   }
