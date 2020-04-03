@@ -17,7 +17,7 @@
       x-small
       fab
       color="primary"
-      style="position: fixed; left: 2px; top: 50%"
+      style="position: fixed; left: 8px; top: 50%"
     >
       <v-icon>navigate_before</v-icon>
     </v-btn>
@@ -27,7 +27,7 @@
       x-small
       fab
       color="primary"
-      style="position: fixed; right: 2px; top: 50%"
+      style="position: fixed; right: 8px; top: 50%"
     >
       <v-icon>navigate_next</v-icon>
     </v-btn>
@@ -73,6 +73,7 @@ export default {
   data: () => ({
     tutorialCase: {},
     participants: [],
+    shownComponent: TermStep,
     activationDialog: false,
     groups: [],
     shownStep: 1
@@ -95,6 +96,18 @@ export default {
     didTapAdvance() {
       advanceStep(this.$route.params.caseID, this.tutorialCase.currentStep);
       this.activationDialog = false;
+    },
+    updateComponent() {
+      this.shownComponent = undefined;
+      setTimeout(() => {
+        if (this.shownStep == 1) {
+          this.shownComponent = TermStep;
+        } else if (this.shownStep == 6) {
+          this.shownComponent = IndividualStep;
+        } else {
+          this.shownComponent = GroupStep;
+        }
+      }, 100);
     }
   },
   mounted() {
@@ -110,22 +123,15 @@ export default {
         .collection("users")
         .where("tutorials", "array-contains", this.$route.params.tutorialID)
     );
+    this.updateComponent();
   },
   watch: {
     $route(val) {
       this.shownStep = this.$route.params.step;
+      this.updateComponent();
     }
   },
   computed: {
-    shownComponent() {
-      if (this.shownStep == 1) {
-        return TermStep;
-      }
-      if (this.shownStep == 6) {
-        return IndividualStep;
-      }
-      return GroupStep;
-    },
     showsNextButton() {
       return this.shownStep < this.tutorialCase.currentStep;
     },
@@ -134,7 +140,9 @@ export default {
     },
     showsAdvanceButton() {
       return (
-        this.shownStep > 1 && this.shownStep === this.tutorialCase.currentStep && this.shownStep < 9
+        this.shownStep > 1 &&
+        this.shownStep === this.tutorialCase.currentStep &&
+        this.shownStep < 9
       );
     }
   }
