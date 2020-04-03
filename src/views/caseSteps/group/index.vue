@@ -25,7 +25,7 @@
 <script>
 import { db } from "@/firebase/config";
 import Lister from "@/components/Lister";
-import GroupAnswerCard from "@/components/answer/group";
+import GroupAnswerCard from "@/components/steps/group";
 
 export default {
   components: { GroupAnswerCard, Lister },
