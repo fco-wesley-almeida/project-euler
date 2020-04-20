@@ -1,5 +1,5 @@
 <template>
-  <v-layout wrap justify-center align-center pa-5>
+  <v-layout wrap justify-center align-center px-0>
     <v-flex xs12 md10 lg8>
       <lister
         :items="groups"
@@ -63,6 +63,21 @@
         return (a, b) => {
           return a.title.toLowerCase().localeCompare(b.title.toLowerCase(), 'en', {numeric: true});
         };
+      },
+      sortGroupParticipants() {
+        return (a, b) => {
+          if (a.id === a.group.reporterID)
+            return -1
+          if (b.id === a.group.reporterID)
+            return 1
+
+          if (a.id === a.group.coordinatorID)
+            return -1
+          if (b.id === a.group.coordinatorID)
+            return 1
+
+          return a.name.toLowerCase().localeCompare(b.name.toLowerCase(), 'en', {numeric: true});
+        }
       }
     },
     methods: {
@@ -70,9 +85,13 @@
         this.tutorialCase.currentStep++;
       },
       getParticipants(group) {
-        return this.participants.filter( (participant) => {
-          return group.participants.includes(participant.id)
+        let foundParticipants = this.participants.filter( (participant) => {
+          return group.participants.includes(participant.id);
         })
+        for (let participant of foundParticipants){
+          participant.group = group;
+        }
+        return foundParticipants.sort(this.sortGroupParticipants);
       },
 
     }

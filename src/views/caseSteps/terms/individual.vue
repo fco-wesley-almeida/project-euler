@@ -1,9 +1,9 @@
 <template>
-  <v-layout wrap justify-center align-center pa-5>
+  <v-layout wrap justify-center align-start px-5>
     <v-flex xs12 md10 lg8>
       <lister
         :items="participants"
-        cardBreakpoints="xs12 md6 lg4"
+        cardBreakpoints="xs12 md6"
         searchPlaceholder="Buscar por nome ou email do participante"
         :customSearchFunction="searchParticipant"
       >

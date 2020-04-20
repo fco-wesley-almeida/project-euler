@@ -15,7 +15,7 @@
     </v-flex>
     <transition-group
       v-show="!showPlaceholder"
-      name="list-complete"
+      name="scroll-y-transition"
       tag="div"
       :class="listClass"
     >

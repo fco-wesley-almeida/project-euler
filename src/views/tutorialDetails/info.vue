@@ -1,6 +1,6 @@
 <template>
   <v-layout wrap justify-center align-center>
-    <v-flex xs12 md10 lg6>
+    <v-flex xs12 md10 lg6 px-2>
       <v-card>
         <v-card-text>
           <tutorial-form ref="form" v-model="tutorial" @validate="checkValidation" />

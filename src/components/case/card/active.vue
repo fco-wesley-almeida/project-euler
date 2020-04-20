@@ -37,7 +37,7 @@ export default Vue.extend({
     didTapGroup() {
       this.$store.state.app.currentCaseName = this.receivedTutorialCase.title;
       this.$router.push({
-        name: "CasoGrupos",
+        name: "CaseGroups",
         params: {
           tutorialID: this.$route.params.tutorialID,
           caseID: this.tutorialCase.id
@@ -47,7 +47,7 @@ export default Vue.extend({
     didTapSteps() {
       this.$store.state.app.currentCaseName = this.receivedTutorialCase.title;
       this.$router.push({
-        name: "CasoPassos",
+        name: "CaseSteps",
         params: { tutorialID: this.$route.params.tutorialID, caseID: this.tutorialCase.id }
       });
     }

@@ -5,4 +5,5 @@ export default {
   setUser: set('user'),
   setCurrentTutorialName: set('currentTutorialName'),
   setCurrentCaseName: set('currentCaseName'),
+  setCurrentStep: set('currentStep')
 };
