@@ -1,6 +1,6 @@
 <template>
   <v-layout align-center justify-center wrap px-4>
-    <v-flex xs12 fill-height>
+    <v-flex xs11 fill-height>
       <v-fade-transition>
         <component
           :is="shownComponent"
