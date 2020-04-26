@@ -89,8 +89,6 @@ export default {
         let url = this.resultURLs[map.fileIndex];
         this.content[map.contentIndex].value = url;
       }
-      console.log("Uploads finished")
-      console.log(this.resultURLs);
       this.editingTutorialCase.tutorialID = this.$route.params.tutorialID;
       await setCase(this.editingTutorialCase, this.docID);
       await setCaseContent(this.content, this.docID);

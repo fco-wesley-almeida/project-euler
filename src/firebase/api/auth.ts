@@ -47,10 +47,10 @@ export const checkUserData = (user: firebase.User): void => {
   };
   db.collection('users').doc(user.uid).get().then((doc) => {
     if (!doc.exists) {
-      console.log("User doesn't have data, creating teacher node.");
+      //"User doesn't have data, creating teacher node.");
       db.collection('users').doc(user.uid).set(userData);
     } else {
-      console.log("User already has data, doing nothing.");
+      //"User already has data, doing nothing.");
     }
   });
 }
@@ -63,7 +63,7 @@ export const userCanLogin = (user: firebase.User): boolean => {
   }
 
   let difference = Date.now() - Date.parse(creationTime);
-  console.log(difference);
+  //difference);
 
   difference = Math.floor((difference % 86400000) / 3600000);
 
