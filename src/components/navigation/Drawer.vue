@@ -58,7 +58,7 @@ export default {
         return this.breadcrumbs.length - 1;
       },
       set(v) {
-        console.log(`Drawer item selected: ${v}`);
+        //`Drawer item selected: ${v}
       },
     },
   },

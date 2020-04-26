@@ -136,7 +136,6 @@
         }
         this.participantMap = newParticipantMap;
         this.updateValue(newValue);
-        console.log(newValue);
       },
       participantChanged(student, newKey) {
         let oldKey = this.participantMap[student.id];
@@ -186,17 +185,13 @@
         let bHasGroup = this.participantMap[b.id];
         if (aHasGroup) {
           if (bHasGroup) {
-            console.log("bothHaveGroups");
             return ("" + a.name).localeCompare(b.name);
           }
-          console.log("A has Group");
           return 1;
         }
         if (bHasGroup) {
-          console.log("B has Group");
           return -1;
         }
-        console.log("None has Group");
         return ("" + a.name).localeCompare(b.name);
       }
     }

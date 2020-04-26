@@ -113,7 +113,6 @@
             this.close();
           }).catch((e) => {
             this.loading = false;
-            console.log(e);
           });
         }
       },
@@ -137,7 +136,6 @@
           }
           groups.push({participants});
         }
-        console.log(groups);
         this.groups = groups;
         this.configIsSet = true;
       }

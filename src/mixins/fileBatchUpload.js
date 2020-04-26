@@ -98,7 +98,6 @@ export default {
     },
 
     setupBatch(files) {
-      console.log(files);
       this.files = files;
       this.manageUploads();
     },
@@ -129,7 +128,6 @@ export default {
             _this.currentFileIndex++;
           }
         }
-        console.log(this.files[this.currentFileIndex]);
         fr.readAsDataURL(this.files[this.currentFileIndex]);
       } else {
         this.uploadsFinished();

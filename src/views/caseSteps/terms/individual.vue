@@ -93,7 +93,6 @@
         });
 
         if (answers[0]) {
-          console.log(answers[0].terms);
           return answers[0].terms;
         }
         return [];
