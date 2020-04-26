@@ -125,19 +125,7 @@ export default {
       immediate: true,
       handler(newItems) {
         const vm = this;
-        let toBeAdded = newItems.filter(
-          item => !vm.originalItems.includes(item)
-        );
-        let toBeRemoved = this.originalItems.filter(
-          item => !newItems.includes(item)
-        );
-        for (let item of toBeAdded) {
-          this.originalItems.push(item);
-        }
-        for (let item of toBeRemoved) {
-          let index = this.originalItems.indexOf(item);
-          this.originalItems.splice(index, 1);
-        }
+        vm.originalItems = newItems.slice();
         if (vm.customSortFunction){
           vm.originalItems.sort(vm.customSortFunction);
         }
