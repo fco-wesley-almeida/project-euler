@@ -1,21 +1,10 @@
 <template>
-  <v-card color="primary" dark class="pa-2">
+  <v-card elevation="10" @click="didTapCard" color="primary" dark class="pa-2">
     <v-card-title>{{receivedTutorialCase.title}}</v-card-title>
     <v-card-subtitle>
       <div>Passo atual: {{(receivedTutorialCase.currentStep || 1) + " / 9"}}</div>
-      <v-progress-linear color="white" class="mt-1" value="75" />
+      <v-progress-linear color="white" class="mt-1" :value="((receivedTutorialCase.currentStep || 1.0)/9.0)*100" />
     </v-card-subtitle>
-
-    <v-card-actions class="pa-0">
-      <v-btn small @click="didTapGroup" class="ml-2" text color="white">
-        <v-icon>group</v-icon>
-        <p class="my-auto">Grupos</p>
-      </v-btn>
-      <v-btn @click="didTapSteps" text class="mr-5" color="white">
-        <v-icon>timeline</v-icon>
-        <p class="my-auto">Passos</p>
-      </v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 
@@ -34,21 +23,14 @@ export default Vue.extend({
     }
   },
   methods: {
-    didTapGroup() {
+    didTapCard() {
       this.$store.state.app.currentCaseName = this.receivedTutorialCase.title;
       this.$router.push({
-        name: "CaseGroups",
+        name: "CaseSteps",
         params: {
           tutorialID: this.$route.params.tutorialID,
           caseID: this.tutorialCase.id
         }
-      });
-    },
-    didTapSteps() {
-      this.$store.state.app.currentCaseName = this.receivedTutorialCase.title;
-      this.$router.push({
-        name: "CaseSteps",
-        params: { tutorialID: this.$route.params.tutorialID, caseID: this.tutorialCase.id }
       });
     }
   }
