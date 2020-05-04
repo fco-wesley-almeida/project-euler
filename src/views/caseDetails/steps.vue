@@ -3,7 +3,7 @@
     <v-flex xs12 md8 lg6>
       <v-timeline dense style="margin-left: -25px">
         <v-timeline-item
-          :color="i == 1 ? 'primary' : 'grey'"
+          :color="shouldHighlightStep || tutorialCase.status == 'finished' ? 'primary' : 'grey'"
           small
           v-for="i in tutorialCase.currentStep"
           v-bind:key="i"
@@ -11,26 +11,12 @@
           <v-layout style="margin-left: -20px">
             <v-flex>
               <v-card color="card" class="mr-2">
-                <v-card-title :class="`headline ${i == 1 ? 'primary white--text' : ''} pt-2`">
+                <v-card-title :class="`headline ${shouldHighlightStep ? 'primary white--text' : ''} pt-2`">
                   Passo
                   {{tutorialCase.currentStep - i + 1}}
                   <v-spacer />
                 </v-card-title>
-                <v-card-subtitle :class="`${i == 1 ? 'primary' : ''} pb-1`">
-                  <v-icon
-                    small
-                    class="mr-2 mb-2"
-                    :color="`${i == 1 ? 'rgba(255, 255, 255, 0.75)' : ''}`"
-                  >calendar_today</v-icon>
-                  <span
-                    class="body-1 my-auto"
-                    :style="`height: 100%; ${i == 1 ? 'color: rgba(255, 255, 255, 0.75)' : ''}`"
-                  >24/20/2020</span>
-                </v-card-subtitle>
-                <v-card-text class="body-1 mt-3">
-                  Leitura do caso e demarcação de termos
-                  desconhecidos
-                </v-card-text>
+                <v-card-text class="body-1 mt-3">{{stepDescription(tutorialCase.currentStep - i)}}</v-card-text>
                 <v-card-actions>
                   <v-spacer />
                   <v-btn
@@ -50,23 +36,20 @@
         <v-btn
           fixed
           style="position: fixed; bottom: 0; right: 0; margin-right: 16px; margin-bottom: 72px"
-          v-show="tutorialCase.currentStep < 9"
+          v-show="tutorialCase.status != 'finished'"
           @click="activationDialog = true"
           color="primary"
         >
-          Avançar
-          <v-icon class="ml-2">redo</v-icon>
+          {{advanceLabel}}
+          <v-icon class="ml-2">{{advanceIcon}}</v-icon>
         </v-btn>
       </v-layout>
     </v-flex>
     <v-dialog v-model="activationDialog" transition="fade-transition" max-width="290">
       <v-card color="card">
-        <v-card-title class="headline">Passo {{tutorialCase.currentStep}}</v-card-title>
+        <v-card-title class="headline">{{advanceDialogTitle}}</v-card-title>
 
-        <v-card-text>
-          Deseja realmente finalizar este passo? Os alunos não poderão mais enviar
-          respostas.
-        </v-card-text>
+        <v-card-text>{{advanceDialogMessage}}</v-card-text>
 
         <v-card-actions>
           <v-btn color="grey darken-1" class="ml-2" text @click="activationDialog = false">Cancelar</v-btn>
@@ -80,6 +63,7 @@
 
 <script>
 import { db } from "@/firebase/config";
+import { finishCase } from "@/firebase/api/case";
 import { advanceStep } from "@/firebase/api/steps";
 import { processTermsWithID } from "../../firebase/api/steps";
 
@@ -92,13 +76,33 @@ export default {
     activationDialog: false
   }),
   computed: {
-    routePrefix() {
-      return `/tutorias/${this.$route.params.tutorialID}/caso/${this.$route.params.caseID}`;
+    shouldHighlightStep(i) {
+      return i == 1 && tutorialCase.status != finished
+    },
+    advanceLabel() {
+      return this.tutorialCase.currentStep < 9 ? "Avançar" : "Finalizar";
+    },
+    advanceIcon() {
+      return this.tutorialCase.currentStep < 9 ? "redo" : "check";
+    },
+    advanceDialogTitle() {
+      if (this.tutorialCase.currentStep == 9) {
+        return "Finalizar Caso";
+      }
+      return "Passo " + this.tutorialCase.currentStep;
+    },
+    advanceDialogMessage() {
+      if (this.tutorialCase.currentStep < 9) {
+        return "Deseja realmente finalizar este passo? Os alunos não poderão mais enviar respostas.";
+      }
+      return "Deseja finalizar este caso? Os alunos não poderão mais enviar respostas ao passo 9 e você poderá tornar outro caso ativo.";
     }
   },
   methods: {
     didTapAdvance() {
-      if (this.tutorialCase.currentStep > 1) {
+      if (this.tutorialCase.currentStep == 9) {
+        finishCase(this.$route.params.caseID);
+      } else if (this.tutorialCase.currentStep > 1) {
         advanceStep(this.$route.params.caseID, this.tutorialCase.currentStep);
       } else {
         processTermsWithID(this.$route.params.caseID);
@@ -107,14 +111,24 @@ export default {
     },
     stepTapped(index) {
       this.$store.state.app.currentStep = "Passo " + index;
-      // if (index === 1) {
-      //   this.$router.push({name: 'TermsIndividual', params: {...this.$route.params, step: 1}});
-      // } else {
       this.$router.push({
         name: "CaseStep",
         params: { ...this.$route.params, step: index }
       });
-      // }
+    },
+    stepDescription(i) {
+      let descriptions = [
+        "Leitura do caso e demarcação dos termos desconhecidos",
+        "Lista de problemas",
+        "Chuva de ideias",
+        "Sistematizar a análise e hipóteses para solução do problema",
+        "Listagem dos objetos de aprendizagem",
+        "Estudo em casa e construção do mapa individual",
+        "Construção e apresentação do mapa coletivo",
+        "Artigo científico",
+        "Caso integrador"
+      ];
+      return descriptions[i];
     }
   }
 };

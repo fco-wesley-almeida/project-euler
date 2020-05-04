@@ -56,7 +56,7 @@
       <lister
         :items="finishedCases"
         v-if="finishedCases.length > 0 || searching"
-        cardBreakpoints="xs12 md6 lg4"
+        cardBreakpoints="xs12"
         :searchText="searchText"
         :customSearchFunction="customSearch"
         hideSearchbar
