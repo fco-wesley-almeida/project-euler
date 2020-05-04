@@ -1,7 +1,7 @@
 <template>
   <v-layout align-center justify-center wrap>
     <v-flex xs11 md8 lg6 xl4>
-      <v-card class="mt-3">
+      <v-card color="card" class="mt-3">
         <v-layout column class="pa-4">
           <v-select :items="participantOptions" v-model="participants"
                     v-on:change="didChangeParticipants" label="Nº de participantes por grupo"/>

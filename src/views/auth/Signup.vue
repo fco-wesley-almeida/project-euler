@@ -3,7 +3,7 @@
     <v-layout align-center justify-space-around>
       <v-flex xs12 sm8 md4>
         <v-dialog v-model="dialog" max-width="290">
-          <v-card>
+          <v-card color="card">
             <v-card-title class="headline error white--text">Erro</v-card-title>
             <v-card-text>{{ dialogMessage }}</v-card-text>
             <v-card-actions>
@@ -12,7 +12,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <v-card class="elevation-6">
+        <v-card color="card" class="elevation-6">
           <v-card-text class="px-10 pb-0">
             <v-form ref="form" v-model="valid" @keyup.native.enter="valid && login()">
               <v-text-field

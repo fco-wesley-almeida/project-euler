@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-2">
+  <v-card color="card" class="pa-2">
     <v-layout>
       <div>
         <v-layout align-center justify-center fill-height>
@@ -29,7 +29,7 @@
         transition="fade-transition"
         max-width="290"
       >
-        <v-card>
+        <v-card color="card">
           <v-card-title class="headline">Remoção</v-card-title>
 
           <v-card-text>

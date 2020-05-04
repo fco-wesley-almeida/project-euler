@@ -21,7 +21,7 @@
           <v-list-item @click="$vuetify.theme.dark=!$vuetify.theme.dark">
             <span class="my-auto" color="white">Tema escuro</span>
             <v-spacer />
-            <v-switch class="my-auto" v-model="$vuetify.theme.dark" hide-details></v-switch>
+            <v-switch class="ml-1 my-auto" @click="$vuetify.theme.dark=!$vuetify.theme.dark" v-model="$vuetify.theme.dark" hide-details></v-switch>
           </v-list-item>
         </v-list-item-group>
       </v-list>

@@ -10,7 +10,7 @@
         </v-flex>
         <v-flex xs12>
           <v-layout justify-center align-center wrap :column="$vuetify.breakpoint.smAndDown">
-            <v-card class="ma-1" height="100" width="100">
+            <v-card color="card" class="ma-1" height="100" width="100">
               <v-layout align-center justify-center fill-height>
                 <qrcode
                   :value="$route.params.tutorialID"
@@ -19,7 +19,7 @@
               </v-layout>
             </v-card>
             <h3 class="text-xs-center ma-1" style="color: #555555">ou</h3>
-            <v-card class="ma-1" height="100">
+            <v-card color="card" class="ma-1" height="100">
               <v-layout justify-center align-center fill-height>
                 <div>
                   <h2

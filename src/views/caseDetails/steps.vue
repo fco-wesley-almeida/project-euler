@@ -10,7 +10,7 @@
         >
           <v-layout style="margin-left: -20px">
             <v-flex>
-              <v-card class="mr-2">
+              <v-card color="card" class="mr-2">
                 <v-card-title :class="`headline ${i == 1 ? 'primary white--text' : ''} pt-2`">
                   Passo
                   {{tutorialCase.currentStep - i + 1}}
@@ -60,7 +60,7 @@
       </v-layout>
     </v-flex>
     <v-dialog v-model="activationDialog" transition="fade-transition" max-width="290">
-      <v-card>
+      <v-card color="card">
         <v-card-title class="headline">Passo {{tutorialCase.currentStep}}</v-card-title>
 
         <v-card-text>

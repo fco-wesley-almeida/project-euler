@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card color="card">
     <v-card-title class="mb-0 pb-0">{{participant.name}}</v-card-title>
     <v-card-text>
       <v-layout>

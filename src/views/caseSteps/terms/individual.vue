@@ -24,7 +24,7 @@
       <v-icon>redo</v-icon>
     </v-btn>
     <v-dialog v-model="activationDialog" transition="fade-transition" max-width="290">
-      <v-card>
+      <v-card color="card">
         <v-card-title class="headline">Passo 1</v-card-title>
 
         <v-card-text>Deseja realmente finalizar este passo? Os alunos não poderão mais enviar respostas.</v-card-text>

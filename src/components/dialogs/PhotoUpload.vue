@@ -4,7 +4,7 @@
       v-model="uploading"
       persistent
       max-width="290">
-      <v-card>
+      <v-card color="card">
         <v-card-title class="accent title white--text">Fazendo upload</v-card-title>
         <v-card-text>
           <p class="black--text subhead mt-2 mb-0 text-xs-left">{{ name + " - " + size }}</p>
