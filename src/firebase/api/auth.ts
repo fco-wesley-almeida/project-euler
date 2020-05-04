@@ -63,7 +63,6 @@ export const userCanLogin = (user: firebase.User): boolean => {
   }
 
   let difference = Date.now() - Date.parse(creationTime);
-  //difference);
 
   difference = Math.floor((difference % 86400000) / 3600000);
 

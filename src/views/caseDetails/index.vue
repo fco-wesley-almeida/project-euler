@@ -5,6 +5,7 @@
     </v-fade-transition>
     <v-bottom-navigation
       color="primary"
+      background-color="secondary"
       fixed
     >
       <v-btn :to="{name: 'CaseContent', params: $route.params}">
