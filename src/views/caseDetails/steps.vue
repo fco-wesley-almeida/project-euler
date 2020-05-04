@@ -77,7 +77,7 @@ export default {
   }),
   computed: {
     shouldHighlightStep(i) {
-      return i == 1 && tutorialCase.status != finished
+      return i == 1 && tutorialCase.status != 'finished';
     },
     advanceLabel() {
       return this.tutorialCase.currentStep < 9 ? "Avançar" : "Finalizar";
