@@ -43,7 +43,7 @@
       <v-icon>redo</v-icon>
     </v-btn>
     <v-dialog v-model="activationDialog" transition="fade-transition" max-width="290">
-      <v-card>
+      <v-card color="card">
         <v-card-title class="headline">Passo {{tutorialCase.currentStep}}</v-card-title>
 
         <v-card-text>

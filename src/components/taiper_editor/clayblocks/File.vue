@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-2 my-2 mx-2">
+  <v-card color="card" class="pa-2 my-2 mx-2">
     <v-layout>
       <v-layout column wrap align-center justify-center>
         <v-icon x-large class="px-5 pb-2 mb-0">{{icon}}</v-icon>

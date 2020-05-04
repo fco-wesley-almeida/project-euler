@@ -1,5 +1,5 @@
 <template>
-  <v-card progre color="primary" dark class="pa-2">
+  <v-card color="primary" dark class="pa-2">
     <v-card-title>{{receivedTutorialCase.title}}</v-card-title>
     <v-card-subtitle>
       <div>Passo atual: {{(receivedTutorialCase.currentStep || 1) + " / 9"}}</div>

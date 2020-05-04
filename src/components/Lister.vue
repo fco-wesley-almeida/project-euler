@@ -2,8 +2,9 @@
   <v-layout wrap align-center>
     <v-flex xs12 v-show="!hideSearchbar">
       <v-layout wrap py-3 px-2>
-        <v-toolbar class="rounded" style="border-radius: 5px">
+        <v-toolbar color="card" class="rounded" style="border-radius: 5px">
           <v-text-field
+            background-color="card"
             v-model="internalSearchString"
             hide-details
             prepend-icon="search"

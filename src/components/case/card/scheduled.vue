@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-2 round" >
+  <v-card color="card" class="pa-2 round" >
     <v-card-title>{{receivedTutorialCase.title}}</v-card-title>
     <v-card-actions class="pa-0">
       <template v-if="canBeActive">
@@ -44,7 +44,7 @@
       />
     </v-dialog>
     <v-dialog v-model="deletionDialog" transition="fade-transition" max-width="290">
-      <v-card>
+      <v-card color="card">
         <v-card-title class="headline">Exclusão</v-card-title>
 
         <v-card-text>Deseja realmente excluir este caso?</v-card-text>
@@ -57,7 +57,7 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="activationDialog" transition="fade-transition" max-width="290">
-      <v-card>
+      <v-card color="card">
         <v-card-title class="headline">Ativar</v-card-title>
 
         <v-card-text>Deseja realmente ativar este caso? Não será mais possível editá-lo e os grupos serão formados somente pelos participantes atuais.</v-card-text>

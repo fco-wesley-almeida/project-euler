@@ -1,7 +1,7 @@
 <template>
   <v-layout align-center justify-center wrap>
     <v-flex xs11 md8 lg6>
-      <v-card class="mt-3">
+      <v-card color="card" class="mt-3">
         <v-form class="pa-1" ref="form" v-model="valid">
           <v-layout class="pa-2">
             <div class="my-auto" style="width: 100px; margin-left: 10px; margin-right: 0px">

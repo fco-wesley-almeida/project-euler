@@ -12,7 +12,7 @@
     >
       <template v-slot:default="slotProps">
         <div class="pa-2">
-          <v-card>
+          <v-card color="card">
             <v-card-title>{{'Grupo ' + (slotProps.index + 1)}}</v-card-title>
             <v-card-text>
               <v-autocomplete class="my-3"

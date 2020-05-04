@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card color="card">
     <v-card-title class="mb-0 pb-0 pr-2 my-auto">
       <span>{{group.title}}</span>
       <v-spacer />
@@ -31,7 +31,7 @@
         </template>
       </v-text-field>
       <v-dialog scrollable v-model="participantDialog" v-if="participantDialog" max-width="500">
-        <v-card>
+        <v-card color="card">
           <v-card-title color="primary">{{group.title}} - Integrantes</v-card-title>
           <v-card-text>
             <v-text-field

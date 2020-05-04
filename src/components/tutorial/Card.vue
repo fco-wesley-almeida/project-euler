@@ -1,5 +1,5 @@
 <template>
-    <v-card hover @click="onClick">
+    <v-card color="card" hover @click="onClick">
             <v-card-title>{{receivedTutorial.name}}</v-card-title>
             <v-card-subtitle color="red">
               <div>

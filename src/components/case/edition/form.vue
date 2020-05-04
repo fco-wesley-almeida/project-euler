@@ -2,7 +2,7 @@
   <v-form ref="tutorialCaseForm" v-model="validForm">
     <v-layout align-center justify-center my-5>
       <v-flex xs12 md8 lg6>
-        <v-stepper non-linear v-model="stepper" vertical>
+        <v-stepper class="card" non-linear v-model="stepper" vertical>
           <v-stepper-step
             step="1"
             editable

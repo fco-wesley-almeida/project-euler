@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card color="card">
     <v-card-title class="mb-0 pb-0">{{participant.name}}</v-card-title>
     <v-card-text>
       <v-layout>
@@ -14,12 +14,12 @@
           <v-chip
             :value="true"
             style="pointer-events: none"
-            class="text-capitalize v-slide-item--active"
+            class="text-capitalize text--white v-slide-item--active"
             text-color="white"
             color="primary"
             v-for="term in sortedTerms"
             :key="term"
-          >{{ term }}</v-chip>
+          ><span style="color: white">{{ term }}</span></v-chip>
         </v-chip-group>
         <span v-else class="my-auto">Nenhum termo</span>
       </v-layout>
