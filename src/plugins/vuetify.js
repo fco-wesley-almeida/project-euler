@@ -26,6 +26,18 @@ export default new Vuetify({
         disabled: '#555555',
         subtitle: '#555555',
       },
+      dark: {
+        primary: '#0d47a1',
+        secondary: '#000000',
+        accent: '#0d47a1',
+        error: '#FF5252',
+        info: '#2196F3',
+        success: '#0d47a1',
+        warning: '#FFC107',
+        background: '#212121',
+        disabled: '#555555',
+        subtitle: '#555555',
+      },
     },
   },
 });

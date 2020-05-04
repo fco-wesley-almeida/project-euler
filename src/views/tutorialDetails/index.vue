@@ -5,6 +5,7 @@
   </v-fade-transition>
   <v-bottom-navigation
     v-model="bottomNav"
+    background-color="secondary"
     color="primary"
     fixed
   >

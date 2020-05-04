@@ -8,6 +8,7 @@
       </v-btn>
     </v-card-title>
     <v-card-text>
+      <taiper-editor v-model="answerContent" readonly placeholderMessage="Nenhuma resposta enviada" />
       <v-text-field
         class="my-3"
         readonly
@@ -29,7 +30,6 @@
           <span v-else-if="index == 1">Coordenador</span>
         </template>
       </v-text-field>
-      <taiper-editor v-model="answerContent" readonly placeholderMessage="Nenhuma resposta enviada" />
       <v-dialog scrollable v-model="participantDialog" v-if="participantDialog" max-width="500">
         <v-card>
           <v-card-title color="primary">{{group.title}} - Integrantes</v-card-title>

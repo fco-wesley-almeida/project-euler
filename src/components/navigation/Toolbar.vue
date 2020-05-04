@@ -1,6 +1,6 @@
 <template>
-  <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="white">
-    <v-toolbar-title class="display-1 black--text">
+  <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="secondary">
+    <v-toolbar-title class="display-1">
       <v-app-bar-nav-icon @click.stop="$emit('drawerChanged')"></v-app-bar-nav-icon>
       {{ title }}
     </v-toolbar-title>
@@ -18,11 +18,16 @@
           <v-list-item v-for="(item, index) in menuOptions" :key="index" @click="onMenuClick(item)">
             <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item>
+          <v-list-item @click="$vuetify.theme.dark=!$vuetify.theme.dark">
+            <span class="my-auto" color="white">Tema escuro</span>
+            <v-spacer />
+            <v-switch class="my-auto" v-model="$vuetify.theme.dark" hide-details></v-switch>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-menu>
     <fullscreen-dialog v-model="profileDialog" title="Editar perfil">
-        <edit-profile />
+      <edit-profile />
     </fullscreen-dialog>
   </v-app-bar>
 </template>
@@ -43,7 +48,7 @@ export default {
       { title: "Sair", route: "/login" }
     ]
   }),
-components: { FullscreenDialog, EditProfile },
+  components: { FullscreenDialog, EditProfile },
   computed: {
     mini() {
       return this.$vuetify.breakpoint.mdAndDown;
@@ -52,7 +57,11 @@ components: { FullscreenDialog, EditProfile },
       return auth.currentUser.displayName || auth.currentUser.email;
     },
     avatarContent() {
-      return this.$store.state.app.user.imageURL || auth.currentUser.photoURL || '/img/profile-default.jpg';
+      return (
+        this.$store.state.app.user.imageURL ||
+        auth.currentUser.photoURL ||
+        "/img/profile-default.jpg"
+      );
     }
   },
 
@@ -63,7 +72,7 @@ components: { FullscreenDialog, EditProfile },
   watch: {
     $route(val) {
       if (val.meta && val.meta.breadcrumbs) {
-        let text = val.meta.breadcrumbs[val.meta.breadcrumbs.length-1].text;
+        let text = val.meta.breadcrumbs[val.meta.breadcrumbs.length - 1].text;
         this.title = this.$store.state.app[text] || text || val.name;
       } else {
         this.title = val.name;
@@ -77,11 +86,10 @@ components: { FullscreenDialog, EditProfile },
       this.setDrawer(!this.$store.state.app.drawer);
     },
     onMenuClick(item) {
-      if (item.route == "profileDialog"){
+      if (item.route == "profileDialog") {
         this.profileDialog = true;
-      }
-      else{
-      this.$router.push(item.route);
+      } else {
+        this.$router.push(item.route);
       }
     }
   }
