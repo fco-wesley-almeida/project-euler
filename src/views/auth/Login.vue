@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container fluid fill-height style="background-color: var(--v-primary-base)">
     <v-layout align-center justify-space-around>
       <v-flex xs12 sm8 md4>
         <v-dialog v-model="dialog" max-width="290">
@@ -63,9 +63,9 @@
             <v-spacer />
           </v-card-actions>
         </v-card>
-        <p class="mt-3">
+        <p class="white--text mt-3">
           Caso não possua um login cadastre-se
-          <router-link to="cadastro">aqui</router-link>
+          <router-link class="white--text" to="cadastro">aqui</router-link>
         </p>
       </v-flex>
     </v-layout>
