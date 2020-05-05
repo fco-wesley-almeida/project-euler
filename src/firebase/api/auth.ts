@@ -13,7 +13,7 @@ export const login = async (mail: string, password: string): Promise<Object | nu
     return result.user;
 
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -47,10 +47,8 @@ export const checkUserData = (user: firebase.User): void => {
   };
   db.collection('users').doc(user.uid).get().then((doc) => {
     if (!doc.exists) {
-      //"User doesn't have data, creating teacher node.");
       db.collection('users').doc(user.uid).set(userData);
     } else {
-      //"User already has data, doing nothing.");
     }
   });
 }

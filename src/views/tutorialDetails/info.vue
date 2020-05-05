@@ -126,6 +126,7 @@ export default {
         this.tutorialRef.update(this.tutorial).then(() => {
           vm.loading = false;
           vm.snackbar = true;
+          vm.$store.state.currentTutorialName = vm.tutorial.name;
         });
       }
     },

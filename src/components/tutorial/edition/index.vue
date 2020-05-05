@@ -52,7 +52,14 @@ export default {
           this.tutorial,
           this.userData.uid,
           this.userData.name
-        ).then(() => {
+        ).then((id) => {
+          let ownedTutorials = this.$store.state.app.user.ownedTutorials;
+          if (ownedTutorials) {
+            ownedTutorials.push(id);
+          } else {
+            ownedTutorials = [id];
+          }
+          this.$store.state.app.user.ownedTutorials = ownedTutorials;
           vm.close();
         });
       }
