@@ -1,7 +1,5 @@
 
-import { db } from '../config';
-import firebase from 'firebase';
-import { TutorialCase } from '@/firebase/models/case';
+import { db, FieldValue } from '../config';
 import {Group} from "@/firebase/models/group";
 
 export const createGroups = (caseID: string, groups: Array<Group>): Promise<void> => {
@@ -12,4 +10,11 @@ export const createGroups = (caseID: string, groups: Array<Group>): Promise<void
     }
     batch.update(db.collection("cases").doc(caseID), {status: "active"})
     return batch.commit();
+};
+
+export const addUserToGroup = (caseID: string, groupID: string, userID: string): Promise<void> => {
+  let ref = db.collection("cases").doc(caseID).collection("groups").doc(groupID);
+  return ref.update({
+    participants: FieldValue.arrayUnion(userID),
+  });
 };
