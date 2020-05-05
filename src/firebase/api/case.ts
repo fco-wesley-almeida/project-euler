@@ -14,6 +14,10 @@ export const updateCase = (tutorialCase: TutorialCase, id: string | undefined): 
   return db.collection("cases").doc(id).update(obj);
 };
 
+export const finishCase = (id: string) => {
+  return db.collection("cases").doc(id).update({ status: "finished"});
+};
+
 export const setCase = (tutorialCase: TutorialCase, id: string | undefined): Promise<void> => {
   let obj = tutorialCase.toObject()
   return db.collection("cases").doc(id).set(obj);

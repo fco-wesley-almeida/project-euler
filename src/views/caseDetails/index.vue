@@ -8,6 +8,11 @@
       background-color="secondary"
       fixed
     >
+      <v-btn :to="{name: 'CaseSteps', params: $route.params}">
+        <span>Passos</span>
+        <v-icon>timeline</v-icon>
+      </v-btn>
+
       <v-btn :to="{name: 'CaseContent', params: $route.params}">
         <span>Conteúdo</span>
         <v-icon>book</v-icon>
@@ -16,11 +21,6 @@
       <v-btn :to="{name: 'CaseObjectives', params: $route.params}">
         <span>Objetivos</span>
         <v-icon>mdi-bullseye-arrow</v-icon>
-      </v-btn>
-
-      <v-btn :to="{name: 'CaseSteps', params: $route.params}">
-        <span>Passos</span>
-        <v-icon>timeline</v-icon>
       </v-btn>
 
       <v-btn :to="{name: 'CaseGroups', params: $route.params}">

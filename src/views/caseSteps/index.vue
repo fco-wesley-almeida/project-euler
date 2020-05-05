@@ -32,24 +32,20 @@
       <v-icon>navigate_next</v-icon>
     </v-btn>
     <v-btn
-      v-if="showsAdvanceButton"
-      @click="activationDialog = true"
-      fab
-      color="primary"
       fixed
-      bottom
-      right
+      style="position: fixed; bottom: 0; right: 0; margin-right: 16px; margin-bottom: 72px"
+      v-show="showsAdvanceButton"
+      @click="activationDialog = true"
+      color="primary"
     >
-      <v-icon>redo</v-icon>
+      {{advanceLabel}}
+      <v-icon class="ml-2">{{advanceIcon}}</v-icon>
     </v-btn>
     <v-dialog v-model="activationDialog" transition="fade-transition" max-width="290">
       <v-card color="card">
-        <v-card-title class="headline">Passo {{tutorialCase.currentStep}}</v-card-title>
+        <v-card-title class="headline">{{advanceDialogTitle}}</v-card-title>
 
-        <v-card-text>
-          Deseja realmente finalizar este passo? Os alunos não poderão mais enviar
-          respostas.
-        </v-card-text>
+        <v-card-text>{{advanceDialogMessage}}</v-card-text>
 
         <v-card-actions>
           <v-btn color="grey darken-1" class="ml-2" text @click="activationDialog = false">Cancelar</v-btn>
@@ -64,6 +60,7 @@
 <script>
 import { db } from "@/firebase/config";
 import { advanceStep } from "@/firebase/api/steps";
+import { finishCase } from "@/firebase/api/case";
 import TermStep from "@/views/caseSteps/terms/index";
 import GroupStep from "@/views/caseSteps/group/index";
 import IndividualStep from "@/views/caseSteps/individual/index";
@@ -94,8 +91,11 @@ export default {
       });
     },
     didTapAdvance() {
-      advanceStep(this.$route.params.caseID, this.tutorialCase.currentStep);
-      this.activationDialog = false;
+      if (this.tutorialCase.currentStep == 9) {
+        finishCase(this.$route.params.caseID);
+      } else {
+        advanceStep(this.$route.params.caseID, this.tutorialCase.currentStep);
+      }
     },
     updateComponent() {
       this.shownComponent = undefined;
@@ -142,8 +142,26 @@ export default {
       return (
         this.shownStep > 1 &&
         this.shownStep === this.tutorialCase.currentStep &&
-        this.shownStep < 9
+        this.tutorialCase.status != "finished"
       );
+    },
+    advanceLabel() {
+      return this.tutorialCase.currentStep < 9 ? "Avançar" : "Finalizar";
+    },
+    advanceIcon() {
+      return this.tutorialCase.currentStep < 9 ? "redo" : "check";
+    },
+    advanceDialogTitle() {
+      if (this.tutorialCase.currentStep == 9) {
+        return "Finalizar Caso";
+      }
+      return "Passo " + this.tutorialCase.currentStep;
+    },
+    advanceDialogMessage() {
+      if (this.tutorialCase.currentStep < 9) {
+        return "Deseja realmente finalizar este passo? Os alunos não poderão mais enviar respostas.";
+      }
+      return "Deseja finalizar este caso? Os alunos não poderão mais enviar respostas ao passo 9 e você poderá tornar outro caso ativo.";
     }
   }
 };

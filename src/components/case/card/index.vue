@@ -12,6 +12,7 @@ import Router from "vue-router/types/vue";
 import EditCase from "./edition/index.vue";
 import ActiveCaseCard from "./active.vue";
 import ScheduledCaseCard from "./scheduled.vue";
+import FinishedCaseCard from "./finished.vue";
 import { removeCaseFromTutorial } from "@/firebase/api/case";
 import { TutorialCase } from "@/firebase/models/case";
 
@@ -35,7 +36,7 @@ export default Vue.extend({
         return ActiveCaseCard;
       }
 
-      return ScheduledCaseCard;
+      return FinishedCaseCard;
     }
   },
 });
