@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Meta from 'vue-meta';
 import firebase from 'firebase';
-
+import store from '@/store';
 // File mapping route names to files
 import paths from './paths';
 
@@ -39,8 +39,8 @@ const router = new Router({
     path.name,
     path.meta,
     path.children)).concat([
-    { path: '*', redirect: '/tutorias' },
-  ]),
+      { path: '*', redirect: '/tutorias' },
+    ]),
   // Resets scroll if it is a new route
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
@@ -63,6 +63,17 @@ router.beforeEach((to, from, next) => {
     // Check if user is logged in whenever they navigate
   } else if (to.path !== '/login' && to.path !== '/cadastro' && !currentUser) {
     next('login');
+  } else if (to.params["tutorialID"]) {
+    let ownedTutorials = store.state.app.user.ownedTutorials;
+    if (ownedTutorials) {
+      if (ownedTutorials.includes(to.params["tutorialID"])) {
+        next();
+      } else {
+        next('');
+      }
+    } else {
+      next('');
+    }
   } else next();
 });
 

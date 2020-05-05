@@ -7,6 +7,15 @@ export const tutorials = [{
   title: 'Tutorias',
 }];
 
+export const unauthorized = tutorials.concat([{
+  disabled: false,
+  link: true,
+  to: { name: 'Tutorial' },
+  text: 'Acesso negado',
+  label: '',
+  title: 'Tutoria',
+}]);
+
 export const tutorial = tutorials.concat([{
   disabled: false,
   link: true,

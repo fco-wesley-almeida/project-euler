@@ -8,8 +8,11 @@ import * as breadcrumbs from './breadcrumbs'
 export default [
   {
     path: '/semautorizacao',
-    name: ' ',
+    name: '',
     view: 'Unauthorized',
+    meta: {
+      breadcrumbs: breadcrumbs.unauthorized
+    }
   },
   {
     path: '/cadastro',
