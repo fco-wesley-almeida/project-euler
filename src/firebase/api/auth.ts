@@ -48,14 +48,12 @@ export const checkUserData = (user: firebase.User): void => {
   };
   db.collection('users').doc(user.uid).get().then((doc) => {
     if (!doc.exists) {
-      console.log("User doesn't have data, creating teacher node.");
       db.collection('users').doc(user.uid).set(userData);
     } else {
       //"User already has data, doing nothing.");
     }
     let currentUser = store.state.app.user;
     let data = doc.data() || {};
-    console.log(data);
     currentUser.ownedTutorials = data['ownedTutorials'];
     currentUser.state = data['state'];
     currentUser.institution = data['institution'];
