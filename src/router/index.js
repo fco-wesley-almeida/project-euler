@@ -64,15 +64,21 @@ router.beforeEach((to, from, next) => {
   } else if (to.path !== '/login' && to.path !== '/cadastro' && !currentUser) {
     next('login');
   } else if (to.params["tutorialID"]) {
-    let ownedTutorials = store.state.app.user.ownedTutorials;
-    if (ownedTutorials) {
-      if (ownedTutorials.includes(to.params["tutorialID"])) {
+    let user = store.state.app.user || {};
+    if (user.ownedTutorials) {
+      console.log("user.ownedTutorials")
+      if (user.ownedTutorials.includes(to.params["tutorialID"])) {
         next();
       } else {
-        next('');
+        next({
+          name: 'Tutorias'
+        });
       }
     } else {
-      next('');
+      console.log(user);
+      next({
+        name: 'Tutorias'
+      });
     }
   } else next();
 });

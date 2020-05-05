@@ -34,7 +34,6 @@
                   v-model="user.name"
                   :rules="[formRules.required]"
                   required
-                  hide-details="auto"
                   label="Nome"
                 />
               </v-card-title>
@@ -50,7 +49,6 @@
                     v-model="user.institution"
                     :rules="[formRules.required]"
                     required
-                    hide-details="auto"
                     label="Instituição"
                   />
                 </div>
@@ -60,7 +58,6 @@
                     v-model="user.state"
                     :rules="[formRules.required]"
                     required
-                    hide-details="auto"
                     label="Estado"
                   />
                 </div>
@@ -163,14 +160,12 @@ export default {
     }
   },
   mounted() {
-    this.$bind("user", users.doc(this.$store.state.app.userID));
+    this.user = Object.assign(this.$store.state.app.user, this.user);
     this.$bind("firebaseUser", users.doc(this.$store.state.app.userID));
   },
   methods: {
     didTapUpdate() {
       if (this.valid) {
-        this.$firestoreRefs.user.set(this.user);
-        this.$store.state.app.user = this.user;
         auth.currentUser.updateProfile({ displayName: this.user.name });
 
         if (this.file != null) {
@@ -178,6 +173,9 @@ export default {
         } else {
           this.snackbar = true;
         }
+        this.$firestoreRefs.firebaseUser.update(this.user);
+        this.$store.state.app.user = this.user;
+
       } else {
         this.$refs.form.validate();
       }
@@ -195,7 +193,7 @@ export default {
       this.snackbar = true;
       this.progress = 0;
       this.$store.state.app.user.imageURL = photoURL;
-      this.$firestoreRefs.user.update({imageURL: photoURL});
+      this.$firestoreRefs.firebaseUser.update({imageURL: photoURL});
       auth.currentUser.updateProfile({ photoURL });
     }
   }
