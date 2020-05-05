@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container fluid fill-height style="background-color: var(--v-primary-base)">
     <v-layout align-center justify-space-around>
       <v-flex xs12 sm8 md4>
         <v-dialog v-model="dialog" max-width="290">
@@ -81,9 +81,9 @@
             <v-spacer />
           </v-card-actions>
         </v-card>
-        <p>
+        <p class="white--text">
           Voltar ao
-          <router-link to="login">login</router-link>
+          <router-link class="white--text" to="login">login</router-link>
         </p>
       </v-flex>
     </v-layout>
