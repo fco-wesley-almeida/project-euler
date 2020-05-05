@@ -19,11 +19,6 @@
       <v-icon>list</v-icon>
     </v-btn>
 
-    <v-btn :to="`${routePrefix}/notas`">
-      <span>Notas</span>
-      <v-icon>assignment_turned_in</v-icon>
-    </v-btn>
-
     <v-btn :to="`${routePrefix}/participantes`">
       <span>Participantes</span>
       <v-icon>group</v-icon>
