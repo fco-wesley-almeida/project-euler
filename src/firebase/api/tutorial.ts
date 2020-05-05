@@ -1,14 +1,24 @@
 
-import { db, Timestamp } from '../config';
+import { db, Timestamp, FieldValue } from '../config';
 import { Tutorial } from '@/firebase/models/tutorial';
 import firebase from 'firebase';
 
-export const createTutorial = (tutorial: Tutorial, teacherID: string, teacherName: string): Promise<firebase.firestore.DocumentReference> => {
-  tutorial.teacherID = teacherID;
-  tutorial.teacherName = teacherName;
-  tutorial.creationDate = Timestamp.fromDate(new Date());
-  let object = tutorial.toObject();
-  return db.collection("tutorials").add(object);
+export const createTutorial = async (tutorial: Tutorial, teacherID: string, teacherName: string): Promise<String | null> => {
+  try {
+    tutorial.teacherID = teacherID;
+    tutorial.teacherName = teacherName;
+    tutorial.creationDate = Timestamp.fromDate(new Date());
+
+    let object = tutorial.toObject();
+    let docRef = db.collection("tutorials").doc();
+    await db.collection('users').doc(teacherID).update({
+      ownedTutorials: FieldValue.arrayUnion(docRef.id),
+    });
+    await db.collection("tutorials").doc(docRef.id).set(object);
+    return docRef.id;
+  } catch {
+    return null;
+  }
 };
 
 export const updateTutorial = (tutorial: Tutorial): Promise<void> => {
