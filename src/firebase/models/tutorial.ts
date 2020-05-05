@@ -1,10 +1,11 @@
 import firebase from 'firebase';
+import { Timestamp } from '../config';
 export class Tutorial {
     id: string | undefined = undefined;
     name: string = "";
     password: string = "";
     date: firebase.firestore.Timestamp | null = null;
-    creationDate: firebase.firestore.Timestamp | null = null;
+    creationDate: firebase.firestore.Timestamp | null = Timestamp.fromDate(new Date());
     description: string = "";
     fixedGroups: boolean = false;
     teacherID: string = "";
