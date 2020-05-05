@@ -66,7 +66,6 @@ router.beforeEach((to, from, next) => {
   } else if (to.params["tutorialID"]) {
     let user = store.state.app.user || {};
     if (user.ownedTutorials) {
-      console.log("user.ownedTutorials")
       if (user.ownedTutorials.includes(to.params["tutorialID"])) {
         next();
       } else {
@@ -75,7 +74,6 @@ router.beforeEach((to, from, next) => {
         });
       }
     } else {
-      console.log(user);
       next({
         name: 'Tutorias'
       });

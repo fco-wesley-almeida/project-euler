@@ -164,17 +164,16 @@ export default {
     this.$bind("firebaseUser", users.doc(this.$store.state.app.userID));
   },
   methods: {
-    didTapUpdate() {
+    async didTapUpdate() {
       if (this.valid) {
-        auth.currentUser.updateProfile({ displayName: this.user.name });
-
         if (this.file != null) {
           this.createFile();
         } else {
           this.snackbar = true;
         }
-        this.$firestoreRefs.firebaseUser.update(this.user);
+        await this.$firestoreRefs.firebaseUser.update(this.user);
         this.$store.state.app.user = this.user;
+        await auth.currentUser.updateProfile({ displayName: this.user.name });
 
       } else {
         this.$refs.form.validate();

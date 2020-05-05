@@ -96,6 +96,7 @@ export default {
       } else {
         advanceStep(this.$route.params.caseID, this.tutorialCase.currentStep);
       }
+      this.activationDialog = false;
     },
     updateComponent() {
       this.shownComponent = undefined;
