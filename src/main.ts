@@ -22,10 +22,6 @@ Vue.use(firestorePlugin);
 // Initialize app after checking if user has logged in
 auth.onAuthStateChanged((user) => {
   if (user && userCanLogin(user)) {
-    db.collection('users').doc(user.uid).get().then( (snapshot) => {
-      let data = snapshot.data() || {};
-      store.state.app.user.ownedTutorials = data['ownedTutorials'];
-    });
     checkUserData(user);
     store.state.app.userID = user.uid;
 
