@@ -3,7 +3,7 @@
     <v-flex xs12 md8 lg6>
       <v-timeline dense style="margin-left: -25px">
         <v-timeline-item
-          :color="shouldHighlightStep || tutorialCase.status == 'finished' ? 'primary' : 'grey'"
+          :color="shouldHighlightStep(i) || tutorialCase.status == 'finished' ? 'primary' : 'grey'"
           small
           v-for="i in tutorialCase.currentStep"
           v-bind:key="i"
@@ -11,7 +11,7 @@
           <v-layout style="margin-left: -20px">
             <v-flex>
               <v-card color="card" class="mr-2">
-                <v-card-title :class="`headline ${shouldHighlightStep ? 'primary white--text' : ''} pt-2`">
+                <v-card-title :class="`headline ${shouldHighlightStep(i) ? 'primary white--text' : ''} pt-2`">
                   Passo
                   {{tutorialCase.currentStep - i + 1}}
                   <v-spacer />
@@ -76,9 +76,6 @@ export default {
     activationDialog: false
   }),
   computed: {
-    shouldHighlightStep(i) {
-      return i == 1 && tutorialCase.status != 'finished';
-    },
     advanceLabel() {
       return this.tutorialCase.currentStep < 9 ? "Avançar" : "Finalizar";
     },
@@ -99,6 +96,9 @@ export default {
     }
   },
   methods: {
+    shouldHighlightStep(i) {
+      return i == 1 && this.tutorialCase.status != 'finished';
+    },
     didTapAdvance() {
       if (this.tutorialCase.currentStep == 9) {
         finishCase(this.$route.params.caseID);
@@ -122,7 +122,7 @@ export default {
         "Lista de problemas",
         "Chuva de ideias",
         "Sistematizar a análise e hipóteses para solução do problema",
-        "Listagem dos objetos de aprendizagem",
+        "Listagem dos objetivos de aprendizagem",
         "Estudo em casa e construção do mapa individual",
         "Construção e apresentação do mapa coletivo",
         "Artigo científico",

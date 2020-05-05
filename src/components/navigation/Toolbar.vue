@@ -26,7 +26,7 @@
         </v-list-item-group>
       </v-list>
     </v-menu>
-    <fullscreen-dialog v-model="profileDialog" title="Editar perfil">
+    <fullscreen-dialog v-if="profileDialog" v-model="profileDialog" title="Editar perfil">
       <edit-profile />
     </fullscreen-dialog>
   </v-app-bar>
