@@ -1,25 +1,21 @@
 <template>
-  <v-layout wrap justify-center align-center px-1>
-    <v-flex xs12 md10 lg8>
-      <lister
-        :items="groups"
-        cardBreakpoints="xs12 md6"
-        searchPlaceholder="Buscar por título do grupo ou nome/email de participantes"
-        :customSearchFunction="searchGroup"
-        :customSortFunction="sortGroups"
-      >
-        <template v-slot:default="slotProps">
-          <div class="pa-2">
-            <group-answer-card
-              :group="slotProps.item"
-              :participants="getParticipants(slotProps.item)"
-              :answer="getAnswer(slotProps.item)"
-            />
-          </div>
-        </template>
-      </lister>
-    </v-flex>
-  </v-layout>
+  <lister
+    :items="groups"
+    cardBreakpoints="xs12 md6"
+    searchPlaceholder="Buscar por título do grupo ou nome/email de participantes"
+    :customSearchFunction="searchGroup"
+    :customSortFunction="sortGroups"
+  >
+    <template v-slot:default="slotProps">
+      <div class="pa-2">
+        <group-answer-card
+          :group="slotProps.item"
+          :participants="getParticipants(slotProps.item)"
+          :answer="getAnswer(slotProps.item)"
+        />
+      </div>
+    </template>
+  </lister>
 </template>
 
 <script>

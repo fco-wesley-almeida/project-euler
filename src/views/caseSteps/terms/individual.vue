@@ -1,6 +1,4 @@
 <template>
-  <v-layout wrap justify-center align-start px-5>
-    <v-flex xs12 md10 lg8>
       <lister
         :items="participants"
         cardBreakpoints="xs12 md6"
@@ -12,9 +10,7 @@
             <participant-terms-card :participant="slotProps.item" :terms="getTerms(slotProps.item)" />
           </div>
         </template>
-      </lister>
-    </v-flex>
-    <v-btn
+        <v-btn
       v-show="showingFAB"
       color="primary"
       fab
@@ -36,8 +32,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </v-layout>
-</template>
+      </lister>
+    </template>
 
 <script>
   import {db} from '@/firebase/config';
