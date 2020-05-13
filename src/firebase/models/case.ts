@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { Timestamp } from '../config';
 export class TutorialCase {
     id: string | undefined = undefined;
     title: string = "";
@@ -6,7 +7,7 @@ export class TutorialCase {
     content: Array<any> = [];
     studyObjectives: Array<any> = [];
     currentStep: number = 1;
-    creationDate: firebase.firestore.Timestamp | null = null;
+    creationDate: firebase.firestore.Timestamp | null = Timestamp.fromDate(new Date());
     status : "scheduled" | "active" | "finished" = "scheduled";
 
     public constructor(init?:Partial<TutorialCase>) {

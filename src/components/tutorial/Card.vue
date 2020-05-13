@@ -6,18 +6,11 @@
                 <v-icon color="disabled">group</v-icon>
                 Participantes: {{participantsCount}}
               </div>
+              <div>
+                <v-icon color="disabled">event</v-icon>
+                Data: {{date}}
+              </div>
             </v-card-subtitle>
-            <v-card-text>
-              <div>Caso atual: {{receivedTutorial.currentCase || "Nenhum"}}</div>
-              <div>
-                <v-icon color="primary">assignment</v-icon>
-                Casos agendados: {{receivedTutorial.scheduledCases || 0}}
-              </div>
-              <div>
-                <v-icon color="disabled">assignment</v-icon>
-                Casos finalizados: {{receivedTutorial.finishedCases || 0}}
-              </div>
-            </v-card-text>
           </v-card>
 </template>
 
@@ -34,6 +27,17 @@ export default {
     },
   },
   computed: {
+    date() {
+      let convertedDate = this.receivedTutorial.date.toDate();
+
+      let day = convertedDate.getUTCDate();
+      let dayString = day >= 10 ? `${day}` : `0${day}`;
+
+      let month = convertedDate.getUTCMonth();
+      month += 1;
+      let monthString = month >= 10 ? `${month}` : `0${month}`;
+      return `${dayString}/${monthString}/${convertedDate.getUTCFullYear()}`;
+    },
     receivedTutorial() {
       return this.$props.tutorial;
     },
