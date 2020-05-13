@@ -8,7 +8,7 @@ export default {
             disabled: breadcrumb.disabled,
             link: breadcrumb.disabled,
             to: breadcrumb.to,
-            text: this.checkStorage(breadcrumb.text) || breadcrumb.text,
+            text: this.checkStorage(breadcrumb.text) || breadcrumb.title,
             label: breadcrumb.label,
             title: breadcrumb.title,
           })

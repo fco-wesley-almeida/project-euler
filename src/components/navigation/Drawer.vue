@@ -25,7 +25,7 @@
 
               <v-list-item-content>
                 <v-list-item-title>
-                    {{ item.title || item.label || item.text}}
+                    {{ item.title }}
                 </v-list-item-title>
 
                 <v-list-item-subtitle v-if="item.title && item.title !== item.text">

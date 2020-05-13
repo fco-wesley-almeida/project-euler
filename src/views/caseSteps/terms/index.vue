@@ -1,14 +1,16 @@
 <template>
-  <v-layout wrap px-1 pb-5>
+  <v-layout>
     <v-fade-transition mode="out-in">
-      <component :is="shownComponent" :participants="participants" :tutorialCase="tutorialCase" style="margin-bottom: 76px" />
+      <component
+        :is="shownComponent"
+        :participants="participants"
+        :tutorialCase="tutorialCase"
+        :content="tutorialCase.content"
+        :class="tab == 0 ? 'mx-2 mt-2' : '' "
+        style="margin-bottom: 76px"
+      />
     </v-fade-transition>
-    <v-bottom-navigation
-      color="primary"
-      background-color="secondary"
-      fixed
-      v-model="tab"
-    >
+    <v-bottom-navigation color="primary" background-color="secondary" fixed v-model="tab">
       <v-btn>
         <span>Conteúdo</span>
         <v-icon>book</v-icon>
@@ -28,29 +30,29 @@
 </template>
 
 <script>
-import Content from "@/views/caseDetails/content";
+import CaseContent from "@/components/case/content";
 import Individual from "./individual";
 import Ranking from "./ranking";
 
-  export default {
-    name: 'Step1',
-    components: {Content, Individual, Ranking},
-    data: () => ({
-      activationDialog: false,
-      tab: 1,
-      tabs: [Content, Individual, Ranking]
-    }),
-    props: {
-      tutorialCase: Object,
-      participants: Array
+export default {
+  name: "Step1",
+  components: { CaseContent, Individual, Ranking },
+  data: () => ({
+    activationDialog: false,
+    tab: 1,
+    tabs: [CaseContent, Individual, Ranking]
+  }),
+  props: {
+    tutorialCase: Object,
+    participants: Array
+  },
+  computed: {
+    shownComponent() {
+      return this.tabs[this.tab];
     },
-    computed: {
-      shownComponent() {
-        return this.tabs[this.tab];
-      },
-      hasRanking() {
-        return this.tutorialCase.currentStep > 1;
-      }
+    hasRanking() {
+      return this.tutorialCase.currentStep > 1;
     }
-  };
+  }
+};
 </script>

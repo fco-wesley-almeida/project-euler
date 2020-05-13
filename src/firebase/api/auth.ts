@@ -39,26 +39,28 @@ export const signup = async (mail: string, password: string): Promise<void | nul
   }
 }
 
-export const checkUserData = (user: firebase.User): void => {
+export const checkUserData = async (user: firebase.User): Promise<void> => {
   const userData = {
     name: user.displayName,
     email: user.email,
     imageURL: user.photoURL,
     uid: user.uid,
   };
-  db.collection('users').doc(user.uid).get().then((doc) => {
-    if (!doc.exists) {
-      db.collection('users').doc(user.uid).set(userData);
-    } else {
-      //"User already has data, doing nothing.");
-    }
+  let doc = await db.collection('users').doc(user.uid).get();
+
+  if (!doc.exists) {
+    db.collection('users').doc(user.uid).set(userData);
+  } else {
+    //"User already has data, doing nothing.");
     let currentUser = store.state.app.user;
     let data = doc.data() || {};
     currentUser.ownedTutorials = data['ownedTutorials'];
     currentUser.state = data['state'];
     currentUser.institution = data['institution'];
     store.state.app.user = currentUser;
-  });
+  }
+
+
 }
 
 export const userCanLogin = (user: firebase.User): boolean => {

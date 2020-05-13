@@ -20,9 +20,8 @@ Vue.config.productionTip = false;
 Vue.use(firestorePlugin);
 
 // Initialize app after checking if user has logged in
-auth.onAuthStateChanged((user) => {
+auth.onAuthStateChanged(async (user) => {
   if (user && userCanLogin(user)) {
-    checkUserData(user);
     store.state.app.userID = user.uid;
 
     const userData = {
@@ -32,6 +31,9 @@ auth.onAuthStateChanged((user) => {
       uid: user.uid,
     };
     store.state.app.user = userData;
+    
+    await checkUserData(user);
+    
   } else {
     auth.signOut();
     store.state.app.userID = null;

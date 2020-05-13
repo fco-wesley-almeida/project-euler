@@ -1,15 +1,23 @@
 <template>
   <v-layout align-center justify-center wrap px-4>
     <v-flex xs11 fill-height>
-      <v-fade-transition>
-        <component
-          :is="shownComponent"
-          :tutorialCase="tutorialCase"
-          :participants="participants"
-          :groups="groups"
-          :step="shownStep"
-        />
-      </v-fade-transition>
+      <v-layout wrap justify-center align-start px-5>
+        <v-flex xs12 md10 lg8>
+          <v-layout class="mx-2 mt-2" column>
+            <span class="title">{{"Caso: " + tutorialCase.title}}</span>
+            <span class="body-1">{{"Passo " + shownStep + " - " + stepDesctiption}}</span>
+          </v-layout>
+          <v-fade-transition>
+            <component
+              :is="shownComponent"
+              :tutorialCase="tutorialCase"
+              :participants="participants"
+              :groups="groups"
+              :step="shownStep"
+            />
+          </v-fade-transition>
+        </v-flex>
+      </v-layout>
     </v-flex>
     <v-btn
       v-if="showsPreviousButton"
@@ -133,6 +141,20 @@ export default {
     }
   },
   computed: {
+    stepDesctiption() {
+      let descriptions = [
+        "Leitura do caso e demarcação dos termos desconhecidos",
+        "Lista de problemas",
+        "Chuva de ideias",
+        "Sistematizar a análise e hipóteses para solução do problema",
+        "Listagem dos objetivos de aprendizagem",
+        "Estudo em casa e construção do mapa individual",
+        "Construção e apresentação do mapa coletivo",
+        "Artigo científico",
+        "Caso integrador"
+      ];
+      return descriptions[this.shownStep - 1];
+    },
     showsNextButton() {
       return this.shownStep < this.tutorialCase.currentStep;
     },
