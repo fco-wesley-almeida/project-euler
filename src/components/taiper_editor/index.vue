@@ -120,7 +120,7 @@ export default {
       }
 
       if (item.title === "Vídeo"){
-        this.addToValue({type: 'video', value: ''})
+        this.addToValue({type: 'video/web', value: ''})
       }
     },
     onOnlyClick: function(item) {
