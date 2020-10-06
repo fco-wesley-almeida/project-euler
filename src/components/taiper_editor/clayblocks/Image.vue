@@ -1,30 +1,48 @@
 <template>
-  <v-layout class="my-2" align-center justify-center wrap>
-    <input
-      ref="input"
-      id="fileInput"
-      type="file"
-      accept="image/png, image/jpeg"
-      @change="didChangeFile"
+  <div>
+    <v-layout class="my-2" align-center justify-center wrap>
+      <input
+        ref="input"
+        id="fileInput"
+        type="file"
+        accept="image/png, image/jpeg"
+        @change="didChangeFile"
+      />
+      <v-flex xs12 class="px-10">
+        <v-img v-if="image" style="cursor: pointer" contain ref="previewImage" @click="didTapFile"
+              aspect-ratio="1" :height="200" :src="image">
+        </v-img>
+      </v-flex>
+      <v-btn v-if="!readonly" class="mt-2" @click="didTapFile" color="primary">
+        {{image ? 'Mudar imagem' : 'Escolher imagem'}}
+        <v-icon>image</v-icon>
+      </v-btn>
+    </v-layout>
+
+    <ImageFullScreen v-if="showImageFullScreen"
+      :show="showImageFullScreen"
+      :continuous="false"
+      :currentIndex="0"
+      :images="[{url: image}]"
+      @closed="showImageFullScreen = false"
     />
-    <v-flex xs12 class="px-10">
-      <v-img v-if="image" :style="readonly ? '' : 'cursor: pointer'" contain ref="previewImage" @click="didTapFile"
-             aspect-ratio="1" :height="200" :src="image">
-      </v-img>
-    </v-flex>
-    <v-btn v-if="!readonly" class="mt-2" @click="didTapFile" color="primary">
-      {{image ? 'Mudar imagem' : 'Escolher imagem'}}
-      <v-icon>image</v-icon>
-    </v-btn>
-  </v-layout>
+
+
+  </div>
+
 </template>
 
 <script>
   import formRules from "@/utils/formRules";
+  import ImageFullScreen from '@/components/dialogs/ImageFullScreen'
 
   export default {
     mixins: [formRules],
-    data: () => ({image: ''}),
+    components: { ImageFullScreen },
+    data: () => ({
+      image: '',
+      showImageFullScreen: false
+    }),
     props: {
       value: {
         type: Object
@@ -47,8 +65,10 @@
         this.$emit("input", value);
       },
       didTapFile() {
-        if (!this.readonly){
-        this.$refs.input.click();
+        if (this.readonly) {
+          this.showImageFullScreen = true
+        } else {
+          this.$refs.input.click();
         }
       },
       didChangeFile(e) {
