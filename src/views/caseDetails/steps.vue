@@ -77,22 +77,22 @@ export default {
   }),
   computed: {
     advanceLabel() {
-      return this.tutorialCase.currentStep < 9 ? "Avançar" : "Finalizar";
+      return this.tutorialCase.currentStep < 7 ? "Avançar" : "Finalizar";
     },
     advanceIcon() {
-      return this.tutorialCase.currentStep < 9 ? "redo" : "check";
+      return this.tutorialCase.currentStep < 7 ? "redo" : "check";
     },
     advanceDialogTitle() {
-      if (this.tutorialCase.currentStep == 9) {
+      if (this.tutorialCase.currentStep == 7) {
         return "Finalizar Caso";
       }
       return "Passo " + this.tutorialCase.currentStep;
     },
     advanceDialogMessage() {
-      if (this.tutorialCase.currentStep < 9) {
+      if (this.tutorialCase.currentStep < 7) {
         return "Deseja realmente finalizar este passo? Os alunos não poderão mais enviar respostas.";
       }
-      return "Deseja finalizar este caso? Os alunos não poderão mais enviar respostas ao passo 9 e você poderá tornar outro caso ativo.";
+      return "Deseja finalizar este caso? Os alunos não poderão mais enviar respostas ao passo 7 e você poderá tornar outro caso ativo.";
     }
   },
   methods: {
@@ -100,7 +100,7 @@ export default {
       return i == 1 && this.tutorialCase.status != 'finished';
     },
     didTapAdvance() {
-      if (this.tutorialCase.currentStep == 9) {
+      if (this.tutorialCase.currentStep == 7) {
         finishCase(this.$route.params.caseID);
       } else if (this.tutorialCase.currentStep > 1) {
         advanceStep(this.$route.params.caseID, this.tutorialCase.currentStep);
