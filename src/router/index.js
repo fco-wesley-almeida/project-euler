@@ -20,14 +20,13 @@ function route(path, view, name, meta, children) {
         child.children),
     );
   }
-  const r = {
+  return {
     name: name || view,
     path,
     meta,
     component: resolve => import(`@/views/${view}.vue`).then(resolve),
     children: childRoutes,
   };
-  return r;
 }
 
 // Create a new router
@@ -61,7 +60,7 @@ router.beforeEach((to, from, next) => {
     firebase.auth().signOut();
     next();
     // Check if user is logged in whenever they navigate
-  } else if (to.path !== '/login' && to.path !== '/cadastro' && !currentUser) {
+  } else if (!['/login', '/cadastro', '/resetarsenha'].includes(to.path) && !currentUser) {
     next('login');
   } else if (to.params["tutorialID"]) {
     let user = store.state.app.user || {};
@@ -78,7 +77,11 @@ router.beforeEach((to, from, next) => {
         name: 'Tutorias'
       });
     }
-  } else next();
+
+  } else {
+    next();
+  } 
+    
 });
 
 Vue.use(Meta);

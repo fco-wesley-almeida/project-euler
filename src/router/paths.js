@@ -4,6 +4,7 @@
  * official documentation https://router.vuejs.org/en/
  */
 import * as breadcrumbs from './breadcrumbs'
+import ResetPassword from '@/views/auth/ResetPassword.vue'
 
 export default [
   {
@@ -18,6 +19,11 @@ export default [
     path: '/cadastro',
     name: 'Cadastro',
     view: 'auth/Signup',
+  },
+  {
+    path: '/resetarsenha',
+    name: 'ResetarSenha',
+    view: 'auth/ResetPassword',
   },
   {
     path: '/login',
