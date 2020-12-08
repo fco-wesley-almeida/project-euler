@@ -1,19 +1,8 @@
 <template>
   <v-container fluid fill-height style="background-color: var(--v-primary-base)">
-    <p>{{ $vuetify.breakpoint.width }} </p>
     <h2 v-if="bigWindow" class="white--text mb-10">Informe o email com o qual você se cadastrou no PBL System</h2>
     <v-layout align-center justify-space-around>
       <v-flex xs12 sm10 md11 lg10>
-        <v-dialog v-model="dialog" max-width="290">
-          <v-card color="card">
-            <v-card-title class="headline error white--text">Erro</v-card-title>
-            <v-card-text>{{ dialogMessage }}</v-card-text>
-            <v-card-actions>
-              <v-spacer />
-              <v-btn text color="error" @click.native="dialog = false">OK</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
         <h2 v-if="!bigWindow" class="white--text mb-5" style="text-align: center">Informe o email com o qual você se cadastrou no PBL System</h2>
         <v-card color="card" class="elevation-6">
           <v-card-text class="px-10 pb-0">
@@ -37,7 +26,8 @@
               color="primary"
               @click="sendResetPasswordEmail"
             >
-            Enviar
+            <v-progress-circular v-if="loading" size="25" width="2" color="white" indeterminate/>
+            <div v-else>Enviar</div>
             </v-btn>
             <v-spacer />
           </v-card-actions>
@@ -48,12 +38,16 @@
         </p>
       </v-flex>
     </v-layout>
+    <v-snackbar v-model="snackbar" :color="colorSnackbar" bottom dark>
+      <v-icon v-if="colorSnackbar === 'primary'" color="white" class="mr-3">check</v-icon>
+      <div>{{ messageSnackbar }}</div>
+      <v-icon size="16" @click="snackbar = false">mdi-close-circle</v-icon>
+    </v-snackbar>
   </v-container>
 </template>
 
 <script>
 import firebase from 'firebase';
-import { db } from '@/firebase/config';
 import formRules from '@/utils/formRules';
 
 export default {
@@ -63,23 +57,35 @@ export default {
     return {
       valid: true,
       mail: '',
-      password: '',
-      confirmation: '',
-      institution: '',
-      state: '',
       loading: false,
-      dialog: false,
-      dialogMessage: '',
-      confRules: {
-        equal: value => value === this.password || 'Confirmação deve ser igual à senha',
-      },
+      snackbar: false,
+      colorSnackbar: '',
+      messageSnackbar: ''
     };
   },
   methods: {
+    showMessage (message, state) {
+          this.loading = false
+          this.messageSnackbar = message
+          this.colorSnackbar = state === 'error' ? 'error' : 'primary'
+          this.snackbar = true
+    },
     sendResetPasswordEmail() {
-      const v = this;
-      if (v.$refs.form.validate()) {
-        alert("Email enviado!")
+      const isValid = this.$refs.form.validate(); 
+      if (isValid) {
+        this.loading = true
+        const auth = firebase.auth()
+        auth.sendPasswordResetEmail(this.mail).then(result => {
+          this.showMessage('Uma mensagem de redefinição de senha foi enviada para o seu email.', 'sucess')
+        }).catch((error) => {
+          const messages = {
+              "auth/user-not-found":  "Este email não está cadastrado.",
+              "auth/user-disabled": "Este usuário foi desativado.",
+              "auth/network-request-failed": "Erro de conexão com o servidor."
+          }
+          const message = messages[error.code] || 'Ocorreu um erro no envio do email de redefinição de senha. Tente novamente dentro de alguns minutos. Se o erro persistir, contate o administrador do sistema.'
+          this.showMessage(message, 'error')
+        });
       }
     },
   },
@@ -88,6 +94,12 @@ export default {
       return this.$vuetify.breakpoint.width > 1120
     }
   },
+  created () {
+    const userIsAuthenticated = firebase.auth().currentUser
+    if (userIsAuthenticated) {
+      this.$router.replace('/');
+    }
+  }
 };
 </script>
 
