@@ -1,9 +1,8 @@
 <template>
   <v-container fluid fill-height style="background-color: var(--v-primary-base)">
-    <h2 v-if="bigWindow" class="white--text mb-10">Informe o email com o qual você se cadastrou no PBL System</h2>
     <v-layout align-center justify-space-around>
-      <v-flex xs12 sm10 md11 lg10>
-        <h2 v-if="!bigWindow" class="white--text mb-5" style="text-align: center">Informe o email com o qual você se cadastrou no PBL System</h2>
+      <v-flex xs10 sm7 md6 lg5>
+        <h2 class="white--text mb-5">Informe o email com o qual você se cadastrou no PBL System</h2>
         <v-card color="card" class="elevation-6">
           <v-card-text class="px-10 pb-0">
             <v-form ref="form" v-model="valid" @keyup.native.enter="valid">
@@ -89,12 +88,7 @@ export default {
       }
     },
   },
-  computed: {
-    bigWindow() {
-      return this.$vuetify.breakpoint.width > 1120
-    }
-  },
-  created () {
+  beforeCreate () {
     const userIsAuthenticated = firebase.auth().currentUser
     if (userIsAuthenticated) {
       this.$router.replace('/');
@@ -104,7 +98,10 @@ export default {
 </script>
 
 <style scoped>
-p {
-  margin: 1em;
-}
+  p {
+    margin: 1em;
+  }
+  h2 {
+    text-align: center;
+  }
 </style>
