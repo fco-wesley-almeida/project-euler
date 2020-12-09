@@ -25,8 +25,7 @@
               color="primary"
               @click="sendResetPasswordEmail"
             >
-            <v-progress-circular v-if="loading" size="25" width="2" color="white" indeterminate/>
-            <div v-else>Enviar</div>
+            Enviar
             </v-btn>
             <v-spacer />
           </v-card-actions>
