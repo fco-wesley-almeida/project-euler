@@ -67,6 +67,9 @@
           Caso não possua um login cadastre-se
           <router-link class="white--text" to="cadastro">aqui</router-link>
         </p>
+        <p class="white--text mt-3">
+          <router-link class="white--text" to="resetarsenha">Esqueci minha senha</router-link>
+        </p>
       </v-flex>
     </v-layout>
     <v-snackbar v-model="snackbar" color="primary" bottom dark>
