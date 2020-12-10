@@ -2,7 +2,7 @@
   <v-container fluid fill-height style="background-color: var(--v-primary-base)">
     <v-layout align-center justify-space-around>
       <v-flex xs10 sm7 md6 lg5>
-        <h2 class="white--text mb-5">Informe o email com o qual você se cadastrou no PBL System</h2>
+        <h2 class="white--text mb-5">Digite o email cadastrado</h2>
         <v-card color="card" class="elevation-6">
           <v-card-text class="px-10 pb-0">
             <v-form ref="form" v-model="valid" @keyup.native.enter="valid">
