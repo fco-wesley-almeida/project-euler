@@ -43,8 +43,8 @@
         </v-scale-transition>  
 
         <v-snackbar v-model="snackbar" :color="colorSnackbar" bottom right>
-        <v-icon> v-if="colorSnackbar === 'primary' color="white" class="mr-3">check</v-icon>
-        <div> {{messageSnackbar}}</div>
+            <v-icon v-if="colorSnackbar === 'primary'" color="white" class="mr-3">check</v-icon>
+            <div> {{messageSnackbar}}</div>
         </v-snackbar>
         
     </v-layout>    
@@ -52,18 +52,21 @@
 
 <script>
 import firebase from 'firebase';
-import { db, auth } from "@/firebase/config";
 import formRules from "@/utils/formRules";
 
-
-
-const user = firebase.auth().currentUser;
-
 export default {
-    name: 'Redefinir de senha',
     mixins:[formRules],
+    created () {
+        /*
+            Ao invés de o objeto user ser criado do lado de fora do export, é melhor criá-lo assim que o componente for criado.
+            Vide ciclo de vida de um componente em VueJS. Dessa forma, ele pode ser usado como um objeto pertencente ao compo-
+            nente, o que é melhor.
+        */
+        this.user = firebase.auth().currentUser
+    },
     data() {  
         return {
+            user: {}, // Objeto que guardará o usuário atual
             oldPassword: '',
             newPassword: '',
             snackbar: false,
@@ -72,18 +75,17 @@ export default {
         };
     },
     methods:{
-        showMensage(message, state){
+        showMessage(message, state){
             this.messageSnackbar = message
             this.colorSnackbar = state === 'error' ? 'error' : 'primary'
             this.snackbar = true
         },
-        async changePassword(){
-            
-            if(this.oldPassword == user.oldPassword){
-                user.updatePassword(newPassword).then(result => {
-                this.showMensage('Senha alterada com sucesso!!', 'sucess')
+        changePassword(){
+            if (this.oldPassword == this.user.oldPassword){
+                this.user.updatePassword(this.newPassword).then(result => {
+                this.showMessage('Senha alterada com sucesso!!', 'sucess')
                 }).catch((error) => {
-                    this.showMensage('Senha inválida. Favor tente novamente.', 'sucess')
+                    this.showMessage('Senha inválida. Favor tente novamente.', 'sucess')
                     }
                 );
             }
