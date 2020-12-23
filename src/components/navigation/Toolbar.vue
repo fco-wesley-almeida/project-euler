@@ -29,9 +29,6 @@
     <fullscreen-dialog v-if="profileDialog" v-model="profileDialog" title="Editar perfil">
       <edit-profile />
     </fullscreen-dialog>
-    <fullscreen-dialog v-if="profilePassDialog" v-model="profilePassDialog" title="Redefinir senha">
-      <edit-password />
-    </fullscreen-dialog>
   </v-app-bar>
 </template>
 
@@ -39,7 +36,6 @@
 import { mapMutations } from "vuex";
 import { auth } from "@/firebase/config";
 import EditProfile from "@/views/profile/index";
-import EditPassword from "@/views/profile/pass";
 import FullscreenDialog from "@/components/dialogs/Fullscreen";
 
 export default {
@@ -47,14 +43,12 @@ export default {
     logo: "/assets/logo.png",
     title: null,
     profileDialog: false,
-    profilePassDialog: false,
     menuOptions: [
       { title: "Editar perfil", route: "profileDialog" },
-      { title: "Redefinir Senha", route: "profilePassDialog" },
       { title: "Sair", route: "/login" }
     ]
   }),
-  components: { FullscreenDialog, EditProfile, EditPassword },
+  components: { FullscreenDialog, EditProfile },
   computed: {
     mini() {
       return this.$vuetify.breakpoint.mdAndDown;
@@ -95,9 +89,6 @@ export default {
       if (item.route == "profileDialog") {
         this.profileDialog = true;
       }
-      if (item.route == "profilePassDialog"){
-        this.profilePassDialog = true;
-      } 
       else {
         this.$router.push(item.route);
       }
