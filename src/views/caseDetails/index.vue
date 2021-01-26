@@ -18,6 +18,11 @@
         <v-icon>book</v-icon>
       </v-btn>
 
+      <v-btn :to="{name: 'CaseAttachments', params: $route.params}">
+        <span>Anexos</span>
+        <v-icon>attachment</v-icon>
+      </v-btn>
+
       <v-btn :to="{name: 'CaseObjectives', params: $route.params}">
         <span>Objetivos</span>
         <v-icon>mdi-bullseye-arrow</v-icon>

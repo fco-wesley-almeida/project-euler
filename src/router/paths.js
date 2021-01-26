@@ -98,6 +98,12 @@ export default [
         view: 'caseDetails/steps',
       },
       {
+        path: 'anexos',
+        name: 'CaseAttachments',
+        meta: { breadcrumbs: breadcrumbs.tutorialCase },
+        view: 'caseDetails/attachments',
+      },
+      {
         path: 'grupos',
         name: 'CaseGroups',
         meta: { breadcrumbs: breadcrumbs.tutorialCase },
