@@ -1,5 +1,6 @@
 <template>
   <v-layout wrap justify-center align-center px-0>
+    {{attachments}}
     <v-flex xs12 md10 lg8>
 
       <lister v-if="attachments"
@@ -11,7 +12,7 @@
       >
         <template v-slot:default="slotProps">
           <div class="pa-2">
-            {{slotProps.item}}
+            <attachment-card :attachment="slotProps.item"/>
           </div>
         </template>
       </lister>
@@ -21,10 +22,10 @@
 
 <script>
 import Lister from "@/components/Lister";
-// import TaiperEditor from "@/components/taiper_editor/index";
+import attachmentCard from "../../components/case/card/attachment";
+
 export default {
-//   components: { TaiperEditor },
-  components: { Lister },
+  components: { Lister, attachmentCard },
   props: {
     tutorialCase: Object
   },
@@ -33,7 +34,6 @@ export default {
   }),
   computed: {
       attachments () {
-        console.log(this.tutorialCase.attachments)
         return this.tutorialCase.attachments
       },
     searchGroup() {
