@@ -1,19 +1,30 @@
 <template>
-  <v-layout fill-height align-center justify-center px-2>
-    <v-flex xs12 md8 lg6>
-      <v-card color="card">
-        <v-card-text class="pt-2 pb-10">
-          <p>{{attachments}}</p>
-        </v-card-text>
-      </v-card>
+  <v-layout wrap justify-center align-center px-0>
+    <v-flex xs12 md10 lg8>
+
+      <lister v-if="attachments"
+        :items="attachments"
+        cardBreakpoints="xs12 md6"
+        searchPlaceholder="Buscar por título da imagem"
+        :customSearchFunction="searchGroup"
+        :customSortFunction="sortGroups"
+      >
+        <template v-slot:default="slotProps">
+          <div class="pa-2">
+            {{slotProps.item}}
+          </div>
+        </template>
+      </lister>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import TaiperEditor from "@/components/taiper_editor/index";
+import Lister from "@/components/Lister";
+// import TaiperEditor from "@/components/taiper_editor/index";
 export default {
-  components: { TaiperEditor },
+//   components: { TaiperEditor },
+  components: { Lister },
   props: {
     tutorialCase: Object
   },
@@ -22,8 +33,21 @@ export default {
   }),
   computed: {
       attachments () {
-        return this.tutorialCase.attachments    
-      }
+        console.log(this.tutorialCase.attachments)
+        return this.tutorialCase.attachments
+      },
+    searchGroup() {
+      return (attachment, searchString) => {
+        return true
+      };
+    },
+    sortGroups() {
+      return (a, b) => {
+        return a.title
+          .toLowerCase()
+          .localeCompare(b.title.toLowerCase(), "en", { numeric: true });
+      };
+    },
   }
 };
 </script>
