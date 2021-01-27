@@ -12,7 +12,7 @@
       >
         <template v-slot:default="slotProps">
           <div class="pa-2">
-            <attachment-card :attachment="slotProps.item"/>
+            <attachment-card :attachment="slotProps.item" :attachments="attachments"/>
           </div>
         </template>
       </lister>

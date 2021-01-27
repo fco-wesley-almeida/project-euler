@@ -30,9 +30,9 @@
           justify="end"
         >
 
-          <v-btn icon>
+          <v-btn icon @click="toogleVisibility">
             <v-icon class="">
-                visibility
+              {{ attachment.visible ? 'visibility' : 'visibility_off' }}
               </v-icon>
           </v-btn>
           <v-btn icon>
@@ -54,9 +54,17 @@
 
 <script>
 
+import { db } from "@/firebase/config";
+
 export default {
   props: {
-    attachment: Object
+    attachment: Object,
+    attachments: Array
+  },
+  data() {
+    return {
+      db
+    }
   },
   computed: {
     attachmentType () {
@@ -74,6 +82,26 @@ export default {
         'pdf': 'picture_as_pdf',
         'file': 'insert_drive_file'
       }[this.attachment.type] || 'attach_file'
+    },
+    caseID () {
+      return this.$route.params.caseID
+    }
+  },
+  methods: {
+    toogleVisibility () {
+      const indexAttach = this.attachments.findIndex(attach => attach === this.attachment)
+      const newAttachment = JSON.parse(JSON.stringify(this.attachment))
+      const newAttachments = JSON.parse(JSON.stringify(this.attachments))
+      newAttachment.visible = !this.attachment.visible
+      newAttachments[indexAttach] = newAttachment
+      try {
+        const db = this.db
+        const collection = db.collection('cases')
+        const doc = collection.doc(this.caseID)
+        const promise = doc.update({attachments: newAttachments})
+      }catch (e) {
+        console.error(e)
+      }
     }
   }
 }
