@@ -25,28 +25,25 @@
         bottom
         right
         fab
-        @click.native.stop="showingCreationDialog = true"
+        @click.native.stop="openDialog"
       >
         <v-icon>add</v-icon>
       </v-btn>
       <v-dialog v-model="showingCreationDialog" transition="dialog-bottom-transition" scrollable>
-          <v-stepper class="card" non-linear v-model="stepper" vertical>
-            <v-stepper-content step="1">
-              <taiper-editor v-model="files"/>
-            </v-stepper-content>
-          </v-stepper>
+        <creationDialog @finished="showingCreationDialog = false"/>
       </v-dialog>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import TaiperEditor from "@/components/taiper_editor/index.vue";
+// import TaiperEditor from "@/components/taiper_editor/index.vue";
 import Lister from "@/components/Lister";
 import attachmentCard from "../../components/case/card/attachment";
+import creationDialog from "@/components/case/creation/attachment"
 
 export default {
-  components: { Lister, attachmentCard, TaiperEditor },
+  components: { Lister, attachmentCard, creationDialog },
   props: {
     tutorialCase: Object
   },
@@ -70,6 +67,13 @@ export default {
           .localeCompare(b.title.toLowerCase(), "en", { numeric: true });
       };
     },
+  },
+  methods: {
+    openDialog () {
+      const dialog = document.querySelector('.v-dialog');
+      if (dialog) dialog.style.width="60%";
+      this.showingCreationDialog = true;
+    }
   }
 };
 </script>
