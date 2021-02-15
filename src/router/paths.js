@@ -92,10 +92,16 @@ export default [
         view: 'caseDetails/objectives',
       },
       {
-        path: 'passos',
+        path: 'passosAbertura',
         name: 'CaseSteps',
         meta: { breadcrumbs: breadcrumbs.tutorialCase },
         view: 'caseDetails/steps',
+      },
+      {
+        path: 'passosFechamento',
+        name: 'CaseStepsClose',
+        meta: { breadcrumbs: breadcrumbs.tutorialCase },
+        view: 'caseDetails/closeSteps',
       },
       {
         path: 'grupos',

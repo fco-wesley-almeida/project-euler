@@ -9,6 +9,12 @@ export const advanceStep = async (id: string, currentStep: number): Promise<void
   return caseRef.update({currentStep: newStep});
 };
 
+export const advanceStepClose = async (id: string, currentStepClose: number): Promise<void> => {
+  const caseRef = db.collection("cases").doc(id);
+  let newStep = currentStepClose + 1;
+  return caseRef.update({currentStepClose: newStep});
+};
+
 export const proccessTerms = async (caseID: string, answers: Array<any>): Promise<void> => {
   let rankingEntries = new Map<string, TermRankingEntry>();
   answers.forEach((answerObj) => {
