@@ -33,7 +33,7 @@ import CaseForm from "./form.vue"
 import { TutorialCase } from "@/firebase/models/case";
 import {setCase, getNewID} from "@/firebase/api/case";
 import fileBatchUpload from "@/mixins/fileBatchUpload";
-import {setCaseContent} from "@/firebase/api/case";
+import {setCaseContent, setCaseAnnexes, setCaseReferences} from "@/firebase/api/case";
 import UploadDialogs from "@/components/dialogs/PhotoUpload";
 
 export default {
@@ -98,11 +98,17 @@ export default {
         }
       }
       this.editingTutorialCase.tutorialID = this.$route.params.tutorialID;
+      const mapper = obj => {
+        const obj2 = JSON.parse(JSON.stringify(obj))
+        obj2.visible = false
+        return obj2
+      }
+      this.references = this.references.map(mapper)
+      this.annexes = this.annexes.map(mapper)
       await setCase(this.editingTutorialCase, this.docID);
       await setCaseContent(this.content, this.docID);
-      console.log(this.references)
-      console.log(this.annexes)
-      console.log(this.content)
+      await setCaseReferences(this.references, this.docID);
+      await setCaseAnnexes(this.annexes, this.docID);
       this.close();
     },
     extractFiles(){
