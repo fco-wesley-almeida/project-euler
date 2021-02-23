@@ -1,54 +1,18 @@
 <template>
-  <v-card
-    class="mx-auto"
-    color="primary"
-    dark
-    max-width="400"
-  >
-    <v-card-title>
-      <span class="title font-weight-light">{{ attachment.title.toUpperCase() }}</span>
-    </v-card-title>
-
-<!--    <v-card-text class="headline font-weight-bold">-->
-<!--      <div v-if="attachmentType === 'Imagem'">-->
-<!--        <v-img width="50%" height="50%" :src="attachment.value"></v-img>-->
-<!--      </div>-->
-<!--    </v-card-text>-->
-
-    <v-card-actions class="mt-n5">
-      <v-list-item class="grow">
-        <v-list-item-avatar color="grey darken-3">
-          <v-icon>{{ iconAttachment }}</v-icon>
-        </v-list-item-avatar>
-
-        <v-list-item-content>
-          <v-list-item-title>{{ attachmentType }}</v-list-item-title>
-        </v-list-item-content>
-
-        <v-row
-          align="center"
-          justify="end"
-        >
-
-          <v-btn icon @click="toogleVisibility">
-            <v-icon class="">
-              {{ attachment.visible ? 'visibility' : 'visibility_off' }}
-              </v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon class="">
-                edit
-              </v-icon>
-          </v-btn>
-          <v-btn icon>
-            <v-icon class="" style="color:red">
-                delete
-              </v-icon>
-          </v-btn>
-        </v-row>
-      </v-list-item>
-    </v-card-actions>
-  </v-card>
+  <div class="">
+    <v-btn icon @click="toogleVisibility">
+      <v-icon class="">
+        {{ attachment.visible ? 'visibility' : 'visibility_off' }}
+      </v-icon>
+    </v-btn>
+    <v-card
+      class="mx-auto my-12"
+      color="primary"
+      dark
+      max-width="400"
+    >
+    </v-card>
+  </div>
 
 </template>
 

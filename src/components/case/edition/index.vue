@@ -44,6 +44,8 @@ export default {
       editingTutorialCase: new TutorialCase(),
       valid: false,
       docID: "",
+      annexes: [],
+      references: [],
       content: [],
       contentMap: []
   }),
@@ -76,6 +78,8 @@ export default {
         const vm = this;
         this.loading = true;
         this.content = this.editingTutorialCase.content.slice();
+        this.references = this.editingTutorialCase.references.slice();
+        this.annexes = this.editingTutorialCase.annexes.slice();
         if (this.id){
           this.docID = this.id;
         } else {
@@ -87,11 +91,18 @@ export default {
     async uploadsFinished() {
       for (var map of this.contentMap){
         let url = this.resultURLs[map.fileIndex];
-        this.content[map.contentIndex].value = url;
+        let objContentMap = this.contentMap[map.fileIndex]
+        let ref = objContentMap ? objContentMap.ref : null
+        if (this[ref]) {
+          this[ref][map.contentIndex].value = url;
+        }
       }
       this.editingTutorialCase.tutorialID = this.$route.params.tutorialID;
       await setCase(this.editingTutorialCase, this.docID);
       await setCaseContent(this.content, this.docID);
+      console.log(this.references)
+      console.log(this.annexes)
+      console.log(this.content)
       this.close();
     },
     extractFiles(){
@@ -101,7 +112,25 @@ export default {
         let clayblock = this.content[i];
         if (clayblock.type.includes("image") || clayblock.type.includes("file") || clayblock.type.includes("video")){
           if (typeof clayblock.value !== "string") {
-            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock});
+            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock, ref: 'content'});
+            files.push(clayblock.value);
+          }
+        }
+      }
+      for (var i = 0; i < this.references.length; i++){
+        let clayblock = this.references[i];
+        if (clayblock.type.includes("image") || clayblock.type.includes("file") || clayblock.type.includes("video")){
+          if (typeof clayblock.value !== "string") {
+            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock, ref: 'references'});
+            files.push(clayblock.value);
+          }
+        }
+      }
+      for (var i = 0; i < this.annexes.length; i++){
+        let clayblock = this.annexes[i];
+        if (clayblock.type.includes("image") || clayblock.type.includes("file") || clayblock.type.includes("video")){
+          if (typeof clayblock.value !== "string") {
+            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock, ref: 'annexes'});
             files.push(clayblock.value);
           }
         }
