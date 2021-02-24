@@ -53,7 +53,7 @@ export default {
   }),
   computed: {
       attachments () {
-        return this.tutorialCase.attachments
+        return this.tutorialCase.annexes
       },
     searchGroup() {
       return (attachment, searchString) => {
@@ -62,9 +62,9 @@ export default {
     },
     sortGroups() {
       return (a, b) => {
-        return a.title
+        return (a.title || '')
           .toLowerCase()
-          .localeCompare(b.title.toLowerCase(), "en", { numeric: true });
+          .localeCompare((b.title || '').toLowerCase(), "en", { numeric: true });
       };
     },
   },
