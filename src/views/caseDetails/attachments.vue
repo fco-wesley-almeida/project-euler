@@ -1,13 +1,11 @@
 <template>
   <v-layout wrap justify-center align-center px-0>
-    {{attachments}}
-    {{files}}
     <v-flex xs12 md10 lg8>
 
       <lister v-if="attachments"
         :items="attachments"
-        cardBreakpoints="xs12 md6"
-        searchPlaceholder="Buscar por título da imagem"
+        hideSearchbar
+        cardBreakpoints="xs12 md12 lg12"
         :customSearchFunction="searchGroup"
         :customSortFunction="sortGroups"
       >
