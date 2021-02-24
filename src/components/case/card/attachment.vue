@@ -53,7 +53,6 @@ export default {
         const doc = collection.doc(this.caseID);
         const promise = doc.update({ annexes: newAttachments });
       } catch (e) {
-        console.error(e);
       }
     },
   },
