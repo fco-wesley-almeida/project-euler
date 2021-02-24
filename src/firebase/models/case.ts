@@ -5,6 +5,8 @@ export class TutorialCase {
     title: string = "";
     tutorialID: string = "";
     content: Array<any> = [];
+    annexes: Array<any> = [];
+    references: Array<any> = [];
     studyObjectives: Array<any> = [];
     currentStep: number = 1;
     creationDate: firebase.firestore.Timestamp | null = Timestamp.fromDate(new Date());

@@ -7,13 +7,13 @@
       <v-btn icon @click.native="close()">
         <v-icon>close</v-icon>
       </v-btn>
-      <v-toolbar-title>Criação de Caso</v-toolbar-title>
+      <v-toolbar-title>{{title}}</v-toolbar-title>
       <v-spacer />
       <v-btn text :loading="loading" @click.native="didTapSave()">Salvar</v-btn>
     </v-toolbar>
     </v-flex>
     <v-card-text>
-      <case-form ref="form" v-model="editingTutorialCase" @validate="checkValidation"/>
+      <case-form :onlyAnnexes="onlyAnnexes" ref="form" v-model="editingTutorialCase" @validate="checkValidation"/>
     </v-card-text>
     <UploadDialogs
       :is-uploading="uploading"
@@ -33,7 +33,7 @@ import CaseForm from "./form.vue"
 import { TutorialCase } from "@/firebase/models/case";
 import {setCase, getNewID} from "@/firebase/api/case";
 import fileBatchUpload from "@/mixins/fileBatchUpload";
-import {setCaseContent} from "@/firebase/api/case";
+import {setCaseContent, setCaseAnnexes, setCaseReferences} from "@/firebase/api/case";
 import UploadDialogs from "@/components/dialogs/PhotoUpload";
 
 export default {
@@ -44,12 +44,23 @@ export default {
       editingTutorialCase: new TutorialCase(),
       valid: false,
       docID: "",
+      annexes: [],
+      references: [],
       content: [],
       contentMap: []
   }),
   props: {
     tutorialCase: Object,
-    id: String
+    id: String,
+    onlyAnnexes: { 
+      type: Boolean,
+      default: () => false,
+      required: false,
+    },
+    title: {
+      required: true,
+      type: String
+    }
   },
   mounted(){
     if (this.tutorialCase) {
@@ -76,6 +87,8 @@ export default {
         const vm = this;
         this.loading = true;
         this.content = this.editingTutorialCase.content.slice();
+        this.references = this.editingTutorialCase.references.slice();
+        this.annexes = this.editingTutorialCase.annexes.slice();
         if (this.id){
           this.docID = this.id;
         } else {
@@ -87,11 +100,23 @@ export default {
     async uploadsFinished() {
       for (var map of this.contentMap){
         let url = this.resultURLs[map.fileIndex];
-        this.content[map.contentIndex].value = url;
+        let objContentMap = this.contentMap[map.fileIndex]
+        let ref = objContentMap ? objContentMap.ref : null
+        if (this[ref]) {
+          this[ref][map.contentIndex].value = url;
+        }
       }
       this.editingTutorialCase.tutorialID = this.$route.params.tutorialID;
+      const mapper = 
+      this.annexes = this.annexes.map(obj => {
+        const obj2 = JSON.parse(JSON.stringify(obj))
+        obj2.visible = false
+        return obj2
+      })
       await setCase(this.editingTutorialCase, this.docID);
       await setCaseContent(this.content, this.docID);
+      await setCaseReferences(this.references, this.docID);
+      await setCaseAnnexes(this.annexes, this.docID);
       this.close();
     },
     extractFiles(){
@@ -101,7 +126,25 @@ export default {
         let clayblock = this.content[i];
         if (clayblock.type.includes("image") || clayblock.type.includes("file") || clayblock.type.includes("video")){
           if (typeof clayblock.value !== "string") {
-            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock});
+            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock: clayblock, ref: 'content'});
+            files.push(clayblock.value);
+          }
+        }
+      }
+      for (var i = 0; i < this.references.length; i++){
+        let clayblock = this.references[i];
+        if (clayblock.type.includes("image") || clayblock.type.includes("file") || clayblock.type.includes("video")){
+          if (typeof clayblock.value !== "string") {
+            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock: clayblock, ref: 'references'});
+            files.push(clayblock.value);
+          }
+        }
+      }
+      for (var i = 0; i < this.annexes.length; i++){
+        let clayblock = this.annexes[i];
+        if (clayblock.type.includes("image") || clayblock.type.includes("file") || clayblock.type.includes("video")){
+          if (typeof clayblock.value !== "string") {
+            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock: clayblock, ref: 'annexes'});
             files.push(clayblock.value);
           }
         }
