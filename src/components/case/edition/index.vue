@@ -7,13 +7,13 @@
       <v-btn icon @click.native="close()">
         <v-icon>close</v-icon>
       </v-btn>
-      <v-toolbar-title>Criação de Caso</v-toolbar-title>
+      <v-toolbar-title>{{title}}</v-toolbar-title>
       <v-spacer />
       <v-btn text :loading="loading" @click.native="didTapSave()">Salvar</v-btn>
     </v-toolbar>
     </v-flex>
     <v-card-text>
-      <case-form ref="form" v-model="editingTutorialCase" @validate="checkValidation"/>
+      <case-form :onlyAnnexes="onlyAnnexes" ref="form" v-model="editingTutorialCase" @validate="checkValidation"/>
     </v-card-text>
     <UploadDialogs
       :is-uploading="uploading"
@@ -51,7 +51,16 @@ export default {
   }),
   props: {
     tutorialCase: Object,
-    id: String
+    id: String,
+    onlyAnnexes: { 
+      type: Boolean,
+      default: () => false,
+      required: false,
+    },
+    title: {
+      required: true,
+      type: String
+    }
   },
   mounted(){
     if (this.tutorialCase) {

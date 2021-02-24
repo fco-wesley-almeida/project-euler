@@ -5,13 +5,13 @@
         <v-btn icon @click.native="close">
           <v-icon>close</v-icon>
         </v-btn>
-        <v-toolbar-title>Criação de Caso</v-toolbar-title>
+        <v-toolbar-title>Editar anexos</v-toolbar-title>
         <v-spacer />
         <v-btn text :loading="loading" @click.native="didTapSave()">Salvar</v-btn>
       </v-toolbar>
     </v-flex>
     <v-card-text>
-      <v-layout align-center justify-center my-5>
+      <!-- <v-layout align-center justify-center my-5>
         <v-flex xs12 md8 lg6>
           <v-stepper class="card" v-model="stepper" vertical>
             <v-stepper-content step="1">
@@ -19,7 +19,7 @@
             </v-stepper-content>
           </v-stepper>
         </v-flex>
-      </v-layout>
+      </v-layout> -->
     </v-card-text>
 <!--    <UploadDialogs-->
 <!--      :is-uploading="uploading"-->
@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import TaiperEditor from "@/components/taiper_editor/index.vue";
+// import TaiperEditor from "@/components/taiper_editor/index.vue";
 export default {
-  components: { TaiperEditor },
+  // components: { TaiperEditor },
   mounted () {
     document.querySelector('.v-dialog').style.width="60%"
   },

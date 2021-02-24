@@ -3,61 +3,92 @@
     <v-layout align-center justify-center my-5>
       <v-flex xs12 md8 lg6>
         <v-stepper class="card" non-linear v-model="stepper" vertical>
-          <v-stepper-step
-            step="1"
-            editable
-            :rules="[() => !hasBeenValidated || (tutorialCase.title !== '')]"
-          >
-            <span class="title">Título{{tutorialCase.title ? ': ' + tutorialCase.title : ''}}</span>
-            <span
-              class="subtitle-2 disabled--text"
-            >Será exibido aos alunos somente quando este caso estiver ativo</span>
-          </v-stepper-step>
+          <span v-if="steps.title">
+            <v-stepper-step
+              :step="steps.title"
+              editable
+              :rules="[() => !hasBeenValidated || tutorialCase.title !== '']"
+            >
+              <span class="title"
+                >Título{{
+                  tutorialCase.title ? ": " + tutorialCase.title : ""
+                }}</span
+              >
+              <span class="subtitle-2 disabled--text"
+                >Será exibido aos alunos somente quando este caso estiver
+                ativo</span
+              >
+            </v-stepper-step>
 
-          <v-stepper-content step="1">
-            <v-text-field
-              v-model="title"
-              v-on="updateValue()"
-              :rules="[formRules.required]"
-              placeholder="Insira aqui o título do caso"
-            />
-          </v-stepper-content>
+            <v-stepper-content :step="steps.title">
+              <v-text-field
+                v-model="title"
+                v-on="updateValue()"
+                :rules="[formRules.required]"
+                placeholder="Insira aqui o título do caso"
+              />
+            </v-stepper-content>
+          </span>
 
-          <v-stepper-step step="2" editable :rules="[() => validContent]">
-            <span class="title">Conteúdo</span>
-            <span class="subtitle-2 disabled--text">{{contentDescriptionCard('content')}}</span>
-          </v-stepper-step>
-          <v-stepper-content step="2">
-            <taiper-editor v-model="content" />
-          </v-stepper-content>
+          <span v-if="steps.content">
+            <v-stepper-step
+              :step="steps.content"
+              editable
+              :rules="[() => validContent]"
+            >
+              <span class="title">Conteúdo</span>
+              <span class="subtitle-2 disabled--text">{{
+                contentDescriptionCard("content")
+              }}</span>
+            </v-stepper-step>
+            <v-stepper-content :step="steps.content">
+              <taiper-editor v-model="content" />
+            </v-stepper-content>
+          </span>
 
-          <v-stepper-step step="3" editable :rules="[]">
-            <span class="title">Anexos</span>
-            <span class="subtitle-2 disabled--text">{{contentDescriptionCard('annexes')}}</span>
-          </v-stepper-step>
-          <v-stepper-content step="3">
-            <taiper-editor v-model="annexes" />
-          </v-stepper-content>
+          <span v-if="steps.annexes">
+            <v-stepper-step :step="steps.annexes" editable :rules="[]">
+              <span class="title">Anexos</span>
+              <span class="subtitle-2 disabled--text">{{
+                contentDescriptionCard("annexes")
+              }}</span>
+            </v-stepper-step>
+            <v-stepper-content :step="steps.annexes">
+              <taiper-editor v-model="annexes" />
+            </v-stepper-content>
+          </span>
 
-          <v-stepper-step step="4" editable :rules="[]">
-            <span class="title">Referências</span>
-            <span class="subtitle-2 disabled--text">{{contentDescriptionCard('references')}}</span>
-          </v-stepper-step>
-          <v-stepper-content step="4">
-            <taiper-editor v-model="references" />
-          </v-stepper-content>
+          <span v-if="steps.references">
+            <v-stepper-step :step="steps.references" editable :rules="[]">
+              <span class="title">Referências</span>
+              <span class="subtitle-2 disabled--text">{{
+                contentDescriptionCard("references")
+              }}</span>
+            </v-stepper-step>
+            <v-stepper-content :step="steps.references">
+              <taiper-editor v-model="references" />
+            </v-stepper-content>
+          </span>
 
-          <v-stepper-step step="5" editable :rules="[() => validObjectives]">
-            <span class="title">Objetivos</span>
-            <span class="subtitle-2 disabled--text">{{objectivesDescription}}</span>
-          </v-stepper-step>
-          <v-stepper-content step="5">
-            <taiper-editor
-              only="text/body"
-              placeholder-message="Clique no botão de + para adicionar um objetivo"
-              v-model="objectives"
-            />
-          </v-stepper-content>
+          <span v-if="steps.objectives">
+            <v-stepper-step
+              :step="steps.objectives"
+              editable
+              :rules="[() => validObjectives]"
+            >
+              <span class="title">Objetivos</span>
+              <span class="subtitle-2 disabled--text">{{
+                objectivesDescription
+              }}</span>
+            </v-stepper-step>
+            <v-stepper-content :step="steps.objectives">
+              <taiper-editor
+                only="text/body"
+                placeholder-message="Clique no botão de + para adicionar um objetivo"
+                v-model="objectives"
+              />
+            </v-stepper-content>
+          </span>
         </v-stepper>
       </v-flex>
     </v-layout>
@@ -79,28 +110,44 @@ export default {
     annexes: [],
     references: [],
     objectives: [],
-    validForm: false
+    validForm: false,
   }),
   props: {
     value: Object,
+    onlyAnnexes: { type: Boolean, default: () => false, required: false },
   },
-  mounted () {
-    console.log(this.value)
+  mounted() {
+    console.log(this.value);
   },
   watch: {
     value: {
       immediate: true,
       handler(newValue) {
-        console.log('watch')
+        console.log("watch");
         this.title = newValue.title || "";
         this.content = newValue.content || [];
         this.references = newValue.references || [];
         this.annexes = newValue.annexes || [];
         this.objectives = newValue.objectives || [];
-      }
-    }
+      },
+    },
   },
   computed: {
+    steps() {
+      const steps = this.onlyAnnexes
+        ? {
+            annexes: 1,
+          }
+        : {
+            title: 1,
+            content: 2,
+            annexes: 3,
+            references: 4,
+            objectives: 5,
+          };
+      console.log(steps);
+      return steps;
+    },
     valid() {
       let form = this.$refs.tutorialCaseForm;
       form.validate();
@@ -110,7 +157,7 @@ export default {
       return (
         !this.hasBeenValidated ||
         (this.content.length > 0 &&
-          this.content.every(clayblock => {
+          this.content.every((clayblock) => {
             return clayblock.value !== "";
           }))
       );
@@ -119,7 +166,7 @@ export default {
       return (
         !this.hasBeenValidated ||
         (this.objectives.length > 0 &&
-          this.objectives.every(clayblock => {
+          this.objectives.every((clayblock) => {
             return clayblock.value !== "";
           }))
       );
@@ -128,17 +175,17 @@ export default {
       return {
         title: this.title,
         content: this.content,
-        objectives: this.objectives
+        objectives: this.objectives,
       };
     },
     contentDescription() {
-      if (this.content){
-        return "Total: "+ this.content.length + " items";
+      if (this.content) {
+        return "Total: " + this.content.length + " items";
       }
       return "Nenhum conteúdo inserido";
     },
     objectivesDescription() {
-      if (this.objectives){
+      if (this.objectives) {
         return "Total: " + this.objectives.length;
       }
       return "Nenhum objetivo cadastrado";
@@ -148,7 +195,7 @@ export default {
       const correctDate = new Date();
       correctDate.setDate(date.getDate() - 1);
       return correctDate.toISOString();
-    }
+    },
   },
   methods: {
     updateValue() {
@@ -159,10 +206,10 @@ export default {
       newValue = Object.assign(newValue, this.tutorialCase);
       this.$emit("input", newValue);
     },
-    contentDescriptionCard (contentReference) {
-      const cont = this[contentReference]
-      if (cont){
-        return "Total: "+ cont.length + " items";
+    contentDescriptionCard(contentReference) {
+      const cont = this[contentReference];
+      if (cont) {
+        return "Total: " + cont.length + " items";
       }
       return "Nenhum conteúdo inserido";
     },
@@ -178,7 +225,7 @@ export default {
         this.updateValue();
       }
       this.$emit("validate", this.valid);
-    }
-  }
+    },
+  },
 };
 </script>
