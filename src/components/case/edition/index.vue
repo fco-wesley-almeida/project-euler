@@ -98,13 +98,12 @@ export default {
         }
       }
       this.editingTutorialCase.tutorialID = this.$route.params.tutorialID;
-      const mapper = obj => {
+      const mapper = 
+      this.annexes = this.annexes.map(obj => {
         const obj2 = JSON.parse(JSON.stringify(obj))
         obj2.visible = false
         return obj2
-      }
-      this.references = this.references.map(mapper)
-      this.annexes = this.annexes.map(mapper)
+      })
       await setCase(this.editingTutorialCase, this.docID);
       await setCaseContent(this.content, this.docID);
       await setCaseReferences(this.references, this.docID);
@@ -118,7 +117,7 @@ export default {
         let clayblock = this.content[i];
         if (clayblock.type.includes("image") || clayblock.type.includes("file") || clayblock.type.includes("video")){
           if (typeof clayblock.value !== "string") {
-            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock, ref: 'content'});
+            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock: clayblock, ref: 'content'});
             files.push(clayblock.value);
           }
         }
@@ -127,7 +126,7 @@ export default {
         let clayblock = this.references[i];
         if (clayblock.type.includes("image") || clayblock.type.includes("file") || clayblock.type.includes("video")){
           if (typeof clayblock.value !== "string") {
-            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock, ref: 'references'});
+            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock: clayblock, ref: 'references'});
             files.push(clayblock.value);
           }
         }
@@ -136,11 +135,13 @@ export default {
         let clayblock = this.annexes[i];
         if (clayblock.type.includes("image") || clayblock.type.includes("file") || clayblock.type.includes("video")){
           if (typeof clayblock.value !== "string") {
-            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock, ref: 'annexes'});
+            this.contentMap.push({contentIndex: i, fileIndex: this.contentMap.length, clayblock: clayblock, ref: 'annexes'});
             files.push(clayblock.value);
           }
         }
       }
+      console.log(files)
+      console.log(this.contentMap)
       return files;
     },
     checkValidation(v) {
