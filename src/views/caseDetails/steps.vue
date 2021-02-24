@@ -3,24 +3,24 @@
     <v-flex xs12 md8 lg6>
       <v-timeline dense style="margin-left: -25px">
         <v-timeline-item
-          :color="shouldHighlightStep(i) || tutorialCase.status == 'finished' ? 'primary' : 'grey'"
+          :color="shouldHighlightStep(step.id - tutorialCase.currentStep + 1) || tutorialCase.status == 'finished' ? 'primary' : 'grey'"
           small
-          v-for="i in tutorialCase.currentStep"
+          v-for="(step,i) in steps"
           v-bind:key="i"
         >
           <v-layout style="margin-left: -20px">
             <v-flex>
               <v-card color="card" class="mr-2">
-                <v-card-title :class="`headline ${shouldHighlightStep(i) ? 'primary white--text' : ''} pt-2`">
+                <v-card-title :class="`headline ${shouldHighlightStep(step.id - tutorialCase.currentStep + 1) ? 'primary white--text' : ''} pt-2`">
                   Passo
-                  {{tutorialCase.currentStep - i + 1}}
+                  {{step.id}}
                   <v-spacer />
                 </v-card-title>
-                <v-card-text class="body-1 mt-3">{{stepDescription(tutorialCase.currentStep - i)}}</v-card-text>
+                <v-card-text class="body-1 mt-3">{{stepDescription(step.id - 1)}}</v-card-text>
                 <v-card-actions>
                   <v-spacer />
                   <v-btn
-                    @click="stepTapped(tutorialCase.currentStep - i + 1)"
+                    @click="stepTapped(step.id)"
                     :text="!$vuetify.theme.dark"
                     color="primary"
                   >Ver respostas</v-btn>
@@ -73,7 +73,16 @@ export default {
     tutorialCase: Object
   },
   data: () => ({
-    activationDialog: false
+    activationDialog: false,
+    steps: [
+      {id: 7},
+      {id: 6},
+      {id: 5},
+      {id: 4},
+      {id: 3},
+      {id: 2},
+      {id: 1},
+    ]
   }),
   computed: {
     advanceLabel() {
