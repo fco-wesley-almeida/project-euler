@@ -23,6 +23,11 @@
         <v-icon>attachment</v-icon>
       </v-btn>
 
+      <v-btn :to="{name: 'CaseReferences', params: $route.params}">
+        <span>Referências</span>
+        <v-icon>assignment</v-icon>
+      </v-btn>
+
       <v-btn :to="{name: 'CaseObjectives', params: $route.params}">
         <span>Objetivos</span>
         <v-icon>mdi-bullseye-arrow</v-icon>

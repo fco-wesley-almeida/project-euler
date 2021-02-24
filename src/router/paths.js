@@ -104,6 +104,12 @@ export default [
         view: 'caseDetails/attachments',
       },
       {
+        path: 'referencias',
+        name: 'CaseReferences',
+        meta: { breadcrumbs: breadcrumbs.tutorialCase },
+        view: 'caseDetails/references',
+      },
+      {
         path: 'grupos',
         name: 'CaseGroups',
         meta: { breadcrumbs: breadcrumbs.tutorialCase },
