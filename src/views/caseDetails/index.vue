@@ -9,7 +9,12 @@
       fixed
     >
       <v-btn :to="{name: 'CaseSteps', params: $route.params}">
-        <span>Passos</span>
+        <span>Passos de Abertura</span>
+        <v-icon>timeline</v-icon>
+      </v-btn>
+
+      <v-btn :to="{name: 'CaseStepsClose', params: $route.params}">
+        <span>Passos de Fechamento</span>
         <v-icon>timeline</v-icon>
       </v-btn>
 

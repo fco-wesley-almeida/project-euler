@@ -9,8 +9,10 @@ export class TutorialCase {
     references: Array<any> = [];
     studyObjectives: Array<any> = [];
     currentStep: number = 1;
+    currentStepClose: number = 1;
     creationDate: firebase.firestore.Timestamp | null = Timestamp.fromDate(new Date());
     status : "scheduled" | "active" | "finished" = "scheduled";
+    statusClose: "scheduled" | "active" | "finished" = "scheduled";
 
     public constructor(init?:Partial<TutorialCase>) {
         return Object.assign(this, init);
