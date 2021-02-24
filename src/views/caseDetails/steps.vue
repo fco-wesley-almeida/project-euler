@@ -33,7 +33,7 @@
     </v-flex>
     <v-flex xs12>
       <v-layout justify-center align-center>
-        <v-btn
+        <v-btn v-if="allowAdvanceButton"
           fixed
           style="position: fixed; bottom: 0; right: 0; margin-right: 16px; margin-bottom: 72px"
           v-show="tutorialCase.status != 'finished'"
@@ -78,6 +78,7 @@ export default {
   },
   data: () => ({
     activationDialog: false,
+    finalStep: 7
     // steps: [
     //   {id: 7},
     //   {id: 6},
@@ -96,20 +97,25 @@ export default {
         }
       })
     },
+    allowAdvanceButton () {
+      const lastStep = this.stepsToRender[0]
+      const { currentStep } = this.tutorialCase
+      return currentStep <= lastStep
+    },
     advanceLabel() {
-      return this.tutorialCase.currentStep < 7 ? "Avançar" : "Finalizar";
+      return this.tutorialCase.currentStep < this.finalStep ? "Avançar" : "Finalizar";
     },
     advanceIcon() {
-      return this.tutorialCase.currentStep < 7 ? "redo" : "check";
+      return this.tutorialCase.currentStep < this.finalStep ? "redo" : "check";
     },
     advanceDialogTitle() {
-      if (this.tutorialCase.currentStep == 7) {
+      if (this.tutorialCase.currentStep == this.finalStep) {
         return "Finalizar Caso";
       }
       return "Passo " + this.tutorialCase.currentStep;
     },
     advanceDialogMessage() {
-      if (this.tutorialCase.currentStep < 7) {
+      if (this.tutorialCase.currentStep < this.finalStep) {
         return "Deseja realmente finalizar este passo? Os alunos não poderão mais enviar respostas.";
       }
       return "Deseja finalizar este caso? Os alunos não poderão mais enviar respostas ao passo 7 e você poderá tornar outro caso ativo.";
@@ -120,7 +126,7 @@ export default {
       return i == 1 && this.tutorialCase.status != 'finished';
     },
     didTapAdvance() {
-      if (this.tutorialCase.currentStep == 7) {
+      if (this.tutorialCase.currentStep == this.finalStep) {
         finishCase(this.$route.params.caseID);
       } else if (this.tutorialCase.currentStep > 1) {
         advanceStep(this.$route.params.caseID, this.tutorialCase.currentStep);
