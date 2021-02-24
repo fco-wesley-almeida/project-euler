@@ -47,13 +47,13 @@ import {db} from '@/firebase/config';
 export default {
   
   data: () => ({
-      tutorialCase: {currentStep: 0},
-    }),
-    mounted() {
-      this.$bind(
-        'tutorialCase',
-        db.collection('cases').doc(this.$route.params.caseID),
-      );
-    },
+    tutorialCase: {currentStep: 0},
+  }),
+  mounted() {
+    this.$bind(
+      'tutorialCase',
+      db.collection('cases').doc(this.$route.params.caseID),
+    );
+  },
 }
 </script>
