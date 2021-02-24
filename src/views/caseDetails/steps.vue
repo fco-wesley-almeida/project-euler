@@ -68,23 +68,34 @@ import { advanceStep } from "@/firebase/api/steps";
 import { processTermsWithID } from "../../firebase/api/steps";
 
 export default {
-  name: "CaseSteps",
+  // name: "CaseSteps",
   props: {
-    tutorialCase: Object
+    tutorialCase: Object,
+    stepsToRender: {
+      required: true,
+      type: Array
+    }
   },
   data: () => ({
     activationDialog: false,
-    steps: [
-      {id: 7},
-      {id: 6},
-      {id: 5},
-      {id: 4},
-      {id: 3},
-      {id: 2},
-      {id: 1},
-    ]
+    // steps: [
+    //   {id: 7},
+    //   {id: 6},
+    //   {id: 5},
+    //   {id: 4},
+    //   {id: 3},
+    //   {id: 2},
+    //   {id: 1},
+    // ]
   }),
   computed: {
+    steps () {
+      return this.stepsToRender.reverse().map(number => {
+        return {
+          id: number
+        }
+      })
+    },
     advanceLabel() {
       return this.tutorialCase.currentStep < 7 ? "Avançar" : "Finalizar";
     },
