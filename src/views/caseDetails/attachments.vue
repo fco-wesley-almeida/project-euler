@@ -7,7 +7,6 @@
         hideSearchbar
         cardBreakpoints="xs12 md12 lg12"
         :customSearchFunction="searchGroup"
-        :customSortFunction="sortGroups"
       >
         <template v-slot:default="slotProps">
           <div class="pa-2">
@@ -30,9 +29,6 @@
       >
         <v-icon>edit</v-icon>
       </v-btn>
-      <!-- <v-dialog v-model="showingEditionDialog" transition="dialog-bottom-transition" scrollable>
-        <editionDialog @finished="showingEditionDialog = false"/>
-      </v-dialog> -->
       <v-dialog
         v-model="showingEditionDialog"
         transition="dialog-bottom-transition"
@@ -56,22 +52,14 @@ import Lister from "@/components/Lister";
 import attachmentCard from "../../components/case/card/attachment";
 import NewCaseForm from "@/components/case/edition/index";
 import { TutorialCase } from "@/firebase/models/case";
-import { db } from "@/firebase/config";
 
 export default {
   components: { Lister, attachmentCard, NewCaseForm },
-  mounted() {
-    this.$bind(
-      "tutorialCase",
-      db.collection("cases").doc(this.$route.params.caseID)
-    );
-  },
   props: {
     tutorialCase: Object,
   },
   data: () => ({
     files: [],
-    tutorialCase: {},
     showingEditionDialog: false,
   }),
   computed: {
@@ -82,24 +70,17 @@ export default {
       return this.tutorialCase.annexes;
     },
     searchGroup() {
-      return (attachment, searchString) => {
+      return () => {
         return true;
-      };
-    },
-    sortGroups() {
-      return (a, b) => {
-        return (a.title || "")
-          .toLowerCase()
-          .localeCompare((b.title || "").toLowerCase(), "en", {
-            numeric: true,
-          });
       };
     },
   },
   methods: {
     openDialog() {
       const dialog = document.querySelector(".v-dialog");
-      if (dialog) dialog.style.width = "60%";
+      if (dialog) {
+        dialog.style.width = "60%";
+      }
       this.showingEditionDialog = true;
     },
   },

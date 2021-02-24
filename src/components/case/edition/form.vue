@@ -116,14 +116,10 @@ export default {
     value: Object,
     onlyAnnexes: { type: Boolean, default: () => false, required: false },
   },
-  mounted() {
-    console.log(this.value);
-  },
   watch: {
     value: {
       immediate: true,
       handler(newValue) {
-        console.log("watch");
         this.title = newValue.title || "";
         this.content = newValue.content || [];
         this.references = newValue.references || [];
@@ -145,7 +141,6 @@ export default {
             references: 4,
             objectives: 5,
           };
-      console.log(steps);
       return steps;
     },
     valid() {
