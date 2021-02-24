@@ -149,8 +149,6 @@ export default {
           }
         }
       }
-      console.log(files)
-      console.log(this.contentMap)
       return files;
     },
     checkValidation(v) {
