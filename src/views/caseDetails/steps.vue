@@ -112,14 +112,8 @@ export default {
   // name: "CaseSteps",
   props: {
     tutorialCase: Object,
-    stepsToRender: {
-      required: true,
-      type: Array,
-    },
-    messageAdvance: {
-      required: false,
-      type: Object,
-    },
+    stepsToRender: Array,
+    messageAdvance: Object,
   },
   data: () => ({
     activationDialog: false,
@@ -128,19 +122,20 @@ export default {
   }),
   computed: {
     steps() {
-      const filteredSteps = this.stepsToRender.reverse().filter((number) => {
+      const stepsToRender = JSON.parse(JSON.stringify(this.stepsToRender))
+      const filteredSteps = stepsToRender.reverse().filter((number) => {
         return number <= this.tutorialCase.currentStep;
       });
-      const steps = filteredSteps.map((number) => {
+      return filteredSteps.map((number) => {
         return {
           id: number,
         };
       });
-      return steps;
     },
     allowAdvanceButton() {
-      const lastStep = this.stepsToRender[0];
-      const firstStep = this.stepsToRender.reverse()[0];
+      const stepsToRender = JSON.parse(JSON.stringify(this.stepsToRender))
+      const lastStep = stepsToRender[0];
+      const firstStep = stepsToRender.reverse()[0];
       const { currentStep } = this.tutorialCase;
       return currentStep >= firstStep && currentStep <= lastStep;
     },
