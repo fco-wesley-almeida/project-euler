@@ -37,6 +37,7 @@
       scrollable
     >
       <edit-case
+        title="Editar caso"
         v-if="showingEditDialog"
         :id="receivedTutorialCase.id"
         :tutorialCase="receivedTutorialCase"

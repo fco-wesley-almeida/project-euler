@@ -104,6 +104,18 @@ export default [
         view: 'caseDetails/close_steps',
       },
       {
+        path: 'anexos',
+        name: 'CaseAttachments',
+        meta: { breadcrumbs: breadcrumbs.tutorialCase },
+        view: 'caseDetails/attachments',
+      },
+      {
+        path: 'referencias',
+        name: 'CaseReferences',
+        meta: { breadcrumbs: breadcrumbs.tutorialCase },
+        view: 'caseDetails/references',
+      },
+      {
         path: 'grupos',
         name: 'CaseGroups',
         meta: { breadcrumbs: breadcrumbs.tutorialCase },

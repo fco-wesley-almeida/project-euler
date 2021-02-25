@@ -23,6 +23,16 @@
         <v-icon>book</v-icon>
       </v-btn>
 
+      <v-btn :to="{name: 'CaseAttachments', params: $route.params}">
+        <span>Anexos</span>
+        <v-icon>attachment</v-icon>
+      </v-btn>
+
+      <v-btn :to="{name: 'CaseReferences', params: $route.params}">
+        <span>Referências</span>
+        <v-icon>assignment</v-icon>
+      </v-btn>
+
       <v-btn :to="{name: 'CaseObjectives', params: $route.params}">
         <span>Objetivos</span>
         <v-icon>mdi-bullseye-arrow</v-icon>
@@ -42,13 +52,13 @@ import {db} from '@/firebase/config';
 export default {
   
   data: () => ({
-      tutorialCase: {currentStep: 0},
-    }),
-    mounted() {
-      this.$bind(
-        'tutorialCase',
-        db.collection('cases').doc(this.$route.params.caseID),
-      );
-    },
+    tutorialCase: {currentStep: 0},
+  }),
+  mounted() {
+    this.$bind(
+      'tutorialCase',
+      db.collection('cases').doc(this.$route.params.caseID),
+    );
+  },
 }
 </script>

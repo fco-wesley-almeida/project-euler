@@ -137,7 +137,7 @@ export default {
       }
     },
     createFile(file, data) {
-      this.uploadName = file.name;
+      this.uploadName = (new Date()).getTime() + '_' + file.name;
       this.uploadSize = (file.size / 1024 / 1024).toFixed(2) + "MB";
       let type = file.type.split("/")[0] || "";
       let extension = file.type.split("/")[1] || "";

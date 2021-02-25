@@ -9,6 +9,14 @@ export const setCaseContent = (content: Array<any>, id: string | undefined): Pro
   return db.collection("cases").doc(id).update({content});
 };
 
+export const setCaseReferences = (references: Array<any>, id: string | undefined): Promise<void> => {
+  return db.collection("cases").doc(id).update({references});
+};
+
+export const setCaseAnnexes = (annexes: Array<any>, id: string | undefined): Promise<void> => {
+  return db.collection("cases").doc(id).update({annexes});
+};
+
 export const updateCase = (tutorialCase: TutorialCase, id: string | undefined): Promise<void> => {
   let obj = tutorialCase.toObject()
   return db.collection("cases").doc(id).update(obj);

@@ -95,7 +95,7 @@
       transition="dialog-bottom-transition"
       scrollable
     >
-      <new-case-form v-if="showingCreationDialog" @finished="showingCreationDialog = false" />
+      <new-case-form v-if="showingCreationDialog" title="Criação de caso" @finished="showingCreationDialog = false" />
     </v-dialog>
   </v-layout>
 </template>

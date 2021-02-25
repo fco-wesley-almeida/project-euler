@@ -30,7 +30,7 @@
           <!-- Creation dialog -->
     <v-dialog v-model="showingCreationDialog" fullscreen transition="dialog-bottom-transition" scrollable>
         <new-tutorial @finished="showingCreationDialog = false" />
-      </v-dialog>
+    </v-dialog>
   </v-layout>
 </template>
 
