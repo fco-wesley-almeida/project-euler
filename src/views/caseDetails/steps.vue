@@ -91,11 +91,15 @@ export default {
   }),
   computed: {
     steps () {
-      return this.stepsToRender.reverse().map(number => {
+      const filteredSteps = this.stepsToRender.reverse().filter(number => {
+        return number <= this.tutorialCase.currentStep
+      }) 
+      const steps = filteredSteps.map(number => {
         return {
           id: number
         }
       })
+      return steps
     },
     allowAdvanceButton () {
       const lastStep = this.stepsToRender[0]
