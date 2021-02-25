@@ -103,8 +103,9 @@ export default {
     },
     allowAdvanceButton () {
       const lastStep = this.stepsToRender[0]
+      const firstStep = this.stepsToRender.reverse()[0]
       const { currentStep } = this.tutorialCase
-      return currentStep <= lastStep
+      return currentStep >= firstStep && currentStep <= lastStep
     },
     advanceLabel() {
       return this.tutorialCase.currentStep < this.finalStep ? "Avançar" : "Finalizar";
