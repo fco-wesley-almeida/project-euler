@@ -52,7 +52,7 @@ import Vue from "vue";
 import Lister from "@/components/Lister.vue";
 import attachmentCard from "@/components/case/card/attachment.vue";
 import NewCaseForm from "@/components/case/edition/index.vue";
-import { TutorialCase } from "@/firebase/models/case.ts";
+import { TutorialCase } from "@/firebase/models/case.js";
 
 export default Vue.extend({
   components: { Lister, attachmentCard, NewCaseForm },
@@ -78,7 +78,7 @@ export default Vue.extend({
   },
   methods: {
     openDialog() {
-      const dialog = document.querySelector(".v-dialog") as unknown as HTMLElement;
+      const dialog = document.querySelector(".v-dialog") as HTMLElement;
       if (dialog) {
         dialog.style.width = "60%";
       }
