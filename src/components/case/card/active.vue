@@ -4,7 +4,7 @@
     <v-card-subtitle>
       <div><v-icon small>event</v-icon> {{date}}</div>
       <div>Passo atual: {{(receivedTutorialCase.currentStep || 1) + " / 7"}}</div>
-      <v-progress-linear color="white" class="mt-1" :value="((receivedTutorialCase.currentStep || 1.0)/10.0)*100" />
+      <v-progress-linear color="white" class="mt-1" :value="((receivedTutorialCase.currentStep || 1.0)/7.0)*100" />
     </v-card-subtitle>
   </v-card>
 </template>
