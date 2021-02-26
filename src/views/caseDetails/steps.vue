@@ -134,8 +134,8 @@ export default {
     },
     allowAdvanceButton() {
       const stepsToRender = JSON.parse(JSON.stringify(this.stepsToRender))
-      const lastStep = stepsToRender[0];
-      const firstStep = stepsToRender.reverse()[0];
+      const firstStep = stepsToRender[0];
+      const lastStep = stepsToRender.reverse()[0];
       const { currentStep } = this.tutorialCase;
       return currentStep >= firstStep && currentStep <= lastStep;
     },

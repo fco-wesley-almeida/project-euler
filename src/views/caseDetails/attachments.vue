@@ -48,12 +48,13 @@
 </template>
 
 <script lang="ts">
-import Lister from "@/components/Lister";
-import attachmentCard from "../../components/case/card/attachment";
-import NewCaseForm from "@/components/case/edition/index";
-import { TutorialCase } from "@/firebase/models/case";
+import Vue from "vue";
+import Lister from "@/components/Lister.vue";
+import attachmentCard from "@/components/case/card/attachment.vue";
+import NewCaseForm from "@/components/case/edition/index.vue";
+import { TutorialCase } from "@/firebase/models/case.js";
 
-export default {
+export default Vue.extend({
   components: { Lister, attachmentCard, NewCaseForm },
   props: {
     tutorialCase: Object,
@@ -77,12 +78,12 @@ export default {
   },
   methods: {
     openDialog() {
-      const dialog = document.querySelector(".v-dialog");
+      const dialog = document.querySelector(".v-dialog") as HTMLElement;
       if (dialog) {
         dialog.style.width = "60%";
       }
       this.showingEditionDialog = true;
     },
   },
-};
+});
 </script>
