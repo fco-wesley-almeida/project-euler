@@ -4,8 +4,6 @@
 #define MAX_FIBO 64
 
 unsigned long long int *fibo_list_calc (int n) {
-    unsigned long long int x1;
-    unsigned long long int x2;
     unsigned long long int *v;
     int i;
     v = (unsigned long long int*) malloc(sizeof(unsigned long long int) * MAX_FIBO);
