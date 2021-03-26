@@ -32,10 +32,10 @@
 </template>
 
 <script lang="ts">
-import CaseContent from "@/components/case/content";
+import CaseContent from "@/components/case/content.vue";
 import NewCaseForm from "@/components/case/edition/index.vue";
 import Vue from "vue";
-import {TutorialCase} from "../../firebase/models/case";
+import { TutorialCase } from "@/firebase/models/case.js";
 export default Vue.extend({
   components: { CaseContent, NewCaseForm },
   data: () => ({
@@ -44,10 +44,12 @@ export default Vue.extend({
   props: {
     tutorialCase: Object
   },
-  methods: {
+  computed: {
     receivedTutorialCase(): TutorialCase {
       return this.tutorialCase;
     },
+  },
+  methods: {
     openDialog() {
       const dialog = document.querySelector(".v-dialog") as HTMLElement;
       if (dialog) {
