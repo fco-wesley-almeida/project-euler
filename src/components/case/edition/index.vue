@@ -13,7 +13,7 @@
     </v-toolbar>
     </v-flex>
     <v-card-text>
-      <case-form :onlyAnnexes="onlyAnnexes" ref="form" v-model="editingTutorialCase" @validate="checkValidation"/>
+      <case-form :onlyAnnexes="onlyAnnexes" :onlyReferences="onlyReferences" ref="form" v-model="editingTutorialCase" @validate="checkValidation"/>
     </v-card-text>
     <UploadDialogs
       :is-uploading="uploading"
@@ -52,7 +52,12 @@ export default {
   props: {
     tutorialCase: Object,
     id: String,
-    onlyAnnexes: { 
+    onlyAnnexes: {
+      type: Boolean,
+      default: () => false,
+      required: false,
+    },
+    onlyReferences: {
       type: Boolean,
       default: () => false,
       required: false,
@@ -107,7 +112,7 @@ export default {
         }
       }
       this.editingTutorialCase.tutorialID = this.$route.params.tutorialID;
-      const mapper = 
+      const mapper =
       this.annexes = this.annexes.map(obj => {
         const obj2 = JSON.parse(JSON.stringify(obj))
         obj2.visible = false

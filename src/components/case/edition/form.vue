@@ -115,6 +115,7 @@ export default {
   props: {
     value: Object,
     onlyAnnexes: { type: Boolean, default: () => false, required: false },
+    onlyReferences: { type: Boolean, default: () => false, required: false },
   },
   watch: {
     value: {
@@ -130,18 +131,18 @@ export default {
   },
   computed: {
     steps() {
-      const steps = this.onlyAnnexes
-        ? {
-            annexes: 1,
-          }
-        : {
-            title: 1,
-            content: 2,
-            annexes: 3,
-            references: 4,
-            objectives: 5,
-          };
-      return steps;
+      return {
+        '00': {
+          title: 1,
+          content: 2,
+          annexes: 3,
+          references: 4,
+          objectives: 5,
+        },
+        '01': {references: 1},
+        '10': {annexes: 1},
+        '11': {annexes: 1, references: 2},
+      }[`${+this.onlyAnnexes}${+this.onlyReferences}`]
     },
     valid() {
       let form = this.$refs.tutorialCaseForm;
